@@ -37,7 +37,7 @@ a {
 }
 
 .brb {
-    background-color: #fff;
+    background-color: #eee;
     border: 1px solid #d6d6d6;
     width: 119% !important;
     color: #0654ba !important;
@@ -46,7 +46,7 @@ a {
 }
 
 .regbrb{
-	background-color: #eee;
+	background-color: #fff;
 }
 
 .sp {
@@ -140,4 +140,11 @@ md-checkbox.md-checked .md-icon {
     height: 38px;
     margin: 5px 0 0 0;
     display: inline-block;
+}
+
+.regcond{
+font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
+	    font-weight: 300;
+	    font-size: 90%;
+	    color : #464646;	
 }
