@@ -1,0 +1,125 @@
+.chkBox ul {
+	list-style:none outside none;
+	padding:15px 0;
+	color:#333
+}
+.chkBox.chk-lg ul {
+	padding:15px 0 18px 0
+}
+.chkBox.chk-sm ul {
+	padding:15px 0 17px 0
+}
+.chkBox .gspr {
+	clear:left;
+	float:left;
+	height:22px;
+	width:22px;
+	cursor:pointer
+}
+.chkBox>label {
+	font-size:16px;
+	font-weight:bold;
+	color:#333
+}
+.chkBox.chk-sm>label {
+	font-size:14px
+}
+.chkBox.chk-lg>label {
+	font-size:18px
+}
+.chkBox.chk-sm li {
+	line-height:16px;
+	font-size:12px;
+	padding:0 0 8px
+}
+.chkBox.chk-med li {
+	line-height:20px;
+	font-size:14px;
+	padding:0 0 10px
+}
+.chkBox.chk-lg li {
+	line-height:26px;
+	font-size:16px;
+	padding:0 0 12px
+}
+.chkBox.chk-lg .gspr {
+	height:26px;
+	width:26px
+}
+.chkBox.chk-sm .gspr {
+	height:14px;
+	width:14px
+}
+.chkBox.chk-sm .chk-on,.chkBox.chk-sm .chk-on.chk-d:hover {
+	background-position:-273px -184px
+}
+.chkBox.chk-sm .chk-on:hover {
+	background-position:-384px -184px
+}
+.chkBox.chk-sm .chk-off,.chkBox.chk-sm .chk-off.chk-d:hover {
+	background-position:-241px -184px
+}
+.chkBox.chk-sm .chk-off:hover {
+	background-position:-257px -184px
+}
+.chkBox.chk-med .chk-on,.chkBox.chk-med .chk-on.chk-d:hover {
+	background-position:-291px -121px
+}
+.chkBox.chk-med .chk-on:hover {
+	background-position:-376px -121px
+}
+.chkBox.chk-lg .chk-off,.chkBox.chk-lg .chk-off.chk-d:hover {
+	background-position:-98px -178px
+}
+.chkBox.chk-lg .chk-off:hover {
+	background-position:-128px -178px
+}
+.chkBox .chk-off,.chkBox.chk-med .chk-off.chk-d:hover {
+	background-position:-241px -121px
+}
+.chkBox .chk-off:hover {
+	background-position:-266px -121px
+}
+.chkBox.chk-lg .chk-on,.chkBox.chk-lg .chk-on.chk-d:hover {
+	background-position:-158px -178px
+}
+.chkBox.chk-lg .chk-on:hover {
+	background-position:-355px -178px
+}
+.chkBox .chk-lb {
+	cursor:pointer;
+	margin-left:10px
+}
+.chkBox.chk-sm .chk-lb {
+	margin-left:8px
+}
+.chkBox.chk-lg .chk-lb {
+	margin-left:12px
+}
+.chkBox .chk-lb:hover {
+	color:#0654ba
+}
+.chkBox .chk-input {
+	display:none
+}
+.chkBox.chk-hori ul {
+	padding:15px 0 0 0;
+	overflow:hidden;
+	margin-bottom:25px
+}
+.chkBox.chk-lg.chk-hori ul {
+	margin-bottom:30px
+}
+.chkBox.chk-hori li {
+	padding:0;
+	float:left;
+	margin-right:30px
+}
+.chkBox .chk-d,.chkBox .chk-lb-d,.chkBox .chk-lb-d:hover {
+	opacity:.5;
+	filter:alpha(opacity=50);
+	-ms-filter:"alpha(opacity=50)";
+	filter:alpha(opacity=50);
+	cursor:default;
+	color:#999
+}

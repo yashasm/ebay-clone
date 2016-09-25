@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app='ebayApp'>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+
+    <link rel='stylesheet' href='/stylesheets/signin.css' />
+    <script src="angular/signin.js"></script>
+
+</head>
+
+<body class="signinbody" ng-controller='signincontroller'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="\stock\logo.png" alt="logo" style="width:120px;height:60px;">
+            </div>
+            <!--<a href="https://signin.ebay.com:443/ws/eBayISAPI.dll?SignIn&amp;ru=http%3A%2F%2Fwww.ebay.com%2F&amp;regUrl=https%3A%2F%2Freg.ebay.com%2Freg%2FPartialReg%3Fsiteid%3D0%26UsingSSL%3D1%26co_partnerId%3D2%26errmsg%3D%26src%3D%26ru%3Dhttp%253A%252F%252Fwww.ebay.com%252F%26rv4%3D1" id="rvan" role="tab" tabindex="-1" aria-expanded="false">
+                <div id="sgnTab" role="tab" class="sgnt brb" tabindex="0" aria-expanded="false"><span class="sp arl spr" id="sar"></span><span class="ml53 tx">Sign in</span></div>
+            </a>-->
+
+
+            <div class="col-md-4">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <!--<div class="col-md-4 text-center">
+                <img src="\stock\logo.png" alt="logo" style="width:120px;height:60px;">
+            </div>-->
+            <div class="col-md-2 ">
+                <div id="rvan" role="tab" tabindex="-1" aria-expanded="false">
+                    <div id="sgnTab" role="tab" class="sgnt brb" tabindex="0" aria-expanded="false"><span class="sp arl spr" id="sar"></span><span class="ml53 tx fontsignin">Sign in</span></div>
+                </div>
+            </div>
+
+            <div class="col-md-2 ">
+
+                <a href="" id="rvan" role="tab" tabindex="-1" aria-expanded="false">
+                    <div id="sgnTab" role="tab" class="sgnt brb regbrb" tabindex="0" aria-expanded="false"><span class="sp arl spr reg" id="sar"></span><span class="ml53 tx">Register</span></div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-5">
+                <div class="formdata">
+                    <div class="formelements">
+                        <form>
+                            <br>
+                            <div class="form-group">
+
+                                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
+                            </div>
+                            <br>
+                            <div class="form-group">
+
+                                <input type="password" class="form-control" id="inputpassword" aria-describedby="passwordHelp" placeholder="Enter password">
+
+                            </div>
+                            <br>
+                            <div class="form-group">
+
+                                <input type="button" class="form-control btn btn-primary" id="inputsignin" aria-describedby="signinhelp" value="Sign In">
+
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <md-checkbox ng-model="isChecked" aria-label="staysignin">
+                                    Stay Signed In
+                                </md-checkbox>
+                                <span class="forgotpassword">
+                                Forgot your password?
+                                </span>
+
+                            </div>
+                        </form>
+
+                        <span class="fontchange">Using a public or shared device? Uncheck to protect your account.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+</html>
