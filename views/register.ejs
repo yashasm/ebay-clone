@@ -33,7 +33,7 @@
 
 </head>
 
-<body class="signinbody" ng-controller='signincontroller'>
+<body class="signinbody" ng-controller='registercontroller'>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -57,9 +57,11 @@
                 <img src="\stock\logo.png" alt="logo" style="width:120px;height:60px;">
             </div>-->
             <div class="col-md-2 ">
-                <div id="rvan" role="tab" tabindex="-1" aria-expanded="false">
-                    <div id="sgnTab" role="tab" class="sgnt brb" tabindex="0" aria-expanded="false"><span class="sp arl spr" id="sar"></span><span class="ml53 tx fontsignin">Sign in</span></div>
-                </div>
+                <a href="http://localhost:3000/signin">
+                    <div id="rvan" role="tab" tabindex="-1" aria-expanded="false">
+                        <div id="sgnTab" role="tab" class="sgnt brb" tabindex="0" aria-expanded="false"><span class="sp arl spr" id="sar"></span><span class="ml53 tx fontsignin">Sign in</span></div>
+                    </div>
+                </a>
             </div>
 
             <div class="col-md-2 ">
@@ -81,46 +83,69 @@
                     <div class="formelements">
                         <form>
                             <br>
-                            <div class="form-group">
+                            <div class="form-group" ng-init="characters=5">
 
-                                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <input type="text" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" ng-focus="emailClickedFirst()" ng-model="emailCheck" ng-blur="emailVal()">
+
+
+                                <div ng-cloak class="emailcond" ng-if="emailClicked && (emailCheck.length < characters || emailClicked && reason==2 ) ">
+                                    <br>
+                                    <div ng-if="emailClicked && emailCheck.length < characters ">&nbsp;&nbsp;Email must be 5 characters</div>
+                                    <div ng-show="emailClicked && reason==2 ">&nbsp;&nbsp;Please provide valid email address</div>
+                                </div>
+                                <!--<ul class="emailcond ">
+
+                                    <li ng-show="emailClicked && reason==1 ">Email must be 5 characters</li>
+                                    <li ng-show="emailClicked && reason==2 ">Please provide valid email address</li>
+                                </ul>-->
 
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group ">
 
-                                <input type="email" class="form-control" id="inputReEmail1" aria-describedby="ReemailHelp" placeholder="Reenter email">
+                                <input type="email " class="form-control " id="inputReEmail1 " aria-describedby="ReemailHelp " placeholder="Reenter email " ng-focus="reemailClickedFirst()" ng-model="reemailCheck" ng-blur="reemailVal()">
+
+                                <div class="emailcond" ng-cloak ng-if="reemailClicked && reemailreason ==2">
+                                    <br> &nbsp;&nbsp;Looks like email doesn't match.
+                                </div>
 
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group ">
 
-                                <input type="password" class="form-control" id="inputpassword" aria-describedby="passwordHelp" placeholder="Enter password">
+                                <input type="password" class="form-control " id="inputpassword " placeholder="Enter password" ng-focus="showPasswordHint('show')" ng-blur="showPasswordHint('hide')">
+
+                                <ul class="passcond" ng-if="shotHint" ng-cloak>
+                                    <br>
+                                    <li>&nbsp;&nbsp;Use 6 to 64 Characters.</li>
+                                    <li>&nbsp;&nbsp;Password is case Sensitive.</li>
+                                    <li>&nbsp;&nbsp;Avoiding using the same password for multiple sites.</li>
+                                </ul>
 
                             </div>
 
 
                             <table>
                                 <tr>
-                                    <td><input id="finame" type="text" class="form-control" name="fname" placeholder="First name" /></td>
+                                    <td><input id="finame " type="text " class="form-control " name="fname " placeholder="First name" minlength="2" /></td>
                                     <td><span>&nbsp;&nbsp;&nbsp;</span> </td>
-                                    <td><input type="text" name="lname" placeholder="Last name" class="form-control lnamepad" /></td>
+                                    <td><input type="text " name="lname " placeholder="Last name " class="form-control lnamepad" minlength="2" /></td>
                                 </tr>
                             </table>
 
                             <br>
 
-                            <input type="number" class="form-control" id="phonenumber" aria-describedby="numberHelp" placeholder="Phone number">
+                            <input type="number" class="form-control " id="phonenumber " aria-describedby="numberHelp " placeholder="Phone number " minLength="10" maxLength="10">
 
                             <br>
 
                             <br>
-                            <div class="regcond">
+                            <div class="regcond ">
                                 By Registering, you agree that you've read and accepted our User Agreement, you're at least 18 years old, and you consent to our Privacy Notice and receiving marketing communications from us
                             </div>
                             <br>
-                            <div class="form-group">
-                                <input type="button" class="form-control btn btn-primary" id="inputregister" aria-describedby="signinhelp" value="Register">
+                            <div class="form-group ">
+                                <input type="button " class="form-control btn btn-primary " id="inputregister " aria-describedby="signinhelp " value="Register ">
                             </div>
                             <br>
 
@@ -131,7 +156,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 ">
             </div>
         </div>
     </div>

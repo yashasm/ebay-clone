@@ -95,14 +95,11 @@ a {
 	border-color: #d6d6d6;
 }
 
-
-
 .formelements{
 	margin-left: 15px;
 	margin-right: 15px;
 	padding-top: 10px;
-	padding-bottom: 20px;
-	
+	padding-bottom: 20px;	
 }
 
 md-checkbox.md-checked .md-icon {
@@ -110,8 +107,8 @@ md-checkbox.md-checked .md-icon {
 }
 
 .forgotpassword{
-	float:right;
-	color: #265a88;	
+		float:right;
+		color: #265a88;	
 	    font-size: 90%;
 }
 
@@ -129,7 +126,6 @@ md-checkbox.md-checked .md-icon {
 .btn-primary {
 	font-weight: bold;
 	font-size: 110%;
-	
 }
 
 .shd {
@@ -143,8 +139,22 @@ md-checkbox.md-checked .md-icon {
 }
 
 .regcond{
-font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
+		font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
 	    font-weight: 300;
 	    font-size: 90%;
 	    color : #464646;	
+}
+
+.emailcond{
+	font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
+	    font-weight: 300;
+	    font-size: 90%;
+	    color : #dd1e31;
+}
+
+.passcond{
+	font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
+	    font-weight: 300;
+	    font-size: 90%;
+	    color : #6c6c6c;
 }
