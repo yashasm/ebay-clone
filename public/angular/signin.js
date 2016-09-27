@@ -10,13 +10,15 @@ ebayApp.controller('signincontroller',['$scope',function($scope){
 }]);
 
 
-ebayApp.controller('registercontroller',['$scope',function($scope){
+ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http){
 	
 	$scope.emailClicked = false;
 	$scope.reemailClicked = false;
 	$scope.characters = 5;
 	$scope.reemailreason = 1;
-	$scope.shotHint = false; 
+	$scope.shotHint = false;
+	$scope.errorfound = false;
+	$scope.regpassword = "";
 	
 	$scope.emailClickedFirst = function(){
 		$scope.emailClicked = true;
@@ -57,6 +59,37 @@ ebayApp.controller('registercontroller',['$scope',function($scope){
 			$scope.shotHint = false;	
 		}
 	};
+	
+	
+	$scope.registerValidation = function(){
+		
+		if($scope.emailError){
+			$scope.errorfound = true;
+		}
+		else if($scope.regpassword == "" ){
+			$scope.errorfound = true;
+		}
+		else if(1==2){
+			var dataval =  {"email": $scope.emailCheck,"reemail":$scope.reemailCheck,"password":$scope.regpassword,"firstname":$scope.regfirstname,"lastname":$scope.regfirstname,"phone":$scope.regphonenum};
+			$http({
+				  method: 'POST',
+				  url: '/register',
+				  data : dataval
+				  
+				  
+				}).then(function successCallback(response) {
+				    // this callback will be called asynchronously
+				    // when the response is available			
+					
+					
+				  }, function errorCallback(response) {
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+					  
+				  });		
+		
+		}
+	}; 
 		
 }]);
 

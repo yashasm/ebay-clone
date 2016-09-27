@@ -83,6 +83,7 @@
                     <div class="formelements">
                         <form>
                             <br>
+                            <div class="alert alert-danger" role="alert" ng-if="errorfound" ng-cloak>Oops! Invalid input. Please provide valid details</div>
                             <div class="form-group" ng-init="characters=5">
 
                                 <input type="text" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" ng-focus="emailClickedFirst()" ng-model="emailCheck" ng-blur="emailVal()">
@@ -93,11 +94,6 @@
                                     <div ng-if="emailClicked && emailCheck.length < characters ">&nbsp;&nbsp;Email must be 5 characters</div>
                                     <div ng-show="emailClicked && reason==2 ">&nbsp;&nbsp;Please provide valid email address</div>
                                 </div>
-                                <!--<ul class="emailcond ">
-
-                                    <li ng-show="emailClicked && reason==1 ">Email must be 5 characters</li>
-                                    <li ng-show="emailClicked && reason==2 ">Please provide valid email address</li>
-                                </ul>-->
 
                             </div>
 
@@ -113,11 +109,11 @@
 
                             <div class="form-group ">
 
-                                <input type="password" class="form-control " id="inputpassword " placeholder="Enter password" ng-focus="showPasswordHint('show')" ng-blur="showPasswordHint('hide')">
+                                <input type="password" class="form-control " id="inputpassword " placeholder="Enter password" ng-focus="showPasswordHint('show')" ng-blur="showPasswordHint('hide')" ng-model="regpassword" minLength="6" maxLength="64">
 
                                 <ul class="passcond" ng-if="shotHint" ng-cloak>
                                     <br>
-                                    <li>&nbsp;&nbsp;Use 6 to 64 Characters.</li>
+                                    <li>&nbsp;&nbsp;Use 6 to 64 Characters.{{regpassword}}</li>
                                     <li>&nbsp;&nbsp;Password is case Sensitive.</li>
                                     <li>&nbsp;&nbsp;Avoiding using the same password for multiple sites.</li>
                                 </ul>
@@ -127,15 +123,15 @@
 
                             <table>
                                 <tr>
-                                    <td><input id="finame " type="text " class="form-control " name="fname " placeholder="First name" minlength="2" /></td>
+                                    <td><input id="finame " type="text " class="form-control " name="fname " placeholder="First name" minlength="2" ng-model="regfirstname" /></td>
                                     <td><span>&nbsp;&nbsp;&nbsp;</span> </td>
-                                    <td><input type="text " name="lname " placeholder="Last name " class="form-control lnamepad" minlength="2" /></td>
+                                    <td><input type="text " name="lname " placeholder="Last name " class="form-control lnamepad" minlength="2" ng-model="reglastname" /></td>
                                 </tr>
                             </table>
 
                             <br>
 
-                            <input type="number" class="form-control " id="phonenumber " aria-describedby="numberHelp " placeholder="Phone number " minLength="10" maxLength="10">
+                            <input type="number" class="form-control " id="phonenumber " aria-describedby="numberHelp " placeholder="Phone number " minLength="10" maxLength="10" ng-model="regphonenum">
 
                             <br>
 
@@ -145,7 +141,7 @@
                             </div>
                             <br>
                             <div class="form-group ">
-                                <input type="button " class="form-control btn btn-primary " id="inputregister " aria-describedby="signinhelp " value="Register ">
+                                <input type="button" class="form-control btn btn-primary " id="inputregister " aria-describedby="signinhelp " value="Register" ng-click="registerValidation()">
                             </div>
                             <br>
 
