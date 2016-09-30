@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');//session testing
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -8,9 +9,14 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-//var controller = require('./controllers/usercredentials');
+
 
 var app = express();
+
+
+app.use(session({secret: 'ssshhhh', 
+    saveUninitialized: true,
+    resave: true}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,9 +30,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/register', routes);
+//app.use('signin',);
 //app.post('/register:',controller.registerUser);
 
 // catch 404 and forward to error handler

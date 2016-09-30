@@ -1,8 +1,191 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+ body {
+
+  color: #333;	
+	background-image: url("/stock/signback.jpg");
+	background-repeat: repeat-x|repeat-y|repeat;
+	    
+    font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
+    font-size: 14px;
+    
+    line-height: 1;
 }
 
+.body-back{
+	background-image: url("/stock/signback.jpg");
+}
 a {
   color: #00B7FF;
+} 
+
+
+
+
+body {
+    padding-top: 40px;
+}
+
+header {
+	border: 1px solid #dad4d4;
+    background: #fff;
+    height: 30px;
+    box-shadow: 0px 0px 1px #888888;
+    position: fixed;
+    top: 0;
+    transition: top 0.2s ease-in-out;
+    width: 100%;
+}
+
+.nav-up {
+    top: -40px;
+}
+
+.header-data{
+	padding: 5px;
+	font-size: 13px;
+}
+
+.cart-img{	
+	padding-left:10px;
+}
+
+.navbar-brand{
+	 padding: 0px 0px; 
+}
+
+.category{
+	    line-height: 1em;
+    color: #555;
+    font-size: 1.625em;
+    padding-top:30px;
+    padding-left:15px;
+    padding-bottom:10px;
+}
+
+.cat-details{
+		    line-height: 1em;
+    color: #333;
+    font-size: 1.5em;
+    padding-top:30px;
+    padding-left:15px;
+    padding-bottom:10px;
+}
+
+hr{
+	height:10px;
+}
+
+footer{
+	height:300px;
+	border-style: solid;
+    border-width: 1px 0px 0px 0px;
+    border-color:#c0c0c0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- -->
+
+/* ----------------------------------
+Css Profile Edit Dropdown
+Author: iModDesign
+Version: 1.0
+------------------------------------ */
+/* body {
+	background:#fff;
+} */
+ul, li {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+a {text-decoration:none;}
+
+ .profile-wrapper {
+	
+	
+	
+} 
+.profile-wrapper::after {
+	content: '';
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	 border-color: #333 #333 #333;
+	border-width: 6px;
+
+}
+.profile-wrapper::before {
+	content: '';
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	 border-color: #333 #333 #333;
+	border-width: 6px;
+ 
+}
+.profile-wrapper:hover::after {
+	border-color: #333 #333 #333;	
+}
+
+.profile {
+	padding:0px;
+	border:1px solid transparent;
+	border-radius:3px;
+	box-shadow:0 1px 0 transparent inset, 0 1px 7px transparent;
+	background:-webkit-linear-gradient(transparent, transparent);
+}
+.profile:hover {
+	cursor:pointer;
+	background:-webkit-linear-gradient(#fff, #fff);
+}
+.profile .name {
+	font-size:12px;
+	color:#000;
+	line-height:26px;
+	
+}
+.profile:hover .name {
+	color:#0088cc;
+}
+/* .profile img {
+	width:25px;
+	display:inline;
+	float:left;
+	border:1px solid #111;
+	border-radius:3px;
+	box-shadow:0 0 3px rgba(0, 0, 0, 0.5) inset;
+} */
+
+/* hide menu */
+.menu {
+	display:none;
+	clear:both;
+	margin:10px 40px 20px 40px;
+}
+.menu li {
+	font-size:12px;
+	margin:10px 0 0;
+}
+.menu li a {
+	color:#555;
+}
+.menu li:hover a {
+	color:#000;
+}
+
+/* hover profile show menu */
+.profile:hover .menu {
+	display:block;
 }
