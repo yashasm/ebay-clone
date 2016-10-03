@@ -42,7 +42,8 @@
 	<br>
 	<br>
 	<form>
-	
+
+<p class='alert alert-danger' ng-show='error'>Oops! looks like you missed few fields! please provide the required details</p>	
 	  <div class="form-group">
 	  <label for="itemname">Category</label>
     <select class="form-control" ng-model="category">
@@ -55,29 +56,34 @@
   
 </select>
   </div>
+<p ng-show='category ==""' style="color:red"> Please select a category for your item</p>	
 	
-	
-  <div class="form-group">
+  <div class="form-group " >
     <label for="itemname">Item name</label>
     <input type="text" class="form-control" id="itemname" placeholder="Item name" ng-model="itemname">
   </div>
+  <p ng-show='itemname==""' style="color:red"> Item name cannot be empty</p>
+  
   <div class="form-group">
     <label for="description">Description</label>   
     <textarea type="textbox" class="form-control" id="description" rows="4" style="width:100%" ng-model="description">
 </textarea>
   </div>
-
+<p ng-show='description==""' style="color:red"> Please provide the description</p>
 
   <div class="form-group">
     <label for="price">Price</label>
-    <input type="text" class="form-control" id="price" placeholder="Price" ng-model="price">
+    <input type="number" class="form-control" id="price" placeholder="Price" ng-model="price">
   </div>
-  
+<p ng-show='price ==""' style="color:red"> Please provide the price for the item</p>  
   
   <div class="form-group">
     <label for="quantity">Available Quantity</label>
-    <input type="number" class="form-control" id="price" placeholder="Quantity" ng-model="quantity">      
+    <input type="number" class="form-control" id="quantity" placeholder="Quantity" ng-model="quantity">      
   </div>
+  
+  <p ng-show='quantity ==""' style="color:red"> Please provide the available number of items</p>
+  
   
   <div class="form-group">
 	  <label for="Status">Item condition</label>
@@ -90,34 +96,39 @@
 </select>
   </div>
 	
-  
+  <p ng-show='status ==""' style="color:red"> Please select the condition of the item</p>
 <div class="form-group">
     <label for="exampleInputFile">Image</label>
     <input type="file" id="exampleInputFile">
     <p class="help-block">Please upload images of the item</p>
   </div>
   
+  
+  
   <div class="form-group">
     <label for="shipping">Shipping from</label>
     <input type="text" class="form-control" id="shipping" placeholder="Shipping from" ng-model="shipping">
   </div>
   
+  <p ng-show='shipping ==""' style="color:red"> Please provide the shipping details</p>
   
   <div class="form-group">
     <label for="feature1">feature 1</label>
     <input type="text" class="form-control" id="feature1" ng-model="feature1">
   </div>
   
+  <p ng-show='feature1 ==""' style="color:red"> Please provide the feature</p>
+  
   <div class="form-group">
     <label for="feature2">feature 2</label>
     <input type="text" class="form-control" id="feature2" ng-model="feature2">
   </div>
-  
+  <p ng-show='feature2 ==""' style="color:red"> Please provide the feature</p>
   <div class="form-group">
     <label for="feature3">feature 3</label>
     <input type="text" class="form-control" id="feature3" ng-model="feature3">
   </div>
-  
+  <p ng-show='feature3 ==""' style="color:red"> Please provide the feature</p>
   <div class="form-group">
     <label for="feature5">feature 4</label>
     <input type="text" class="form-control" id="feature4"  ng-model="feature4">
@@ -139,14 +150,17 @@
 
   <div class="form-group">
     <label for="bid">Starting bid</label>
-    <input type="text" class="form-control" id="bid" placeholder="Starting bid" ng-model="startingbid">      
+    <input type="number" class="form-control" id="bid" placeholder="Starting bid" ng-model="startingbid">      
   </div>
+  
+  <p ng-show='auction == true && startingbid ==""' style="color:red"> Please provide the starting bid for the auction</p>
+  
 <br>
 <br>
 <br>
 <div class="form-group">
     <div >
-      <button type="submit" class="btn btn-primary btn-block" ng-click="storeItem()">Sign in</button>
+      <button type="button" class="btn btn-primary btn-block" ng-click="storeItem()">Sign in</button>
     </div>
   </div>
 

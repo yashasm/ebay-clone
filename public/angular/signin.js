@@ -427,7 +427,70 @@ ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http)
 
 ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
 	
+	$scope.category = "";
+	$scope.itemname = "";
+	$scope.description = "";
+	$scope.price = "";
+	$scope.quantity = "";
+	$scope.shipping = "";
+	$scope.feature1 = "";
+	$scope.feature2 = "";
+	$scope.feature3 = "";
+	$scope.feature4 = "";
+	$scope.feature5 = "";
+	$scope.auction = 0;
+	$scope.startingbid = "";
+	$scope.status = "";
+	$scope.error = false;
+	
+	
 	$scope.storeItem = function(){
+		if($scope.category == ""){
+		
+			$scope.error = true;		
+		}
+		else if($scope.itemname == ""){
+	
+			$scope.error = true;		
+		}
+		else if($scope.description == ""){
+		
+			$scope.error = true;		
+		}
+		else if($scope.price == ""){
+		
+			$scope.error = true;		
+		}
+		else if($scope.quantity == ""){
+
+			$scope.error = true;		
+		}
+		else if($scope.shipping == ""){
+	
+			$scope.error = true;		
+		}
+		else if($scope.feature1 == ""){
+		
+			$scope.error = true;		
+		}
+		else if($scope.feature2 == ""){
+		
+			$scope.error = true;		
+		}
+		else if($scope.feature3 == ""){
+	
+			$scope.error = true;		
+		}
+		else if($scope.auction &&  $scope.startingbid== ""){
+		
+			$scope.error = true;		
+		}
+		else if($scope.status == ""){
+	
+			$scope.error = true;		
+		}
+		
+		else{
 		var itemDetails = {
 				"category":$scope.category,
 				"itemname":$scope.itemname,
@@ -466,7 +529,7 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 			    // or server returns response with an error status.
 				  
 			  });
-		
+		}
 	};
 	
 }]);
