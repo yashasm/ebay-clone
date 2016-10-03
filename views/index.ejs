@@ -51,11 +51,13 @@
 				<!-- user profile -->
 				<div class="profile" style="display: inline-block">
 					<p style="display: inline-block">Hi</p>
-					<a href="#" class="name">{{username}}!</a>				
+					<a href="#/account" class="name">{{username}}!</a>				
 					<!-- more menu -->
 					<ul class="menu">
-						<li><a href="#"  target="_self">My Account</a></li>						
-						<li><a href="#logout" ng-click="logout()"  target="_self">Log out</a></li>
+						<li><a href="#/account"  target="_self">My Account</a></li>
+						<li><a  href="#/myCollection" target="_self">My Collection</a></li>						
+						 <li><a href="#logout" ng-click="logout()"  target="_self">Log out</a></li> 
+						
 					</ul>
 				</div>
 			</li>
@@ -68,7 +70,25 @@
 
         <div style="display: inline-block;float:right" class="cart-img"><img src="/stock/cart.png"> </div>
         <div style="display: inline-block">&nbsp;&nbsp;</div>
-        <div style="display: inline-block;float:right">My ebay</div>
+        <!-- <div style="display: inline-block;float:right">My ebay</div> -->
+        <div  style="display: inline-block;float:right">        
+			<ul class="profile-wrapper" >
+			<li>
+				<!-- user profile -->
+				<div class="profile" style="display: inline-block">
+					
+					<a href="#/account" class="name">My ebay</a>				
+					<!-- more menu -->
+					<ul class="menu">
+						<li><a ng-href="{{historylink}}"  target="_self">Purchase History</a></li>
+						<li><a ng-href="{{bidslink}}"  target="_self">Bids</a></li>											
+						 <li><a ng-href="{{selllink}}"  target="_self">Sell</a></li> 
+						
+					</ul>
+				</div>
+			</li>
+		</ul>
+		</div>
 
 
     </div>
@@ -78,20 +98,23 @@
     <div class="body-back">
 
         <div class="container text-center" ng-controller="searchcontroller">
-            <a class="navbar-brand" href="#">
-                <img alt="Brand" src="/stock/logo.png">
+            <a class="navbar-brand" href="#/home">
+                <img alt="Brand" src="/stock/logo.png" >
             </a>
             <form class="navbar-form navbar-left" role="search">
 
                 <div class="form-group" style="padding-right:20px">
-                    <input type="text" class="form-control" placeholder="Search" size="100" style="height:40px">
+                    <input type="text" class="form-control" placeholder="Search" size="100" style="height:40px" ng-model="searchitem">
                 </div>
-
-                <button type="button" class="btn btn-primary" style="height:40px;padding-left">Search</button>
+				<a  href="#/basicsearch">
+                <button type="button" class="btn btn-primary" style="height:40px;padding-left" ng-click="searchClicked()">Search</button>
+                </a>
             </form>
 
 
         </div>
+<br>
+<br>
 
 <div ng-view></div>
 

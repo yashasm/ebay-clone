@@ -1,0 +1,74 @@
+<div class="container-fluid" ng-controller="searchpage">
+<br>
+<br>
+
+<div class="row">
+<div class="col-md-2">
+<div  layout-fill flex layout="column">
+  
+  <div layout="row" layout-fill flex>
+    <md-sidenav class="md-sidenav-left" md-component-id="nav" md-is-locked-open="1==1">
+      <md-subheader class="category-nav">Categories</md-subheader>
+      <md-content class="navcontent">
+        <p class ="nav-elem" ><a ng-click="searchClicked('electronics')">Electronics</a></p>
+        <p class ="nav-elem"><a ng-click="searchClicked('fashion')">Fashion </a></p>
+        <p class ="nav-elem" ><a ng-click="searchClicked('sporting goods')">Sporting goods</a></p>
+        <p class ="nav-elem" ><a ng-click="searchClicked('home and garden')">Home and Garden</a></p>
+        <p class ="nav-elem" ><a ng-click="searchClicked('business and industrial')">Business and Industrial</a></p>
+        <p class ="nav-elem" ><a ng-click="searchClicked('music and media')">Music and Media</a></p>
+      </md-content>
+      <md-subheader class="category-nav">Price range</md-subheader>
+      <md-content class="navcontent">
+        <p class ="nav-elem">< 100$</p>
+        <p class ="nav-elem">100$ to 500$</p>
+        <p class ="nav-elem">500$ to 1000$</p>
+        <p class ="nav-elem">1000$ to 2000$</p>
+        <p class ="nav-elem">2000$ to 5000$</p>
+        <p class ="nav-elem">>5000$</p>
+      </md-content>
+    </md-sidenav>
+    <md-content>
+      
+      
+      	
+      
+    </md-content>
+  </div>
+</div>
+
+</div>
+<div class="col-md-9 formdata">
+<div class="btn-group btn-group-sm" role="group" aria-label="...">
+  <button type="button" class="btn btn-default">All listing</button>
+  <button type="button" class="btn btn-default">Auction</button>
+  <button type="button" class="btn btn-default">But it now</button>
+</div>
+<br>
+<br>
+<div ng-repeat="item in values">
+<div class="row" >
+
+<div class="col-md-3">
+<img src="http://placehold.it/200x200" class="img-rounded">
+</div>
+
+<div class="col-md-5">
+<div class="itemtitle">{{item.itemname}}</div>
+<br>
+<div class="itemprice">${{item.itemprice}}</div>
+<br>
+<div class="shipping">Free shipping</div>
+<br>
+<div class="available">{{item.itemavailable}} Available</div>
+<br>
+<div class="sold">{{item.itemsold}} Sold</div>
+</div>
+
+</div>
+<hr>
+</div>
+
+</div>
+
+</div>
+</div>

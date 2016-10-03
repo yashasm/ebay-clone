@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var controller = require('../controllers/usercredentials');
+var searchController = require('../controllers/searchvalidations');
 
 
 /* GET home page. */
@@ -22,6 +23,16 @@ router.get('/confirm-login', function (req, res) {
     res.send(user)
 }
 );
+
+
+
+router.get('/account-details', controller.getAccountDetails);
+router.post('/account-details',controller.setAccountDetails);
+
+router.get('/search-details', searchController.searchData);
+
+
+router.post('/sell', controller.storeItem);
 
 router.get('/logout', function (req, res) {
 	console.log("session variable!!!destroy");

@@ -1,0 +1,99 @@
+<div class="container" ng-controller="accountcontroller">
+
+		<br>
+		<br>
+		<br>
+		<div class="row">
+		<div class='col-md-3'>
+		<img src="http://placehold.it/300x300" class="img-thumbnail">
+		
+		<p class="category text-center">{{username}}</p>
+		
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-6">
+		
+			<form>
+			
+  
+  <div class="form-group">
+    <label for="firstnametext">First name</label>
+    <input type="text" class="form-control" id="firstnametext" placeholder="First name" ng-model="firstname">
+  </div>
+  
+  <div class="form-group">
+    <label for="lastnametext">Last name</label>
+    <input type="text" class="form-control" id="lastnametext" placeholder="Last name" ng-model="lastname">
+  </div>
+  
+  
+  <div class="form-group">
+    <label for="ebayHandletext">ebay handle</label>
+    <input type="text" class="form-control" id="ebayhandletext" placeholder="ebay handle" ng-model="ebayhandle">
+  </div>
+  
+  <div class="form-group">
+  <label for="example-date-input">Birthdate</label>
+  
+    <input class="form-control" type="date" value="2011-08-19" id="example-date-input" ng-model="birthday">
+  
+</div>
+  
+  <div class="form-group">
+    <label for="exampleTextarea">Address</label>
+    <textarea class="form-control" id="exampleTextarea" rows="3" ng-model="address"></textarea>
+  </div>
+ 
+ <div class="form-group">
+  <label for="example-tel-input" >Telephone</label>
+  
+    <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input" ng-model="phone">
+  
+</div>
+  
+ <p class="text-center category"> Card Details </p>
+ 
+ <div class="form-group">
+    <label for="cardnumber">Card Number</label>
+    <input type="number" class="form-control" id="cardnumber" placeholder="Card Number" ng-model="cardnumber">
+  </div> 
+  
+  <div class="form-group">
+  <label for="example-month-input" >Expiry Month</label>  
+    <input class="form-control" type="month" value="2016-09" id="example-month-input" ng-model="expiry">
+</div>
+
+<div class="form-group">
+    <label for="cvv">CVV</label>
+    <input type="number" class="form-control" id="cvv" placeholder="CVV" ng-model="cvv">
+  </div>
+ <br>
+ <br>
+ <br>
+ 
+ <div class="alert alert-info" ng-if="successreg">
+  <strong>Cool!</strong> Profile updated Successfully.
+</div>
+  <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="saveDetails()">Save</button>
+  
+  <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+</form>
+		
+		
+		
+			
+		
+		</div>
+		</div>
+</div>

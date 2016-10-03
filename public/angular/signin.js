@@ -2,7 +2,8 @@
  * New node file
  */
 
-var ebayApp = angular.module('ebayApp',['ngMaterial','ngAnimate','ngAria','ngRoute']);
+var ebayApp = angular.module('ebayApp',['ngMaterial','ngAnimate','ngAria','ngRoute'])
+
 
 
 ebayApp.config(function($routeProvider){
@@ -11,19 +12,87 @@ ebayApp.config(function($routeProvider){
 	.when('/',{
 		templateUrl:'angular/main.ejs'		
 	})
-	
+	.when('/account',{templateUrl:'angular/account.ejs'})
+	.when('/home',{templateUrl:'angular/main.ejs'})
+	.when('/basicsearch',{templateUrl:'angular/search.ejs'})
+	.when('/myCollection',{templateUrl:'angular/mycollection.ejs'})
+	.when('/sell',{templateUrl:'angular/sell.ejs'})
 	
 });
 
 
-ebayApp.controller('indexcontroller',['$scope','userservice',function($scope,userservice){
+ebayApp.controller('mycollection',['$scope','userservice','$http',function($scope,userservice,$http){
 
+	$scope.$on('$routeChangeSuccess', function () {
+		  console.log("executed now");
+		});
+}]);
+
+ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,userservice,$http){
+	$scope.values = [];
+	
+	$scope.searchquery = userservice.searchquery;
+		
+	$scope.searchClicked = function(val){
+		console.log("search clicked");
+		userservice.searchquery = val;
+		$scope.searchquery = val;
+	};
+
+	$scope.$watch(function(){
+	    return userservice.searchquery;
+	}, function (newValue) {
+	    
+		console.log("testing"+newValue);
+		formDetails = {"searchstring":newValue};			
+		$scope.values = [];
+		$http({
+			method : "GET",
+			url : '/search-details',
+			params : formDetails
+		}).success(function(details) {
+			//console.log("account---"+details.condition[2].itemname);
+	    	$scope.values = details.condition;
+		});
+		
+		/*
+		$http
+		.get('/search-details'),
+		.data : formDetails
+	    .success(function (details) {
+	    	console.log("account---"+details.condition[2].itemname);
+	    	$scope.values = details.condition;
+	    	
+	    });*/
+
+		
+		
+	});		
+}]);
+
+
+ebayApp.controller('searchcontroller',['$scope','userservice',function($scope,userservice){
+	
+	$scope.searchquery = userservice.searchquery;
+	
+	 
+	
+	$scope.searchClicked = function(){
+		console.log("search clicked");
+		userservice.searchquery = $scope.searchitem;
+	};
 	
 }]);
 
 
-ebayApp.controller('searchcontroller',['$scope',function($scope){
+ebayApp.controller('indexcontroller',['$scope','userservice',function($scope,userservice){
+	$scope.searchquery = userservice.searchquery;
 	
+	$scope.searchClicked = function(val){
+		console.log("search clicked");
+		userservice.searchquery = val;
+		$scope.searchquery = val;
+	};
 	
 }]);
 
@@ -31,7 +100,7 @@ ebayApp.service('userservice',['$http',function($http){
 	
 	this.username = "";
 	var curr = this;
-	
+	this.searchquery = "default";
 	
 	$http.get('/confirm-login')
     .success(function (user) {
@@ -40,17 +109,84 @@ ebayApp.service('userservice',['$http',function($http){
     	curr.username = user.id;
         
     });
-	
 
-	
-	this.printName = function(){
-		console.log("gonna check the value"+this.username);
-	};
-	
 	
 
 }]);
 
+
+ebayApp.controller('accountcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
+	
+	$scope.username = userservice.username;
+	$scope.successreg = false;
+	$scope.$watch(function(){
+	    return userservice.username;
+	}, function (newValue) {
+	    
+	    $scope.username = newValue;
+	    
+	    
+		$http.get('/account-details')
+	    .success(function (details) {
+	    	console.log("account---"+details.birthday);
+	    		
+	    	
+	    	$scope.firstname = details.firstname;	    		    
+			$scope.lastname = details.lastname; 
+			$scope.ebayhandle = details.ebayhandle;
+			$scope.birthday =  new Date(details.birthday);
+			$scope.address = details.address;
+			$scope.phone = details.phone;
+			$scope.cardnumber = Number(details.cardnumber);
+			$scope.expiry = new Date(details.expiry);
+			$scope.cvv = details.cvv;
+	    	
+	    });
+		
+	});
+	
+	$scope.saveDetails = function(){
+		var formDetails = {
+				"firstname":$scope.firstname,
+				"lastname":$scope.lastname,
+				"ebayhandle":$scope.ebayhandle,
+				"birthday":$scope.birthday,
+				"address":$scope.address,
+				"phone":$scope.phone,
+				"cardnumber":$scope.cardnumber,
+				"expiry":$scope.expiry,
+				"cvv":$scope.cvv
+		};
+		
+		$http({
+			  method: 'POST',
+			  url: 'account-details',
+			  data : formDetails
+			  
+			  
+			}).then(function successCallback(response) {
+			    // this callback will be called asynchronously
+			    // when the response is available
+				
+				/*if(response.data.condition == "success"){
+					$scope.registeredsuccess = true;
+				}
+				else{
+					$scope.registeredsuccess = false;
+				}*/
+				console.log("inside success");
+				$scope.successreg = true;
+				
+				
+			  }, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+				  console.log("inside failure");
+			  });
+		
+	};
+	
+}]);
 
 ebayApp.controller('headercontroller',['$scope','userservice','$http',function($scope,userservice,$http){
 		
@@ -58,17 +194,33 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	$scope.showHeader = false;
 	$scope.username = userservice.username;
 	
+	if($scope.username == ""){		
+		$scope.historylink = 'http://localhost:3000/signin';
+	}
+	else{
+		$scope.historylink = '';
+	}
 	
+	if($scope.username == ""){		
+		$scope.bidslink = 'http://localhost:3000/signin';
+	}
+	else{
+		$scope.bidslink = '';
+	}
+	
+	if($scope.username == ""){		
+		$scope.selllink = 'http://localhost:3000/signin';
+	}
+	else{
+		$scope.selllink = '#/sell';
+	}
+	
+	
+	////
 	if($scope.username == "" ){
 		$scope.showHeader = true;
 	}
-	$scope.click = function(){
-		userservice.printName();
-	};
 	
-	$scope.clickset = function(){
-		userservice.setName();
-	};
 	
 	$scope.$watch(function(){
 	    return userservice.username;
@@ -79,13 +231,15 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    if($scope.username == "" ){
 	    	
 			$scope.showHeader = true;
+			$scope.selllink = 'http://localhost:3000/signin';
 		}
 	    else if(typeof $scope.username === "undefined"){
 	    	
 			$scope.showHeader = true;
+			$scope.selllink = 'http://localhost:3000/signin';
 	    }	    
 	    else{
-	    	
+	    	$scope.selllink = '#/sell';	
 	    	$scope.showHeader = false;
 	    }
 	});
@@ -123,9 +277,7 @@ ebayApp.controller('signincontroller',['$scope','$http','userservice',function($
 		var dataval = {
 				"email":$scope.emailsign,
 				"password":$scope.passwordsign
-		};
-		
-	
+		};			
 		
 		$http({
 			method : "POST",
@@ -273,3 +425,48 @@ ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http)
 		
 }]);
 
+ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
+	
+	$scope.storeItem = function(){
+		var itemDetails = {
+				"category":$scope.category,
+				"itemname":$scope.itemname,
+				"description":$scope.description,
+				"price":$scope.price,
+				"quantity":$scope.quantity,
+				"shipping":$scope.shipping,
+				"feature1":$scope.feature1,
+				"feature2":$scope.feature2,
+				"feature3":$scope.feature3,
+				"feature4":$scope.feature4,
+				"feature5":$scope.feature5,
+				"auction":$scope.auction,
+				"startingbid":$scope.startingbid,
+				"status":$scope.status
+		}
+		
+		$http({
+			  method: 'POST',
+			  url: '/sell',
+			  data : itemDetails			  			  
+			}).then(function successCallback(response) {
+			    // this callback will be called asynchronously
+			    // when the response is available
+				
+				/*if(response.data.condition == "success"){
+					$scope.registeredsuccess = true;
+				}
+				else{
+					$scope.registeredsuccess = false;
+				}*/
+				console.log("should reload");
+				window.location.assign("/#/myCollection");
+			  }, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+				  
+			  });
+		
+	};
+	
+}]);

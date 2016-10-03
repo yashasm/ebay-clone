@@ -1,0 +1,161 @@
+<div ng-controller="sellcontroller" >
+<br>
+<br>
+<br>
+	<div class="container-fluid">
+		<div class="row">
+		
+		<div class="col-md-2">
+<div  layout-fill flex layout="column">
+  
+  <div layout="row" layout-fill flex>
+    <md-sidenav class="md-sidenav-left" md-component-id="nav" md-is-locked-open="1==1">
+      <md-subheader class="category-nav">my ebay</md-subheader>
+      <md-content class="navcontent">
+        <p class ="nav-elem" ><a >purchase history</a></p>
+        <p class ="nav-elem"><a >Bids</a></p>
+        <p class ="nav-elem" >Sell</p>
+        
+        
+      </md-content>
+      
+  </div>
+</div>
+
+</div>	
+
+<div class="col-md-8">
+<div class ="sellheader text-center">
+		Please follow the instruction for uploading the data regarding the items.Provide the complete description 
+		and please provide all the features. 
+		Please follow the instruction for uploading the data regarding the items.Provide the complete description 
+		and please provide all the features.			
+		
+	</div>
+
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+		
+	<br>
+	<br>
+	<br>
+	<br>
+	<form>
+	
+	  <div class="form-group">
+	  <label for="itemname">Category</label>
+    <select class="form-control" ng-model="category">
+  <option>electronics</option>
+  <option>fashion</option>
+  <option>sporting goods</option>
+  <option>home and garden</option>
+  <option>business and industrial</option>
+  <option>music and media</option>
+  
+</select>
+  </div>
+	
+	
+  <div class="form-group">
+    <label for="itemname">Item name</label>
+    <input type="text" class="form-control" id="itemname" placeholder="Item name" ng-model="itemname">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>   
+    <textarea type="textbox" class="form-control" id="description" rows="4" style="width:100%" ng-model="description">
+</textarea>
+  </div>
+
+
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="text" class="form-control" id="price" placeholder="Price" ng-model="price">
+  </div>
+  
+  
+  <div class="form-group">
+    <label for="quantity">Available Quantity</label>
+    <input type="number" class="form-control" id="price" placeholder="Quantity" ng-model="quantity">      
+  </div>
+  
+  <div class="form-group">
+	  <label for="Status">Item condition</label>
+    <select class="form-control" ng-model="status">
+  <option>New</option>
+  <option>Used</option>
+  <option>Refurbished</option>
+  
+  
+</select>
+  </div>
+	
+  
+<div class="form-group">
+    <label for="exampleInputFile">Image</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Please upload images of the item</p>
+  </div>
+  
+  <div class="form-group">
+    <label for="shipping">Shipping from</label>
+    <input type="text" class="form-control" id="shipping" placeholder="Shipping from" ng-model="shipping">
+  </div>
+  
+  
+  <div class="form-group">
+    <label for="feature1">feature 1</label>
+    <input type="text" class="form-control" id="feature1" ng-model="feature1">
+  </div>
+  
+  <div class="form-group">
+    <label for="feature2">feature 2</label>
+    <input type="text" class="form-control" id="feature2" ng-model="feature2">
+  </div>
+  
+  <div class="form-group">
+    <label for="feature3">feature 3</label>
+    <input type="text" class="form-control" id="feature3" ng-model="feature3">
+  </div>
+  
+  <div class="form-group">
+    <label for="feature5">feature 4</label>
+    <input type="text" class="form-control" id="feature4"  ng-model="feature4">
+  </div>
+  
+  <div class="form-group">
+    <label for="feature5">feature 5</label>
+    <input type="text" class="form-control" id="feature5" ng-model="feature5">
+  </div>
+  
+  
+   <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="auction"> Auction
+    </label>
+  </div>
+  
+  
+
+  <div class="form-group">
+    <label for="bid">Starting bid</label>
+    <input type="text" class="form-control" id="bid" placeholder="Starting bid" ng-model="startingbid">      
+  </div>
+<br>
+<br>
+<br>
+<div class="form-group">
+    <div >
+      <button type="submit" class="btn btn-primary btn-block" ng-click="storeItem()">Sign in</button>
+    </div>
+  </div>
+
+</form>
+
+</div>
+</div>
+</div>
+		
+   </div>
+</div>
+</div>
