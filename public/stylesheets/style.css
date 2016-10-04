@@ -219,6 +219,64 @@ a {text-decoration:none;}
 	padding-bottom:20px;
 }
 
+.itemdescriptioncard{
+	background-color: #e0e0e0;
+	
+	border-style: solid solid solid solid;
+	border-radius: 3px 3px 3px 3px;
+	border-width: 1px 1px 1px 1px;	
+	border-color: #d6d6d6;
+	padding-top:40px;
+	
+	
+}
+
+.sellercard{
+	background-color: white;
+	
+	border-style: solid solid solid solid;
+	border-radius: 3px 3px 3px 3px;
+	border-width: 1px 1px 1px 1px;	
+	border-color: #d6d6d6;
+	padding:20px;
+	padding-left:30px;
+	
+}
+
+.button-card{
+	background-color: white;		
+	border-style: solid solid solid solid;
+	
+	border-width: 0.5px 0.5px 0.5px 0.5px;	
+	border-color: #d6d6d6;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.desccard{
+	background-color: white;		
+	border-style: none solid solid solid;
+	
+	border-width: 1px 1px 1px 1px;	
+	border-color: #d6d6d6;
+	padding:20px;
+	
+}
+
+.desccard2{
+	background-color: white;		
+	border-style: solid solid solid solid;
+	
+	border-width: 1px 1px 1px 1px;	
+	border-color: #d6d6d6;
+	padding:20px;
+	
+}
+
+.bottom-btn{
+	padding:14px;
+	padding-bottom:0px;
+}
 .itemtitle{
     font-size: 16px;
     color:blue;	
@@ -269,4 +327,39 @@ a {text-decoration:none;}
 	border-width: 1px 1px 1px 1px;	
 	border-color: #d6d6d6;
 	
+}
+
+.itemheader{
+	font-weight:bold;
+	font-size: 18px;
+	font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
+}
+
+.hrnew {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #888888; /* old IE */
+    background-color: #888888; /* Modern Browsers */
+    
+}
+
+.quantitydesc{
+	font-weight:500;
+}
+
+.bolddescription{
+	font-weight:bold;
+	font-size: 17px;
+	color:black;
+	font-family: "Helvetica neue",Helvetica,Arial,Sans-serif;
+}
+
+.btn-cart{
+		background-image: linear-gradient(to bottom,#93bee1 0,#93bee1 100%);
+}
+
+.iteminfodetails{
+	font-weight:100;
+	font-size: 12px;
 }

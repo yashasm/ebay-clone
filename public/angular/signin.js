@@ -17,6 +17,7 @@ ebayApp.config(function($routeProvider){
 	.when('/basicsearch',{templateUrl:'angular/search.ejs'})
 	.when('/myCollection',{templateUrl:'angular/mycollection.ejs'})
 	.when('/sell',{templateUrl:'angular/sell.ejs'})
+	.when('/itemdetails',{templateUrl:'angular/itemdetails.ejs'})
 	
 });
 
@@ -39,11 +40,17 @@ ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,
 		$scope.searchquery = val;
 	};
 
+	
+	$scope.itemClicked = function(val){
+		console.log("clicked"+val);
+		userservice.id = val;
+	}
+	
 	$scope.$watch(function(){
 	    return userservice.searchquery;
 	}, function (newValue) {
 	    
-		console.log("testing"+newValue);
+		
 		formDetails = {"searchstring":newValue};			
 		$scope.values = [];
 		$http({
@@ -51,23 +58,47 @@ ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,
 			url : '/search-details',
 			params : formDetails
 		}).success(function(details) {
-			//console.log("account---"+details.condition[2].itemname);
+			console.log("account---"+details.condition[0].itemid);
 	    	$scope.values = details.condition;
-		});
-		
-		/*
-		$http
-		.get('/search-details'),
-		.data : formDetails
-	    .success(function (details) {
-	    	console.log("account---"+details.condition[2].itemname);
-	    	$scope.values = details.condition;
-	    	
-	    });*/
+		});			
 
 		
 		
 	});		
+}]);
+
+
+ebayApp.controller('itemdetailscontroller',['$scope','userservice',function($scope,userservice){
+	$scope.id = userservice.id;
+	
+	$scope.$watch(function(){
+	    return userservice.id;
+	}, function (newValue) {	    				
+		$scope.id = newValue;
+		
+		
+		formDetails = {"searchid":newValue};			
+		$scope.values = [];
+		$http({
+			method : "GET",
+			url : '/search-details',
+			params : formDetails
+		}).success(function(details) {
+			console.log("account---"+details.condition[0].itemid);
+	    	$scope.values = details.condition;
+		});
+		
+		
+	});
+	$scope.showshipping = false;
+	
+	$scope.shippingClicked = function(){
+		$scope.showshipping = true;
+	}
+	$scope.detailClicked = function(){
+		$scope.showshipping = false;
+	}
+	
 }]);
 
 
@@ -99,6 +130,7 @@ ebayApp.controller('indexcontroller',['$scope','userservice',function($scope,use
 ebayApp.service('userservice',['$http',function($http){
 	
 	this.username = "";
+	this.id = "";
 	var curr = this;
 	this.searchquery = "default";
 	
@@ -109,9 +141,7 @@ ebayApp.service('userservice',['$http',function($http){
     	curr.username = user.id;
         
     });
-
 	
-
 }]);
 
 

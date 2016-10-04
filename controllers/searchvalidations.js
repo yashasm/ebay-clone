@@ -22,7 +22,7 @@ module.exports.searchData = function(req,res){
 		 searchvar = req.query.searchstring;
 	 }
 	
-	var sql = "SELECT itemname,itemprice,itemavailable,itemsold FROM itemdata where  onsale = 1 and itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%'";	
+	var sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold FROM itemdata where  onsale = 1 and itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%'";	
 	//params =[req.session.email];
 	//itemowner = ? and
 	
@@ -58,13 +58,14 @@ module.exports.searchData = function(req,res){
 		            result = {"condition":[]}
 		            var tempData = {};
 		            for(var item in ans1){
-		            	
+		            	console.log("found id"+ans1[item].itemid);
+		            	/*tempData.itemid = ans1[item].itemid;
 		            	tempData.itemname = ans1[item].itemname;
 		            	tempData.itemprice = ans1[item].itemprice;
 		            	tempData.itemavailable = ans1[item].itemavailable;
-		            	tempData.itemsold = ans1[item].itemsold;
+		            	tempData.itemsold = ans1[item].itemsold;*/
 		            	console.log("hiiii"+tempData.itemname);
-		            	result.condition.push({"itemname":ans1[item].itemname,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold  });
+		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold  });
 		            	
 		            }
 		            console.log("Checking after out"+JSON.stringify(result));

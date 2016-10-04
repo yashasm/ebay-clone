@@ -1,0 +1,183 @@
+<div ng-controller="itemdetailscontroller">
+{{id}}
+
+<br>
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-5">
+		<img src="http://placehold.it/500x500" class="img-rounded">
+		</div>
+		
+		<div class="col-md-7">
+			<div class="row">
+			<p class="itemheader">New Unlocked Motorola Moto X - XT1058 (AT&T) 16GB 10PM GPS NFC Smartphone Black</p>
+			<hr class="hrnew">
+			</div>
+			
+			<div class="row">
+				<div class="col-md-7">
+				<p>Item condition <span class="label label-default">New</span></p>
+				
+				<br>
+				
+				<form class="form-inline">
+				  <div class="form-group" >
+				    <label class="quantitydesc" for="text">Quantity:</label>
+				    <input type="text" class="form-control" style="width:45px" id="text">
+				  </div>
+				  
+				  <div class="form-group" style="padding-left:30px">
+				    <label class="quantitydesc" for="text">9 available/ 17 sold</label>				  
+				  </div>
+				  
+				  </form>
+				  <br>
+				  <br>
+				  <br>
+			
+				  <!--grey card details starts -->
+				  <div class="itemdescriptioncard">
+				  
+				  	<div class="row">
+				  		<div class="col-md-6">
+							<p>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Price: <span class="bolddescription">US $122.99</span></p>
+						</div>
+						
+						<div class="col-md-6">
+							<button type="button" class="btn btn-primary" style="font-weight:900">Buy it now</button>
+							<br>
+							<br>
+							
+							<button type="button" class="btn btn-primary btn-cart" style="font-weight:900">Add to cart</button>
+						</div>  		
+				  	</div>
+				  
+				  <!--bottom button implementation  -->
+				  <br>
+				  <br>
+				  <br>
+				  
+				  <div class="row bottom-btn">
+				  	<div class="col-md-4 button-card" style="color:red"> Limited quantity remaining </div>
+				  	<div class="col-md-4 button-card"> More than 64% sold </div>
+				  	<div class="col-md-4 button-card"> Free Shipping for the item</div>
+				  </div>
+				  
+			
+				  
+				  <!-- bottom button impplementation ends -->
+				  
+				  </div>
+				  <br>
+				  <br>
+				  <div class="row iteminfodetails">
+				  	<div class="col-md-2">
+				  		Shipping:
+				  	</div>
+				  	<div class="col-md-10">
+				  		FREE Economy Int'l Shipping  <br>
+						See details about international shipping here.  <br>
+						Item location:Hong Kong, Hong Kong<br>
+						Ships to:Worldwide See exclusions</span></p>
+				  	</div>
+				  </div>				  
+				<br>
+				  <div class="row iteminfodetails">
+				  	<div class="col-md-2">
+				  		Delivery:
+				  	</div>
+				  	<div class="col-md-10">
+				  		Varies for items shipped from an international location
+				  	</div>
+				  </div>  
+				<br>
+				<div class="row iteminfodetails">
+				  	<div class="col-md-2">
+				  		Payments:
+				  	</div>
+				  	<div class="col-md-10">
+				  		<img src="../stock/cards.png">
+				  	</div>
+				  </div>
+					<br>
+					<div class="row iteminfodetails">
+				  	<div class="col-md-2">
+				  		Returns:
+				  	</div>
+				  	<div class="col-md-10">
+				  		30 days money back, buyer pays return shipping
+				  	</div>
+				  </div>
+				  <br>
+				  <div class="row iteminfodetails">
+				  	<div class="col-md-2">
+				  		Guarantee:
+				  	</div>
+				  	<div class="col-md-10">
+				  		<img src="../stock/guarantee.png"><br>
+				  		Get the item you ordered or get your money back.<br>
+						Covers your purchase price and original shipping.
+				  	</div>
+				  </div>
+				  
+				</div>
+				
+				
+					
+				<div class="col-md-5">
+					<div class="sellercard">
+						<div class="row">
+							<p class="bolddescription">Seller Information</p>
+							<p style="color:#0654ba">yashasm1991@gmail.com</p>
+							<hr style="border-top: dotted 2px;color:#888888" />
+							<p style="color:#0654ba">See other items of this seller</p>
+						
+						</div>
+					</div>
+				</div>
+			
+			</div>
+			
+		</div>	
+	</div>
+	
+	<div class="row">
+		<ul class="nav nav-tabs">
+		  <!-- <li role="presentation" class="active"><a ng-click="detailClicked()">Description</a></li>
+		  <li role="presentation" ><a  ng-click="shippingClicked()">Shipping and payments</a></li> -->
+		   <li role="presentation" ng-class="{ 'active': !showshipping, '': 'showshipping' }"><a ng-click="detailClicked()">Description</a></li>
+		  <li role="presentation" ng-class="{ 'active': showshipping, '': '!showshipping' }"><a  ng-click="shippingClicked()">Shipping and payments</a></li> 
+		  <!-- ng-class="{ 'text-success': awesome, 'text-large': giant }" -->
+		</ul>
+		<!-- should use this code starts  -->
+		<div class="desccard" ng-show="!showshipping">
+			  <p> Seller assumes all responsibility for this listing<p>
+			  <p>Last updated on  Sep 02, 2016 03:04:01 PDT </p>
+			  
+			  <div class="desccard2">
+			  	<p> Feature 1</p>
+			  	<p> Feature 2</p>
+			  	<p> Feature 3</p>
+			  	<p> Feature 4</p>
+			  </div>
+			    
+	    </div>
+	    <!-- should use this code ends  -->
+	    <div class="desccard" ng-show="showshipping">
+			  <p> Seller assumes all responsibility for this listing<p>
+			  <p>Last updated on  Sep 02, 2016 03:04:01 PDT </p>
+			  
+			  <div class="desccard2">
+			  	<p class="bolddescription"> Shipping and handling</p>
+			  	<p>Item location: Hong Kong, Hong Kong</p>
+				<p>Shipping to: Worldwide</p>
+			  </div>
+			    
+	    </div>  
+		
+	</div>
+</div>
+
+</div>
