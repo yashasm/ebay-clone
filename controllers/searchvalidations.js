@@ -4,6 +4,72 @@
 
 var mysqlconnpool = require('../routes/mysqlconn').pool;
 
+module.exports.searchItem = function(req,res){
+	console.log("here to get item details");
+	
+	var sql = "SELECT * FROM itemdata where  itemid = '"+req.query.searchid+"'";
+	
+	result = {};
+	   mysqlconnpool.getConnection(function(err, connection) {
+	        if(err) {
+	        	console.log(err);
+	        	//callback(true);
+	        	return;
+	        	}
+	        // make the query
+	        //connection.query(sql, params, function(err, results) {
+	        connection.query(sql, function(err, results) {
+	            connection.release();
+	            if(err) {
+	            	console.log(err);
+	            	
+	            	//callback(true);
+	            	return;
+	            	}
+	            
+	            console.log(typeof(results.length));
+	            if(results.length !== 0){
+		            var ans = JSON.stringify(results);
+		            var ans1 = JSON.parse(ans);
+		            //console.log(ans1);
+		            
+		            //result.firstname = ans1[0].firstname;
+		            
+		            
+		            result = {"condition":[]}
+		            //var tempData = {};
+		            for(var item in ans1){
+		            	console.log("found id"+ans1[item].itemid);
+		            	/*tempData.itemid = ans1[item].itemid;
+		            	tempData.itemname = ans1[item].itemname;
+		            	tempData.itemprice = ans1[item].itemprice;
+		            	tempData.itemavailable = ans1[item].itemavailable;
+		            	tempData.itemsold = ans1[item].itemsold;*/
+		            	//console.log("hiiii"+tempData.itemname);
+		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemdesc":ans1[item].itemdesc,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemowner":ans1[item].itemowner,"itemshippingfrom":ans1[item].itemshippingfrom,"itemcondition":ans1[item].itemcondition,"itemupdated":ans1[item].itemupdated,"itemfeature1":ans1[item].itemfeature1,"itemfeature2":ans1[item].itemfeature2,"itemfeature3":ans1[item].itemfeature3,"itemfeature4":ans1[item].itemfeature4,"itemfeature5":ans1[item].itemfeature5,"itemauction":ans1[item].itemauction,"itemstartingbid":ans1[item].itemstartingbid,"category":ans1[item].category});
+		            	
+		            }
+		            console.log("Checking after out"+JSON.stringify(result));
+		            //result = {"condition":"success"};
+		            
+	            }
+	            //console.log(ans1[0].firstname);
+	            else{
+	            	console.log("Failed");
+	            	//json_responses = {"statusCode" : 401,"id":""};
+	            	result = {"condition":[]}
+	            }
+	    		
+	    		//console.log(req.body);
+	    		
+	    		 res
+	    		.status(200)
+	    		.send(result);
+	            
+	        });
+	    });
+}
+
 module.exports.searchData = function(req,res){
 	
 	console.log("here to get search details");

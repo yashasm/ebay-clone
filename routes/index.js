@@ -30,6 +30,7 @@ router.get('/account-details', controller.getAccountDetails);
 router.post('/account-details',controller.setAccountDetails);
 
 router.get('/search-details', searchController.searchData);
+router.get('/search-item', searchController.searchItem);
 
 
 router.post('/sell', controller.storeItem);

@@ -68,8 +68,10 @@ ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,
 }]);
 
 
-ebayApp.controller('itemdetailscontroller',['$scope','userservice',function($scope,userservice){
+ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http',function($scope,userservice,$http){
 	$scope.id = userservice.id;
+	
+	
 	
 	$scope.$watch(function(){
 	    return userservice.id;
@@ -81,11 +83,14 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice',function($sco
 		$scope.values = [];
 		$http({
 			method : "GET",
-			url : '/search-details',
+			url : '/search-item',
 			params : formDetails
 		}).success(function(details) {
-			console.log("account---"+details.condition[0].itemid);
+			
+			
 	    	$scope.values = details.condition;
+	    	console.log("item---"+$scope.values[0].itemname);
+	    	console.log("item---"+$scope.values[0].category);
 		});
 		
 		
