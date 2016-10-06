@@ -363,3 +363,26 @@ a {text-decoration:none;}
 	font-weight:100;
 	font-size: 12px;
 }
+
+
+.checkout{
+	line-height: 1em;
+    color: #555;
+    font-size: 2.5em;
+    padding-top:30px;
+    padding-left:25px;
+    	
+}
+
+.shippingcardpad{
+	padding-left:40px;
+	padding-right:40px;
+}
+
+.paywith{
+	line-height: 1em;
+    color: #555;
+    padding-top:10px;
+    font-size: 1.2em;
+    padding-left:30px;
+}

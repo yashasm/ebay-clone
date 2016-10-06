@@ -1,5 +1,5 @@
 <div ng-controller="itemdetailscontroller">
-{{id}}
+
 
 <br>
 
@@ -12,24 +12,24 @@
 		
 		<div class="col-md-7">
 			<div class="row">
-			<p class="itemheader">New Unlocked Motorola Moto X - XT1058 (AT&T) 16GB 10PM GPS NFC Smartphone Black</p>
+			<p class="itemheader">{{itemname}}</p>
 			<hr class="hrnew">
 			</div>
 			
 			<div class="row">
 				<div class="col-md-7">
-				<p>Item condition <span class="label label-default">New</span></p>
+				<p>Item condition <span class="label label-default">{{itemcondition}}</span></p>
 				
 				<br>
 				
 				<form class="form-inline">
 				  <div class="form-group" >
 				    <label class="quantitydesc" for="text">Quantity:</label>
-				    <input type="text" class="form-control" style="width:45px" id="text">
+				    <input type="text" class="form-control" style="width:45px" id="text" ng-model="quantityselected">
 				  </div>
 				  
 				  <div class="form-group" style="padding-left:30px">
-				    <label class="quantitydesc" for="text">9 available/ 17 sold</label>				  
+				    <label class="quantitydesc" for="text">{{itemavailable}} available/ {{itemsold}} sold</label>				  
 				  </div>
 				  
 				  </form>
@@ -42,15 +42,16 @@
 				  
 				  	<div class="row">
 				  		<div class="col-md-6">
-							<p>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Price: <span class="bolddescription">US $122.99</span></p>
+							<p>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Price: <span class="bolddescription">US ${{itemprice}}</span></p>
 						</div>
 						
 						<div class="col-md-6">
-							<button type="button" class="btn btn-primary" style="font-weight:900">Buy it now</button>
+			
+							<a ng-href="{{cartlink}}"><button type="button" class="btn btn-primary" style="font-weight:900" ng-click="addToCart(id)">Buy it now</button></a>
 							<br>
 							<br>
 							
-							<button type="button" class="btn btn-primary btn-cart" style="font-weight:900">Add to cart</button>
+							<a ng-href="{{addlink}}"><button type="button" class="btn btn-primary btn-cart" style="font-weight:900" ng-click="addToCart(id)">Add to cart</button></a>
 						</div>  		
 				  	</div>
 				  
@@ -79,7 +80,7 @@
 				  	<div class="col-md-10">
 				  		FREE Economy Int'l Shipping  <br>
 						See details about international shipping here.  <br>
-						Item location:Hong Kong, Hong Kong<br>
+						Item location:{{itemshippingfrom}}<br>
 						Ships to:Worldwide See exclusions</span></p>
 				  	</div>
 				  </div>				  
@@ -130,7 +131,7 @@
 					<div class="sellercard">
 						<div class="row">
 							<p class="bolddescription">Seller Information</p>
-							<p style="color:#0654ba">yashasm1991@gmail.com</p>
+							<p style="color:#0654ba">{{itemowner}}</p>
 							<hr style="border-top: dotted 2px;color:#888888" />
 							<p style="color:#0654ba">See other items of this seller</p>
 						
@@ -143,7 +144,7 @@
 		</div>	
 	</div>
 	
-	<div class="row">
+	<div class="row shippingcardpad">
 		<ul class="nav nav-tabs">
 		  <!-- <li role="presentation" class="active"><a ng-click="detailClicked()">Description</a></li>
 		  <li role="presentation" ><a  ng-click="shippingClicked()">Shipping and payments</a></li> -->
@@ -154,24 +155,25 @@
 		<!-- should use this code starts  -->
 		<div class="desccard" ng-show="!showshipping">
 			  <p> Seller assumes all responsibility for this listing<p>
-			  <p>Last updated on  Sep 02, 2016 03:04:01 PDT </p>
+			  <p>Last updated on  {{itemupdated}} </p>
 			  
 			  <div class="desccard2">
-			  	<p> Feature 1</p>
-			  	<p> Feature 2</p>
-			  	<p> Feature 3</p>
-			  	<p> Feature 4</p>
+			  	<p> {{itemfeature1}}</p>
+			  	<p> {{itemfeature2}}</p>
+			  	<p> {{itemfeature3}}</p>
+			  	<p> {{itemfeature4}}</p>
+			  	<p> {{itemfeature5}}</p>
 			  </div>
 			    
 	    </div>
 	    <!-- should use this code ends  -->
 	    <div class="desccard" ng-show="showshipping">
 			  <p> Seller assumes all responsibility for this listing<p>
-			  <p>Last updated on  Sep 02, 2016 03:04:01 PDT </p>
+			  <p>Last updated on  {{itemupdated}} </p>
 			  
 			  <div class="desccard2">
 			  	<p class="bolddescription"> Shipping and handling</p>
-			  	<p>Item location: Hong Kong, Hong Kong</p>
+			  	<p>Item location: {{itemshippingfrom}}</p>
 				<p>Shipping to: Worldwide</p>
 			  </div>
 			    

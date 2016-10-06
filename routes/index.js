@@ -19,18 +19,39 @@ router.get('/signin', function(req, res, next) {
 
 router.get('/confirm-login', function (req, res) {
 	console.log("session variable!!!");
-	var user = {"id":req.session.username};
+	var cartCount = 0;
+	if(typeof req.session.cartitems !== "undefined"){
+		cartCount = req.session.cartitems.length; 
+	}
+	var tempid = 0;
+	if(typeof req.session.tempid !== "undefined"){
+		tempid = req.session.tempid;
+	}
+	
+	var user = {"id":req.session.username ,"cartcount":cartCount,"tempid":tempid};
     res.send(user)
 }
 );
 
 
+router.get('/search-details/:searchstring', function(req,res){
+	console.log("Inside new test variable");
+	console.log(req);
+	res
+	.status(200)
+	.send();
+});
 
 router.get('/account-details', controller.getAccountDetails);
 router.post('/account-details',controller.setAccountDetails);
 
 router.get('/search-details', searchController.searchData);
 router.get('/search-item', searchController.searchItem);
+
+router.post('/addtocart',searchController.addToCart);
+router.get('/getcart-details',searchController.getCart);
+
+router.post('/deleteitem',searchController.deleteFromCart);
 
 
 router.post('/sell', controller.storeItem);

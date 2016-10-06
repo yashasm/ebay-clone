@@ -1,0 +1,205 @@
+<div ng-controller="cartcontroller">
+	<div class="container">
+		<div class="col-md-8">
+			<div class="row">
+				<p class="checkout">Checkout</p>
+			</div>
+			<div class="row">
+				<p class="paywith">Pay with</p>
+			</div>
+			
+			<div class="row desccard2 ">
+				Credit card
+				<hr>
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
+					<md-input-container class="md-block">
+			          <label>Card number</label>
+			          <input ng-model="cardnumber">
+			        </md-input-container>
+					</div>
+					<div class="col-md-1"></div>
+				</div>
+				
+				
+				<div layout="column" ng-cloak class="md-inline-form">
+				<div class="row">
+				
+					<md-content>
+					<div class="col-md-1"></div>
+					    <div class="col-md-5">
+					      <md-input-container>
+					        <label>Expiration date</label>
+					        <input ng-model="expiration">
+					      </md-input-container>
+					</div>
+					<div class="col-md-5">
+					      <md-input-container>
+					        <label>Security code</label>
+					        <input ng-model="cvv" type="password">
+					      </md-input-container>
+					    </div>
+					    <div class="col-md-1"></div>
+					  </md-content>
+				
+				</div>
+				</div>
+				
+				<div layout="column" ng-cloak class="md-inline-form">
+				<div class="row">
+				
+					<md-content>
+					<div class="col-md-1"></div>
+					    <div class="col-md-5">
+					      <md-input-container>
+					        <label>First name</label>
+					        <input ng-model="firstname">
+					      </md-input-container>
+					</div>
+					<div class="col-md-5">
+					      <md-input-container>
+					        <label>Last name</label>
+					        <input ng-model="lastname">
+					      </md-input-container>
+					    </div>
+					    <div class="col-md-1"></div>
+					  </md-content>
+				
+				</div>
+				</div>
+				<div class="row">
+				<div class=col-md-9></div>
+				<div class=col-md-3>
+				 <md-button class="md-raised md-primary">Done</md-button>
+				 </div>
+				</div>
+				
+			</div>
+			<br>
+			<br>
+			
+			<div class="row paywith">
+				Ship to
+			</div>
+			<br>
+			
+			<div class="row desccard2">
+				<p>{{firstname}}<p>
+				<p>{{address}}<p>
+				<p>United States<p>
+				<p>{{phone}}<p>
+				
+			</div>
+			<br>
+			<div class="row paywith">
+				Review items and shipping
+			</div>
+			<br>
+			<div ng-repeat="val in loop">	
+			<div class="row desccard2" >
+				<div class=row>
+					<div class="col-md-10">
+						Seller: {{val.seller}}
+						
+					</div>
+					<div class="col-md-2">
+					<md-button class="md-raised md-primary" ng-click="deleteItem(val.itemid)">Cancel</md-button>
+					</div>
+					<hr>
+				</div>
+								
+				<div class=row>
+					<div class="col-md-2">
+						<img src="http://placehold.it/80x90" class="img-rounded">
+					</div>
+					<div class="col-md-10">
+					<div class="row">
+						<div class="col-md-8">
+							{{val.itemname}}					
+						</div>
+						<div class="col-md-4">
+							{{val.itemprice}}				
+						</div>
+						
+					</div>
+					
+					<br>
+					<div class="row">
+						<div class="col-md-12">
+							{{val.quantity}}			
+						</div>												
+					</div>
+					
+					<br>
+					<br>
+					
+					<div class="row">
+						<div class="col-md-8">
+							USPS Priority Mail					
+						</div>
+						<div class="col-md-4">
+							Free
+						</div>
+						
+					</div>
+					</div>
+					
+				</div>				
+								
+			</div>	
+				<br>
+				<br>
+			</div>
+				
+		</div>
+		
+		<div class="col-md-4" style="padding-left:50px">
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+			<div class="row">
+				<div class="desccard2">
+					<div class="row">
+						<div class="col-md-8">
+							Items
+						</div>
+						<div class="col-md-4">
+							{{itemcount}}
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-8">
+							Shipping
+						</div>
+						<div class="col-md-4">
+							Free
+						</div>
+					</div>
+					<hr>
+					
+					<div class="row">
+						<div class="col-md-8 paywith">
+							Order total
+						</div>
+						<div class="col-md-4 paywith">
+							{{totalprice}}
+						</div>
+					</div>
+					<br>
+					<div class="row text-center">
+						<!-- replace button here -->
+						<md-button class="md-raised md-primary">Confirm and Pay</md-button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- left part ends -->
+	</div>
+</div>

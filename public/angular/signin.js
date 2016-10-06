@@ -18,6 +18,7 @@ ebayApp.config(function($routeProvider){
 	.when('/myCollection',{templateUrl:'angular/mycollection.ejs'})
 	.when('/sell',{templateUrl:'angular/sell.ejs'})
 	.when('/itemdetails',{templateUrl:'angular/itemdetails.ejs'})
+	.when('/cart',{templateUrl:'angular/cart.ejs'})
 	
 });
 
@@ -28,6 +29,81 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 		  console.log("executed now");
 		});
 }]);
+
+ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
+	
+	//$scope.loop = [1,2];
+	$scope.totalprice = 0;
+	
+	$scope.deleteItem = function(val){
+		console.log("delete with itemid"+val);
+		
+		var cartData = {"itemid":val};
+		$http({
+			  method: 'POST',
+			  url: '/deleteitem',
+			  data : cartData			  			  
+			}).then(function successCallback(response) {
+					        console.log("successfully removed");
+					        
+				/*if(response.data.condition == "success"){
+					addToCartSuccess = true;
+				}
+				else{
+					addToCartSuccess = false;
+				}*/
+				//console.log("test"+response.data.length);
+			    $scope.loop= [];	        
+				$scope.loop = response.data;
+				userservice.cartcount = response.data.length;
+		    	$scope.itemcount = userservice.cartcount;
+				var numb = 0;
+				for(val in $scope.loop){
+		    		console.log("inside loop"+$scope.loop[val].itemprice);
+		    		numb = numb + Number($scope.loop[val].itemprice);    		    		
+		    	}
+				
+				$scope.totalprice = numb.toFixed(2);
+		        console.log("successfully removed2");
+				
+			  }, function errorCallback(response) {
+				  
+				  
+			  });
+
+		
+	};
+	
+	$http({
+		method : "GET",
+		url : '/getcart-details',		
+	}).success(function(details) {
+		//console.log("account---"+details.condition[0].itemid);
+		console.log("cart get success");
+    	$scope.loop = details.cartdetails;
+    	
+    	for(val in $scope.loop){
+    		console.log("inside loop"+$scope.loop[val].itemprice);
+    		$scope.totalprice = $scope.totalprice + Number($scope.loop[val].itemprice);    		    		
+    	}
+    	console.log("total"+$scope.totalprice);
+    	$scope.totalprice = $scope.totalprice.toFixed(2);
+    	console.log("total"+$scope.totalprice);
+    	
+    	$scope.cardnumber = details.condition[0].cardnumber;
+    	$scope.expiration = details.condition[0].expiry;
+    	$scope.firstname = details.condition[0].firstname;
+    	$scope.lastname = details.condition[0].lastname;
+    	$scope.address = details.condition[0].address;
+    	$scope.phone = details.condition[0].phone;
+    	$scope.itemcount = userservice.cartcount;
+    	
+    	
+	});
+	
+
+}]);
+
 
 ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,userservice,$http){
 	$scope.values = [];
@@ -60,7 +136,17 @@ ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,
 		}).success(function(details) {
 			console.log("account---"+details.condition[0].itemid);
 	    	$scope.values = details.condition;
-		});			
+		});
+		/*
+		$scope.values = [];
+		$http({
+			method : "GET",
+			url : 'http://localhost:3000/#/basicsearch?searchstring=samsung'
+			
+		}).success(function(details) {
+			//console.log("account---"+details.condition[0].itemid);
+	    	$scope.values = details.condition;
+		});*/			
 
 		
 		
@@ -68,10 +154,100 @@ ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,
 }]);
 
 
-ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http',function($scope,userservice,$http){
+ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdDialog',function($scope,userservice,$http,$mdDialog){
 	$scope.id = userservice.id;
+	console.log("service id is"+userservice.id);
+	$scope.cartlink = "";
+	$scope.addlink = "";
+	$scope.quantityselected = 1;
+	$scope.addToCartSuccess = false;
+	
+	//cart changes starts
+	
+	$scope.username = userservice.username;
+	
+	if($scope.username == ""){		
+		
+		$scope.cartlink = 'http://localhost:3000/signin';
+		$scope.addlink  = 'http://localhost:3000/signin';
+	}
+	else{
+		
+		$scope.cartlink = '#/cart';
+		$scope.addlink = '';
+	}
 	
 	
+	$scope.addToCart = function(id){
+		if($scope.username != "" && typeof $scope.username !== "undefined"){
+			console.log("gonna add to cart"+id);
+			var cartData = {"itemid":$scope.id,
+					"quantity":$scope.quantityselected,
+					"itemname":$scope.itemname,
+					"itemprice":$scope.itemprice,
+					"seller":$scope.itemowner
+			}
+			$http({
+				  method: 'POST',
+				  url: '/addtocart',
+				  data : cartData			  			  
+				}).then(function successCallback(response) {
+					addToCartSuccess = true;
+					console.log("added successfully");
+					userservice.cartcount = response.data.cartcount; 
+					
+					$mdDialog.show(
+						      $mdDialog.alert()
+						        .parent(angular.element(document.querySelector('#popupContainer')))
+						        .clickOutsideToClose(true)
+						        .title('Successfully added to the cart')
+						        .textContent('Why dont you check other items.')
+						        .ariaLabel('Alert Dialog Demo')
+						        .ok('Got it!')
+						        );
+						        
+					/*if(response.data.condition == "success"){
+						addToCartSuccess = true;
+					}
+					else{
+						addToCartSuccess = false;
+					}*/
+					
+					
+					
+				  }, function errorCallback(response) {
+					  addToCartSuccess = false;
+					  
+				  });
+
+		}
+	}
+	
+	$scope.$watch(function(){
+	    return userservice.username;
+	}, function (newValue) {	    
+	    $scope.username = newValue;
+	
+	    if($scope.username == "" ){
+	    				
+			$scope.cartlink = 'http://localhost:3000/signin';
+			$scope.addlink  = 'http://localhost:3000/signin';
+		}
+	    else if(typeof $scope.username === "undefined"){
+	    	
+			
+			$scope.cartlink = 'http://localhost:3000/signin';
+			$scope.addlink  = 'http://localhost:3000/signin';
+	    }	    
+	    else{
+	    	
+	    	$scope.cartlink = '#/cart';
+	    	$scope.addlink = '';
+	    }
+	});
+	
+	
+	//cart changes ends
 	
 	$scope.$watch(function(){
 	    return userservice.id;
@@ -87,8 +263,30 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http',funct
 			params : formDetails
 		}).success(function(details) {
 			
-			
+
 	    	$scope.values = details.condition;
+	    	$scope.item = $scope.values[0].itemid;
+	    	$scope.itemname = $scope.values[0].itemname;
+	    	$scope.itemdesc = $scope.values[0].itemdesc;
+	    	$scope.itemprice = $scope.values[0].itemprice;
+	    	$scope.itemavailable = $scope.values[0].itemavailable;
+	    	$scope.itemsold = $scope.values[0].itemsold;
+	    	$scope.itemowner = $scope.values[0].itemowner;
+	    	$scope.itemshippingfrom = $scope.values[0].itemshippingfrom;
+	    	$scope.itemcondition = $scope.values[0].itemcondition;
+	    	$scope.itemupdated = $scope.values[0].itemupdated;
+	    	$scope.itemfeature1 = $scope.values[0].itemfeature1;
+	    	$scope.itemfeature2 = $scope.values[0].itemfeature2;
+	    	$scope.itemfeature3 = $scope.values[0].itemfeature3;
+	    	$scope.itemfeature4 = $scope.values[0].itemfeature4;
+	    	$scope.itemfeature5 = $scope.values[0].itemfeature5;
+	    	$scope.itemauction = $scope.values[0].itemauction;
+	    	$scope.itemstartingbid = $scope.values[0].itemstartingbid;
+	    	$scope.category = $scope.values[0].category;
+	    	
+	    	
+	    	
+	    	
 	    	console.log("item---"+$scope.values[0].itemname);
 	    	console.log("item---"+$scope.values[0].category);
 		});
@@ -136,15 +334,17 @@ ebayApp.service('userservice',['$http',function($http){
 	
 	this.username = "";
 	this.id = "";
-	var curr = this;
+	var curr = this;	
 	this.searchquery = "default";
+	this.cartcount = 0;
+	
 	
 	$http.get('/confirm-login')
     .success(function (user) {
     	console.log("login---"+user.id);
-    		
+    	curr.cartcount = user.cartcount; 
     	curr.username = user.id;
-        
+        curr.id = user.tempid; 
     });
 	
 }]);
@@ -224,38 +424,35 @@ ebayApp.controller('accountcontroller',['$scope','userservice','$http',function(
 }]);
 
 ebayApp.controller('headercontroller',['$scope','userservice','$http',function($scope,userservice,$http){
-		
+	
+	console.log("I am in headercontroller");
 	
 	$scope.showHeader = false;
 	$scope.username = userservice.username;
+	$scope.cartcount = userservice.cartcount;
+	
+	
 	
 	if($scope.username == ""){		
 		$scope.historylink = 'http://localhost:3000/signin';
+		$scope.bidslink = 'http://localhost:3000/signin';
+		$scope.selllink = 'http://localhost:3000/signin';
+		$scope.cartlink = 'http://localhost:3000/signin';
+		$scope.showHeader = true;
 	}
 	else{
 		$scope.historylink = '';
-	}
-	
-	if($scope.username == ""){		
-		$scope.bidslink = 'http://localhost:3000/signin';
-	}
-	else{
 		$scope.bidslink = '';
-	}
-	
-	if($scope.username == ""){		
-		$scope.selllink = 'http://localhost:3000/signin';
-	}
-	else{
 		$scope.selllink = '#/sell';
+		$scope.cartlink = '#/cart';
 	}
 	
-	
-	////
-	if($scope.username == "" ){
-		$scope.showHeader = true;
-	}
-	
+	$scope.$watch(function(){
+	    return userservice.cartcount;
+	}, function (newValue) {
+		
+		$scope.cartcount = newValue;
+	});
 	
 	$scope.$watch(function(){
 	    return userservice.username;
@@ -267,15 +464,18 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    	
 			$scope.showHeader = true;
 			$scope.selllink = 'http://localhost:3000/signin';
+			$scope.cartlink = 'http://localhost:3000/signin';
 		}
 	    else if(typeof $scope.username === "undefined"){
 	    	
 			$scope.showHeader = true;
 			$scope.selllink = 'http://localhost:3000/signin';
+			$scope.cartlink = 'http://localhost:3000/signin';
 	    }	    
 	    else{
 	    	$scope.selllink = '#/sell';	
 	    	$scope.showHeader = false;
+	    	$scope.cartlink = '#/cart';
 	    }
 	});
 	
@@ -296,7 +496,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 
 
 ebayApp.controller('signincontroller',['$scope','$http','userservice',function($scope,$http,userservice){
-	
+	console.log("I am in signincontroller");
 	$scope.emailsign = "";
 	$scope.passwordsign = "";
 	$scope.userservice = userservice;
@@ -345,6 +545,8 @@ ebayApp.controller('signincontroller',['$scope','$http','userservice',function($
 
 
 ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http){
+	
+	console.log("I am in registercontroller");
 	
 	$scope.emailClicked = false;
 	$scope.reemailClicked = false;
@@ -461,7 +663,8 @@ ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http)
 }]);
 
 ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
-	
+
+	console.log("I am in sellcontroller");
 	$scope.category = "";
 	$scope.itemname = "";
 	$scope.description = "";
