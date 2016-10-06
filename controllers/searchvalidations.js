@@ -3,7 +3,118 @@
  */
 
 var mysqlconnpool = require('../routes/mysqlconn').pool;
+var InsertQuery = require('mysql-insert-multiple');
+//var mysql = require('mysql');
 
+
+module.exports.payConfirm = function(req,res){
+	
+	console.log("inside pay and confirm");
+		
+	var sql = "INSERT into purchase_history (orderid,itemid,itemname,quantity,itemprice,itemowner,customerid,customerfirstname,customerlastname,purchasedate,cardused,shippingaddress,orderprice) VALUES ?";
+	var today = new Date();
+	var orderid = today.getTime();
+	//		
+		var dataInsert = [];
+		//var updateParams =[];
+		var updatequery = '';
+	for(i=0;i<req.session.cartitems.length;i++){
+		console.log("inside loop lets print");
+	
+		var params = [orderid,req.session.cartitems[i].itemid,req.session.cartitems[i].itemname,
+		  			req.body.quantity,req.session.cartitems[i].itemprice,req.session.cartitems[i].seller,
+		  			req.session.email,req.session.username,req.body.lastname,
+		  			today,req.body.cardnumber,req.body.address,req.body.totalprice];
+		dataInsert.push(params);
+		var onsaleval = 1;
+		if((Number(req.session.cartitems[i].itemavailable) - Number(req.session.cartitems[i].quantity)) == 0){
+			onsaleval = 0;
+		}
+		
+		console.log("===================================="+req.session.cartitems[i].itemavailable);
+		console.log("===================================="+req.session.cartitems[i].itemsold);
+		
+		var itemspending = Number(req.session.cartitems[i].itemavailable) - Number(req.session.cartitems[i].quantity);
+		var itemssoldupdate = Number(req.session.cartitems[i].itemsold) + Number(req.session.cartitems[i].quantity);
+		console.log("itemspending"+itemspending);
+		console.log("itemssoldupdate"+itemssoldupdate);
+		updatequery+= "Update itemdata set itemavailable = "+ itemspending +", itemsold = "+ itemssoldupdate +", onsale = " + onsaleval +" where itemid ="+req.session.cartitems[i].itemid+";";
+		console.log("update query so far"+updatequery);
+		//updateParams.push({itemavailable:100,itemid:req.session.cartitems[i].itemid});
+		
+	}
+	
+	//multiple update test
+	console.log("update params");	
+
+	
+	console.log("testinggggg"+JSON.stringify(updatequery));
+	
+	mysqlconnpool.getConnection(function (err, connection) {
+		if (err) {
+			console.log('MySql connection error: ' + err);
+
+			return;
+		}
+		console.log("Query is >>>>>"+updatequery);
+		var qResult = connection.query(updatequery);
+		qResult.on('error', function(err) {
+			console.log('MySql query error---------------: ' + err);
+			result = {"condition":"fail"};
+			return;
+		});
+		qResult.on('result', function(rows) {
+			console.log('Got result from DB----------');
+			result = {"condition":"success"};
+
+		});
+		qResult.on('end', function() {
+			console.log('Going to release DB connection to the Pool--------');
+			connection.release();			
+		});
+	});
+
+	
+console.log("-----------------------------------------");
+	//multiple update test
+	
+	
+	console.log("outside loop lets print");
+	console.log("outside the loop"+JSON.stringify(dataInsert));
+		
+		console.log("inserting purchase history");
+		
+		mysqlconnpool.getConnection(function (err, connection) {
+			if (err) {
+				console.log('MySql connection error: ' + err);
+	
+				return;
+			}
+			console.log("Query is >>>>>"+sql);
+			var qResult = connection.query(sql, [dataInsert]);
+			qResult.on('error', function(err) {
+				console.log('MySql query error: ' + err);
+				result = {"condition":"fail"};
+				return;
+			});
+			qResult.on('result', function(rows) {
+				console.log('Got result from DB');
+				result = {"condition":"success"};
+	
+			});
+			qResult.on('end', function() {
+				console.log('Going to release DB connection to the Pool');
+				connection.release();
+				
+				req.session.cartitems = [];
+				res
+				.status(200)
+				.json(result);
+			});
+		});
+		
+		
+}
 
 module.exports.deleteFromCart = function(req,res){
 	console.log("delete cart details");
@@ -121,7 +232,8 @@ module.exports.addToCart = function(req,res){
 		
 		req.session.cartitems = [];
 		console.log("inside part1");
-		var temp = {"itemid":req.body.itemid,"quantity":req.body.quantity,"itemname":req.body.itemname,"itemprice":req.body.itemprice,"seller":req.body.seller};
+		var temp = {"itemid":req.body.itemid,"quantity":req.body.quantity,"itemname":req.body.itemname,
+				"itemprice":req.body.itemprice,"seller":req.body.seller,"itemavailable":req.body.itemavailable,"itemsold":req.body.itemsold};
 		req.session.cartitems.push(temp);
 		console.log("inside part2");
 		//req.session.cartitems.push("test");	
@@ -129,7 +241,8 @@ module.exports.addToCart = function(req,res){
 	}
 	else{
 		console.log("inside else");
-		var temp = {"itemid":req.body.itemid,"quantity":req.body.quantity,"itemname":req.body.itemname,"itemprice":req.body.itemprice,"seller":req.body.seller};
+		var temp = {"itemid":req.body.itemid,"quantity":req.body.quantity,"itemname":req.body.itemname,
+				"itemprice":req.body.itemprice,"seller":req.body.seller,"itemavailable":req.body.itemavailable,"itemsold":req.body.itemsold};
 		req.session.cartitems.push(temp);
 		console.log("req.session.cartitem"+req.session.cartitems.length);
 		//req.session.cartitems.push("test");
@@ -234,7 +347,7 @@ module.exports.searchData = function(req,res){
 		 searchvar = req.query.searchstring;
 	 }
 	
-	var sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold FROM itemdata where  onsale = 1 and itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%'";	
+	var sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold FROM itemdata where  onsale = 1 && (itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%')";	
 	//params =[req.session.email];
 	//itemowner = ? and
 	

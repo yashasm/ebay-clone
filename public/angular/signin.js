@@ -35,6 +35,47 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($sc
 	//$scope.loop = [1,2];
 	$scope.totalprice = 0;
 	
+	
+	$scope.pay = function(req,res){
+		console.log("pay and confirm");
+		
+		var cartData = {
+				"cardnumber": $scope.cardnumber,
+				"firstname": $scope.firstname,
+				"lastname": $scope.lastname,
+				"address":$scope.address,
+				"totalprice":$scope.totalprice
+		};
+		
+    	
+		$http({
+			  method: 'POST',
+			  url: '/pay',
+			  data: cartData
+			  			  			  
+			}).then(function successCallback(response) {
+					        console.log("successfully removed");
+					        
+				/*if(response.data.condition == "success"){
+					addToCartSuccess = true;
+				}
+				else{
+					addToCartSuccess = false;
+				}*/
+				//console.log("test"+response.data.length);
+			    
+				
+			  }, function errorCallback(response) {
+				  
+				  
+			  });
+
+		
+		
+		
+		
+	}
+	
 	$scope.deleteItem = function(val){
 		console.log("delete with itemid"+val);
 		
@@ -161,7 +202,7 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	$scope.addlink = "";
 	$scope.quantityselected = 1;
 	$scope.addToCartSuccess = false;
-	
+	$scope.showmessage = false;
 	//cart changes starts
 	
 	$scope.username = userservice.username;
@@ -177,6 +218,15 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 		$scope.addlink = '';
 	}
 	
+	$scope.validateQuantity = function(){
+		if($scope.quantityselected > $scope.itemavailable){
+			$scope.quantityselected = 1;
+			$scope.showmessage = true;
+		}
+		else{
+			$scope.showmessage = false;
+		}
+	};
 	
 	$scope.addToCart = function(id){
 		if($scope.username != "" && typeof $scope.username !== "undefined"){
@@ -185,7 +235,9 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 					"quantity":$scope.quantityselected,
 					"itemname":$scope.itemname,
 					"itemprice":$scope.itemprice,
-					"seller":$scope.itemowner
+					"seller":$scope.itemowner,
+					"itemavailable":$scope.itemavailable,
+					"itemsold":$scope.itemsold
 			}
 			$http({
 				  method: 'POST',

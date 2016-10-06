@@ -13,6 +13,7 @@
     "express-session": "^1.14.1",
     "morgan": "~1.7.0",
     "mysql": "^2.11.1",
+    "mysql-insert-multiple": "^1.0.3",
     "serve-favicon": "~2.3.0"
   }
 }
