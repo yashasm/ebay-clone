@@ -50,6 +50,7 @@ router.get('/search-item', searchController.searchItem);
 
 router.post('/addtocart',searchController.addToCart);
 router.get('/getcart-details',searchController.getCart);
+router.get('/confirmcart-details',searchController.confirmCart);
 
 router.post('/deleteitem',searchController.deleteFromCart);
 router.post('/pay',searchController.payConfirm);

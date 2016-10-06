@@ -1,0 +1,112 @@
+<div ng-controller="confirmationcontroller">
+	<div class="container">
+		<div class="row">
+			<p class="category">Order Confirmation<p>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-8">
+					
+					 <div ng-repeat="val in loop"> 
+			<div class="row desccard2" >
+				<div class=row>
+					<div class="col-md-10">
+						Seller: {{val.seller}}
+						
+					</div>
+					<!-- <div class="col-md-2">
+					<md-button class="md-raised md-primary" ng-click="deleteItem(val.itemid)">Cancel</md-button>
+					</div> -->
+					<hr>
+				</div>
+								
+				<div class=row>
+					<div class="col-md-2">
+						<img src="http://placehold.it/80x90" class="img-rounded">
+					</div>
+					<div class="col-md-10">
+					<div class="row">
+						<div class="col-md-8">
+							{{val.itemname}}					
+						</div>
+						<div class="col-md-4">
+							{{val.itemprice}}				
+						</div>
+						
+					</div>
+					
+					<br>
+					<div class="row">
+						<div class="col-md-12">
+							{{val.quantity}}			
+						</div>												
+					</div>
+					
+					<br>
+					<br>
+					
+					<div class="row">
+						<div class="col-md-8">
+							USPS Priority Mail					
+						</div>
+						<div class="col-md-4">
+							Free
+						</div>
+						
+					</div>
+					</div>
+					
+				</div>				
+								
+			</div>	
+
+			</div> 
+			<div class="row">
+				<div class="col-md-4">	
+						<!-- shipping information -->
+						
+					
+					
+					<div class="row desccard2">
+					<div class="row paywith">
+						Ship to
+					</div>
+					<hr>
+						<p>{{firstname}}<p>
+						<p>{{address}}<p>
+						<p>United States<p>
+						<p>{{phone}}<p>
+					</div>	
+				    	</div>
+				</div>
+			</div>	
+			
+			<!-- right part -->
+				<div class="col-md-4" style="padding-left:30px">
+						<div class="row desccard2" >
+					<div class="row paywith">
+						Thank you for shopping with us!
+					</div>
+					<hr>
+					<br>
+					
+					<br>
+						<div class="row" style="color:black">
+							<div class="col-md-8">
+								 Your total bill amount is 
+							</div>
+							<div class="col-md-4">
+								{{totalprice}}$
+							</div>
+						</div>
+						<br>
+						<div class= "row text-center">
+							<a href="#/"><md-button class="md-raised md-primary">Go back home</md-button></a>
+						</div>
+					</div>
+				
+				</div>
+			
+		</div>	
+	</div>
+</div>

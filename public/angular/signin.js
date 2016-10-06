@@ -19,8 +19,46 @@ ebayApp.config(function($routeProvider){
 	.when('/sell',{templateUrl:'angular/sell.ejs'})
 	.when('/itemdetails',{templateUrl:'angular/itemdetails.ejs'})
 	.when('/cart',{templateUrl:'angular/cart.ejs'})
+	.when('/confirmation',{templateUrl:'angular/confirmation.ejs'})
 	
 });
+
+
+
+ebayApp.controller('confirmationcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
+
+	$scope.$on('$routeChangeSuccess', function () {
+		  console.log("executed now");
+		  $scope.totalprice = 0;
+		  $http({
+				method : "GET",
+				url : '/getcart-details',		
+			}).success(function(details) {
+				//console.log("account---"+details.condition[0].itemid);
+				console.log("cart get success");
+		    	$scope.loop = details.cartdetails;
+		    	
+		    	for(val in $scope.loop){
+		    		console.log("inside loop"+$scope.loop[val].itemprice);
+		    		$scope.totalprice = $scope.totalprice + (Number($scope.loop[val].itemprice) *  Number($scope.loop[val].quantity));    		    		
+		    	}
+		    	console.log("total"+$scope.totalprice);
+		    	$scope.totalprice = $scope.totalprice.toFixed(2);
+		    	console.log("total"+$scope.totalprice);
+		    	
+		    	$scope.cardnumber = details.condition[0].cardnumber;
+		    	$scope.expiration = details.condition[0].expiry;
+		    	$scope.firstname = details.condition[0].firstname;
+		    	$scope.lastname = details.condition[0].lastname;
+		    	$scope.address = details.condition[0].address;
+		    	$scope.phone = details.condition[0].phone;
+		    	$scope.itemcount = userservice.cartcount;
+		    	
+		    	userservice.cartcount = 0;
+			});
+		  
+		});
+}]);
 
 
 ebayApp.controller('mycollection',['$scope','userservice','$http',function($scope,userservice,$http){
@@ -55,7 +93,7 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($sc
 			  			  			  
 			}).then(function successCallback(response) {
 					        console.log("successfully removed");
-					        
+					        window.location.assign("/#/confirmation");        
 				/*if(response.data.condition == "success"){
 					addToCartSuccess = true;
 				}
@@ -101,7 +139,7 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($sc
 				var numb = 0;
 				for(val in $scope.loop){
 		    		console.log("inside loop"+$scope.loop[val].itemprice);
-		    		numb = numb + Number($scope.loop[val].itemprice);    		    		
+		    		numb = numb + Number($scope.loop[val].itemprice) * $scope.loop[val].quantity;    		    		
 		    	}
 				
 				$scope.totalprice = numb.toFixed(2);
@@ -125,7 +163,7 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($sc
     	
     	for(val in $scope.loop){
     		console.log("inside loop"+$scope.loop[val].itemprice);
-    		$scope.totalprice = $scope.totalprice + Number($scope.loop[val].itemprice);    		    		
+    		$scope.totalprice = $scope.totalprice + (Number($scope.loop[val].itemprice) *  Number($scope.loop[val].quantity));    		    		
     	}
     	console.log("total"+$scope.totalprice);
     	$scope.totalprice = $scope.totalprice.toFixed(2);

@@ -106,7 +106,7 @@ console.log("-----------------------------------------");
 				console.log('Going to release DB connection to the Pool');
 				connection.release();
 				
-				req.session.cartitems = [];
+				
 				res
 				.status(200)
 				.json(result);
@@ -414,3 +414,90 @@ module.exports.searchData = function(req,res){
 	    });
 	
 };
+
+
+
+
+module.exports.confirmCart = function(req,res){
+	console.log("get cart details");
+	console.log("req.session.username"+req.session.username);
+	
+	//cart changes
+	var sql = "SELECT firstname,lastname,cardnumber,expiry,address,phone FROM userdata where  email = '"+req.session.email+"'";
+	
+	result = {};
+	   mysqlconnpool.getConnection(function(err, connection) {
+	        if(err) {
+	        	console.log(err);
+
+	        	return;
+	        	}
+	        // make the query
+	        //connection.query(sql, params, function(err, results) {
+	        connection.query(sql, function(err, results) {
+	            connection.release();
+	            if(err) {
+	            	console.log(err);
+	            	
+	            	//callback(true);
+	            	return;
+	            	}
+	            
+	            console.log(typeof(results.length));
+	            if(results.length !== 0){
+		            var ans = JSON.stringify(results);
+		            var ans1 = JSON.parse(ans);
+		            //console.log(ans1);
+		            
+		            //result.firstname = ans1[0].firstname;
+		            cartDetails = [];
+		            if(typeof req.session.cartitems !== "undefined"){
+		        		cartDetails = req.session.cartitems; 
+		        	}
+		            
+		            result = {"condition":[],"cartdetails":cartDetails}
+		            result.condition.push({"firstname":ans1[0].firstname,
+		            	"lastname":ans1[0].lastname,
+		            	"address":ans1[0].address,
+		            	"cardnumber":ans1[0].cardnumber,
+		            	"expiry":ans1[0].expiry,
+		            	"phone":ans1[0].phone
+		            	});
+		            
+		            
+		            
+		            //var tempData = {};
+		            /*for(var item in ans1){
+		            	console.log("found id"+ans1[item].itemid);
+		            	tempData.itemid = ans1[item].itemid;
+		            	tempData.itemname = ans1[item].itemname;
+		            	tempData.itemprice = ans1[item].itemprice;
+		            	tempData.itemavailable = ans1[item].itemavailable;
+		            	tempData.itemsold = ans1[item].itemsold;
+		            	//console.log("hiiii"+tempData.itemname);
+		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemdesc":ans1[item].itemdesc,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemowner":ans1[item].itemowner,"itemshippingfrom":ans1[item].itemshippingfrom,"itemcondition":ans1[item].itemcondition,"itemupdated":ans1[item].itemupdated,"itemfeature1":ans1[item].itemfeature1,"itemfeature2":ans1[item].itemfeature2,"itemfeature3":ans1[item].itemfeature3,"itemfeature4":ans1[item].itemfeature4,"itemfeature5":ans1[item].itemfeature5,"itemauction":ans1[item].itemauction,"itemstartingbid":ans1[item].itemstartingbid,"category":ans1[item].category});
+		            	
+		            }*/
+		            //console.log("Checking after out"+JSON.stringify(result));
+		            //result = {"condition":"success"};
+		            
+	            }
+	            //console.log(ans1[0].firstname);
+	            else{
+	            	console.log("Failed");
+	            	//json_responses = {"statusCode" : 401,"id":""};
+	            	result = {"condition":[],"cartdetails":[]}
+	            }
+	    		
+	    		//console.log(req.body);
+	            req.session.cartitems = [];
+	    		 res
+	    		.status(200)
+	    		.send(result);
+	    		 
+	        });
+	    });
+	
+	//cart changes
+	
+}
