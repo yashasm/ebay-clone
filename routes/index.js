@@ -28,7 +28,12 @@ router.get('/confirm-login', function (req, res) {
 		tempid = req.session.tempid;
 	}
 	
-	var user = {"id":req.session.username ,"cartcount":cartCount,"tempid":tempid};
+	var lastloggedin ='';
+	if(typeof req.session.lastloggedin !== "undefined"){
+		lastloggedin =req.session.lastloggedin; 
+	}
+	
+	var user = {"id":req.session.username ,"cartcount":cartCount,"tempid":tempid,"lastloggedin":lastloggedin};
     res.send(user)
 }
 );

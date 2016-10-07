@@ -92,7 +92,7 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 
 
 	
-$scope.showshipping = false;
+	$scope.showshipping = false;
 	
 	$scope.shippingClicked = function(){
 		$scope.showshipping = true;
@@ -102,10 +102,10 @@ $scope.showshipping = false;
 	}
 	
 	
-	$scope.itemClicked = function(val){
+	/*$scope.itemClicked = function(val){
 		console.log("clicked"+val);
 		userservice.id = val;
-	}
+	}*/
 	
 	$scope.$watch(function(){
 	    return userservice.collection;
@@ -486,6 +486,7 @@ ebayApp.controller('indexcontroller',['$scope','userservice',function($scope,use
 ebayApp.service('userservice',['$http',function($http){
 	
 	this.username = "";
+	this.lastloggedin = "";
 	this.id = "";
 	this.collection="";
 	var curr = this;	
@@ -498,7 +499,8 @@ ebayApp.service('userservice',['$http',function($http){
     	console.log("login---"+user.id);
     	curr.cartcount = user.cartcount; 
     	curr.username = user.id;
-        curr.id = user.tempid; 
+        curr.id = user.tempid;
+        curr.lastloggedin = user.lastloggedin;
     });
 	
 }]);
@@ -584,7 +586,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	$scope.showHeader = false;
 	$scope.username = userservice.username;
 	$scope.cartcount = userservice.cartcount;
-	
+	$scope.lastloggedin = userservice.lastloggedin;	
 	
 	
 	if($scope.username == ""){		
@@ -606,6 +608,14 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	}, function (newValue) {
 		
 		$scope.cartcount = newValue;
+	});
+	
+
+	$scope.$watch(function(){
+	    return userservice.lastloggedin;
+	}, function (newValue) {
+		
+		$scope.lastloggedin = newValue;
 	});
 	
 	$scope.$watch(function(){
@@ -689,12 +699,10 @@ ebayApp.controller('signincontroller',['$scope','$http','userservice',function($
 			}
 			else {
 				//Making a get call to the '/redirectToHomepage' API
-				$scope.errorfound = false;
-				console.log("return success"+data.id);
-				//userservice.set(data.id);
+				$scope.errorfound = false;								
 				$scope.username = data.id;
-				
-				
+				$scope.lastloggedin = data.time;
+				console.log("last logged in:"+data.time);
 				window.location.assign("/");
 			}
 			
@@ -917,12 +925,6 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 			    // this callback will be called asynchronously
 			    // when the response is available
 				
-				/*if(response.data.condition == "success"){
-					$scope.registeredsuccess = true;
-				}
-				else{
-					$scope.registeredsuccess = false;
-				}*/
 				console.log("should reload");
 				window.location.assign("/#/myCollection");
 			  }, function errorCallback(response) {

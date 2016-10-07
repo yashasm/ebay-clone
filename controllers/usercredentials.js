@@ -2,7 +2,9 @@
  * New node file
  */
 
+
 var mysqlconnpool = require('../routes/mysqlconn').pool;
+var bcrypt = require('bcryptjs');
 
 module.exports.storeItem = function(req,res){
 	console.log("I am gonna store the item");
@@ -45,10 +47,13 @@ module.exports.storeItem = function(req,res){
 module.exports.registerUser = function(req,res){
 	console.log("I am gonna register user");
 	console.log(req.body);
+		
+	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync(req.body.password, salt);
 	
-
+	console.log("encrypted pass"+hash);
 	var sql = "INSERT into userdata SET ?";
-	params = [{"email":req.body.email,"password":req.body.password,"firstname":req.body.firstname,"lastname":req.body.lastname,"phone":req.body.phone,"logid":"1"}];
+	params = [{"email":req.body.email,"password":hash,"firstname":req.body.firstname,"lastname":req.body.lastname,"phone":req.body.phone,"logid":"1"}];
 	
 	console.log(sql);
 	var result;
@@ -145,10 +150,10 @@ module.exports.signinvalidate = function(req,res){
 	console.log("i am gonna validate signin");
 	
 	var test ="";
-	 
-	 var sql = "SELECT firstname FROM userdata where email =? and password =? ";
+	 //req.body.password
+	 var sql = "SELECT firstname,lastloggedin,password FROM userdata where email =?";
 	    // get a connection from the pool
-	    var arr =[req.body.email,req.body.password];
+	    var arr =[req.body.email];
 	    mysqlconnpool.getConnection(function(err, connection) {
 	        if(err) {
 	        	console.log(err);
@@ -157,12 +162,16 @@ module.exports.signinvalidate = function(req,res){
 	        	}
 	        // make the query
 	        connection.query(sql, arr, function(err, results) {
-	            connection.release();
+	            
 	            if(err) {
 	            	console.log(err);
 	            	//callback(true);
+	            	connection.release();
 	            	return;
 	            	}
+	            
+	            
+	            
 	            
 	            console.log(typeof(results.length));
 	            if(results.length !== 0){
@@ -170,21 +179,50 @@ module.exports.signinvalidate = function(req,res){
 		            var ans1 = JSON.parse(ans);
 		            //console.log(ans1);
 		            
+		            //var salt = bcrypt.genSaltSync(10);
+		            //var hash = bcrypt.hashSync(req.body.password, salt);
+		            var hash = ans1[0].password;
+		            if(bcrypt.compareSync(req.body.password, hash)){
+		            
 		            req.session.username = ans1[0].firstname;
 		            console.log("testingggg");
 		            test = ans1[0].firstname;
 		            req.session.username = test;
 		            req.session.email = req.body.email;
-		            json_responses = {"statusCode" : 200,"id":req.session.username};
+		            req.session.lastloggedin =ans1[0].lastloggedin;
+		            try{
+		            var date = new Date(Date.now()).toLocaleString();
+		            
+		            console.log("date is:"+date);
+		            json_responses = {"statusCode" : 200,"id":req.session.username,"time":date};
+		            var updateLoginTime = "update userdata set lastloggedin = '"+date+"' where email = '"+req.body.email+"'";
+		            connection.query(updateLoginTime, function(error, resultsupdate) {
+		            	if(error){
+		            		console.log(error);
+		            	}
+		            	
+		            	
+		            });
+		            
+		            	 
+		            }
+		            catch(err){
+		            	console.log(err);
+		            }
+	            }
+	            else{
+	            	//write failure code
+	            	json_responses = {"statusCode" : 401,"id":"","time":""};
+	            }
 	            }
 	            //console.log(ans1[0].firstname);
 	            else{
 	            	console.log("Failed");
-	            	json_responses = {"statusCode" : 401,"id":""};
+	            	json_responses = {"statusCode" : 401,"id":"","time":""};
 	            }
 	    		
 	    		//console.log(req.body);
-	    		
+	            connection.release();
 	    		 res
 	    		.status(200)
 	    		.send(json_responses);
