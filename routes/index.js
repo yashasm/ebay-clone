@@ -45,6 +45,11 @@ router.get('/search-details/:searchstring', function(req,res){
 router.get('/account-details', controller.getAccountDetails);
 router.post('/account-details',controller.setAccountDetails);
 
+
+router.get('/search-mycollection', searchController.getMyCollectionData);
+router.get('/search-getmypurchasehistory', searchController.getMyPurchaseHistory);
+
+
 router.get('/search-details', searchController.searchData);
 router.get('/search-item', searchController.searchItem);
 

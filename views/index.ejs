@@ -34,7 +34,7 @@
 
 </head>
 
-<header class="nav-down" ng-cloak>
+<header class="nav-down" ng-cloak style="z-index:99">
     <div class="container header-data" ng-controller="headercontroller">
         
         <div ng-if="showHeader" class="text-left" style="display: inline-block"> Hi! 
@@ -55,7 +55,7 @@
 					<!-- more menu -->
 					<ul class="menu">
 						<li><a href="#/account"  target="_self">My Account</a></li>
-						<li><a  href="#/myCollection" target="_self">My Collection</a></li>						
+						<li><a  href="#/myCollection" target="_self" ng-click="collectionClicked()">My Collection</a></li>						
 						 <li><a href="#logout" ng-click="logout()"  target="_self">Log out</a></li> 
 						
 					</ul>
@@ -80,7 +80,7 @@
 					<a href="#/account" class="name">My ebay</a>				
 					<!-- more menu -->
 					<ul class="menu">
-						<li><a ng-href="{{historylink}}"  target="_self">Purchase History</a></li>
+						<li><a ng-href="{{historylink}}"  target="_self" ng-click="purchaseClicked()">Purchase History</a></li>
 						<li><a ng-href="{{bidslink}}"  target="_self">Bids</a></li>											
 						 <li><a ng-href="{{selllink}}"  target="_self">Sell</a></li> 
 						

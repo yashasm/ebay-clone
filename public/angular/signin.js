@@ -32,7 +32,7 @@ ebayApp.controller('confirmationcontroller',['$scope','userservice','$http',func
 		  $scope.totalprice = 0;
 		  $http({
 				method : "GET",
-				url : '/getcart-details',		
+				url : '/confirmcart-details',		
 			}).success(function(details) {
 				//console.log("account---"+details.condition[0].itemid);
 				console.log("cart get success");
@@ -65,7 +65,70 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 
 	$scope.$on('$routeChangeSuccess', function () {
 		  console.log("executed now");
+		  
+		  $scope.values = [];
+			$http({
+				method : "GET",
+				url : '/search-mycollection'
+				
+			}).success(function(details) {
+				//console.log("account---"+details.condition[0].itemid);
+		    	$scope.values = details.condition;
+			});
+			/////search-getmypurchasehistory
+			
+			$scope.history = [];
+			$http({
+				method : "GET",
+				url : '/search-getmypurchasehistory'
+				
+			}).success(function(details) {
+				//console.log("account---"+details.condition[0].itemid);
+		    	$scope.history = details.condition;
+			});
+			
 		});
+	
+
+
+	
+$scope.showshipping = false;
+	
+	$scope.shippingClicked = function(){
+		$scope.showshipping = true;
+	}
+	$scope.detailClicked = function(){
+		$scope.showshipping = false;
+	}
+	
+	
+	$scope.itemClicked = function(val){
+		console.log("clicked"+val);
+		userservice.id = val;
+	}
+	
+	$scope.$watch(function(){
+	    return userservice.collection;
+	}, function (newValue) {
+		console.log("testing colelction"+ newValue);
+		if(newValue == "collection"){
+			console.log("inside if");
+			$scope.showshipping = false;
+		}
+		else{
+			console.log("inside else");
+			$scope.showshipping = true;
+		}
+		
+	});
+		console.log("testing collection on load "+userservice.collection);
+	if(userservice.collection == "collection"){
+		$scope.showshipping = false;
+	}
+	else{
+		$scope.showshipping = true;
+	}
+	
 }]);
 
 ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
@@ -424,6 +487,7 @@ ebayApp.service('userservice',['$http',function($http){
 	
 	this.username = "";
 	this.id = "";
+	this.collection="";
 	var curr = this;	
 	this.searchquery = "default";
 	this.cartcount = 0;
@@ -531,7 +595,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 		$scope.showHeader = true;
 	}
 	else{
-		$scope.historylink = '';
+		$scope.historylink = '#/myCollection';
 		$scope.bidslink = '';
 		$scope.selllink = '#/sell';
 		$scope.cartlink = '#/cart';
@@ -551,7 +615,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    $scope.username = newValue;
 	
 	    if($scope.username == "" ){
-	    	
+	    	$scope.historylink = 'http://localhost:3000/signin';
 			$scope.showHeader = true;
 			$scope.selllink = 'http://localhost:3000/signin';
 			$scope.cartlink = 'http://localhost:3000/signin';
@@ -559,6 +623,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    else if(typeof $scope.username === "undefined"){
 	    	
 			$scope.showHeader = true;
+			$scope.historylink = 'http://localhost:3000/signin';
 			$scope.selllink = 'http://localhost:3000/signin';
 			$scope.cartlink = 'http://localhost:3000/signin';
 	    }	    
@@ -566,6 +631,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    	$scope.selllink = '#/sell';	
 	    	$scope.showHeader = false;
 	    	$scope.cartlink = '#/cart';
+	    	$scope.historylink = '#/myCollection';
 	    }
 	});
 	
@@ -581,6 +647,13 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    });
 	};
 	
+	$scope.collectionClicked = function(req,res){
+		userservice.collection = "collection";
+	};
+	
+	$scope.purchaseClicked = function(req,res){
+		userservice.collection = "purchase";
+	};
 	
 }]);
 

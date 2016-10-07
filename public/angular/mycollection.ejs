@@ -1,7 +1,90 @@
-<div class="container-fluid" ng-controller="mycollection">
+<div class="container" ng-controller="mycollection">
 <div class="row">
-	<div class="col-md-3">
 	
+	<div class="row shippingcardpad">
+		<ul class="nav nav-tabs">
+		  <!-- <li role="presentation" class="active"><a ng-click="detailClicked()">Description</a></li>
+		  <li role="presentation" ><a  ng-click="shippingClicked()">Shipping and payments</a></li> -->
+		   <li role="presentation" ng-class="{ 'active': !showshipping, '': 'showshipping' }"><a ng-click="detailClicked()">My Collection</a></li>
+		  <li role="presentation" ng-class="{ 'active': showshipping, '': '!showshipping' }"><a  ng-click="shippingClicked()">Purchase History</a></li> 
+		  
+		</ul>
+		<!-- should use this code starts  -->
+		<div class="desccard" ng-show="!showshipping">
+			  <p> All the items you are selling<p>
+			  
+			  
+			  <div class="desccard2">
+			  	
+			  	<!-- <div ng-repeat="item in values"> -->
+			  	 <div ng-repeat="item in values"> 
+					<div class="row" >
+					
+							<div class="col-md-3">
+							<img src="http://placehold.it/200x200" class="img-rounded">
+							</div>
+							
+							<div class="col-md-5">
+								<a href="#/itemdetails"><div class="itemtitle" ng-click="itemClicked(item.itemid)">{{item.itemname}}</div></a>
+								<br>
+								<div class="itemprice">${{item.itemprice}}</div>
+								<br>
+								<div class="shipping">Free shipping</div>
+								<br>
+								<div class="available">{{item.itemavailable}} Available</div>
+								<br>
+								<div class="sold">{{item.itemsold}} Sold</div>
+							</div>
+							
+							</div>
+							<hr>
+				</div>			  				  
+			  	
+			  	
+			  </div>
+			    
+	    </div>
+	    <!-- should use this code ends  -->
+	    <div class=	"desccard" ng-show="showshipping">
+			  <p> Your purchase history<p>
+			  
+			  
+			  <div class="desccard2">
+					 <div ng-repeat="item in history">  
+					<!-- <div> -->
+					<div class="row" >
+					
+							<div class="col-md-3">
+							<img src="http://placehold.it/200x200" class="img-rounded">
+							</div>
+							
+							<div class="col-md-5">
+								<div class="itemtitle" >{{item.itemname}}</div>
+								<br>
+								<div class="itemprice">${{item.itemprice}}</div>
+								<br>
+								<div class="shipping">Seller information :{{item.itemowner}}</div>
+								<br>
+								<div class="shipping">Order ID : {{item.orderid}}</div>
+								<br>
+								<div class="shipping">Quantity : {{item.quantity}}</div>
+								<br>
+								<div class="shipping">Order amount : {{item.orderprice}}</div>
+								<br>
+								
+								<div class="shipping">Shipping address : {{item.shippingaddress}}</div>
+								
+							</div>
+							
+							</div>
+							<hr>
+				</div>			  		  	
+			  </div>
+			    
+	    </div>  
+		
 	</div>
+	
+	
 </div>
 </div>
