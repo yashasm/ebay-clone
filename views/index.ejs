@@ -104,7 +104,7 @@
             <form class="navbar-form navbar-left" role="search">
 
                 <div class="form-group" style="padding-right:20px">
-                    <input type="text" class="form-control" placeholder="Search" size="100" style="height:40px" ng-model="searchitem">
+                    <input type="text" class="form-control" placeholder="Search" size="100" style="height:40px" ng-model="searchitem" ng-keypress="myFunct($event)">
                 </div>
 				<a  href="#/basicsearch">
                 <button type="button" class="btn btn-primary" style="height:40px;padding-left" ng-click="searchClicked()">Search</button>

@@ -308,6 +308,10 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	
 	$scope.username = userservice.username;
 	
+	$scope.sellerClicked = function(){
+		userservice.searchquery = $scope.itemowner;
+	}
+	
 	if($scope.username == ""){		
 		
 		$scope.cartlink = 'http://localhost:3000/signin';
@@ -320,13 +324,19 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	}
 	
 	$scope.validateQuantity = function(){
-		if($scope.quantityselected > $scope.itemavailable){
+		//alert('loude bev');
+		if($scope.quantityselected > $scope.itemavailable || isNaN($scope.quantityselected)){
+			//alert('not loude');
 			$scope.quantityselected = 1;
 			$scope.showmessage = true;
 		}
-		else{
+	else{
+			//alert('loude');
 			$scope.showmessage = false;
 		}
+		
+		
+		
 	};
 	
 	$scope.addToCart = function(id){
@@ -468,6 +478,16 @@ ebayApp.controller('searchcontroller',['$scope','userservice',function($scope,us
 		console.log("search clicked");
 		userservice.searchquery = $scope.searchitem;
 	};
+	
+	
+	$scope.myFunct = function(keyEvent) {
+		  if (keyEvent.which === 13){
+			  userservice.searchquery = $scope.searchitem;
+				window.location.assign("#/basicsearch");
+			  
+		  }
+		}
+	
 	
 }]);
 
@@ -681,6 +701,14 @@ ebayApp.controller('signincontroller',['$scope','$http','userservice',function($
 		userservice.username =$scope.username; 
 	},true);
 	
+	$scope.myFunct = function(keyEvent) {
+		  if (keyEvent.which === 13){
+			  
+			  $scope.signinclicked();
+			  
+		  }
+		}
+	
 	$scope.signinclicked = function(){
 		var dataval = {
 				"email":$scope.emailsign,
@@ -692,6 +720,7 @@ ebayApp.controller('signincontroller',['$scope','$http','userservice',function($
 			url : '/signin',
 			data : dataval
 		}).success(function(data) {
+			console.log("signed in");
 			//checking the response data for statusCode
 			if (data.statusCode == 401) {
 				//write failure code
@@ -703,7 +732,15 @@ ebayApp.controller('signincontroller',['$scope','$http','userservice',function($
 				$scope.username = data.id;
 				$scope.lastloggedin = data.time;
 				console.log("last logged in:"+data.time);
+				if( typeof $scope.lastloggedin === "undefined"){
+					window.location.assign("/#/account");
+				}
+				else if($scope.lastloggedin == ""){
+					window.location.assign("/#/account");
+				}
+				else{
 				window.location.assign("/");
+				}
 			}
 			
 		}).error(function(error) {
@@ -773,33 +810,42 @@ ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http)
 		}
 	};
 	
+	$scope.myFunct = function(keyEvent) {
+		  if (keyEvent.which === 13){
+			  
+			  $scope.registerValidation();
+			  
+		  }
+		}
+	
 	
 	$scope.registerValidation = function(){
 		
 		if($scope.reason == 2){
-			alert("here");
+			
 			$scope.errorfound = true;
 		}
 		else if($scope.regpassword == ""){
-			alert("here1");
+			
 			$scope.errorfound = true;
 			
 		}
 		
 		else if(Number($scope.regpassword.length) < 6){
-			alert("here2");
+			
 			$scope.errorfound = true;
 		}
 		else if(Number($scope.regpassword.length) > 64){
-			alert("here3");
+			
 			$scope.errorfound = true;
 		}
-		else if($scope.regfirstname == "" || $scope.reglastname == ""){
-			alert("here4");
+		else if($scope.regfirstname == "" || $scope.reglastname == ""){			
 			$scope.errorfound = true;
 		}
-		else if($scope.regphonenum == ""){
-			alert("here5");
+		else if($scope.regphonenum == ""){			
+			$scope.errorfound = true;
+		}
+		else if($scope.regphonenum.length < 10 || $scope.regphonenum.length > 10){			
 			$scope.errorfound = true;
 		}
 		else{
@@ -816,6 +862,7 @@ ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http)
 					
 					if(response.data.condition == "success"){
 						$scope.registeredsuccess = true;
+						$scope.errorfound = false;
 					}
 					else{
 						$scope.registeredsuccess = false;
@@ -852,6 +899,9 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 	$scope.status = "";
 	$scope.error = false;
 	
+	$scope.callPurchase = function(){
+		userservice.collection = "purchase";
+	}
 	
 	$scope.storeItem = function(){
 		if($scope.category == ""){
@@ -924,7 +974,7 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 			}).then(function successCallback(response) {
 			    // this callback will be called asynchronously
 			    // when the response is available
-				
+				userservice.collection = "collection";				
 				console.log("should reload");
 				window.location.assign("/#/myCollection");
 			  }, function errorCallback(response) {

@@ -12,7 +12,8 @@
     <md-sidenav class="md-sidenav-left" md-component-id="nav" md-is-locked-open="1==1">
       <md-subheader class="category-nav">my ebay</md-subheader>
       <md-content class="navcontent">
-        <p class ="nav-elem" ><a >purchase history</a></p>
+        <p class ="nav-elem" ><a ng-href="#/myCollection" ng-click="callPurchase()">purchase history</a></p>
+        
         <p class ="nav-elem"><a >Bids</a></p>
         <p class ="nav-elem" >Sell</p>
         
@@ -160,7 +161,7 @@
 <br>
 <div class="form-group">
     <div >
-      <button type="button" class="btn btn-primary btn-block" ng-click="storeItem()">Sign in</button>
+      <button type="button" class="btn btn-primary btn-block" ng-click="storeItem()">Save item</button>
     </div>
   </div>
 

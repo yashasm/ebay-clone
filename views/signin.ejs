@@ -82,7 +82,7 @@
                             <br>
                             <div class="form-group">
 
-                                <input type="password" class="form-control" id="inputpassword" aria-describedby="passwordHelp" placeholder="Enter password" ng-model="passwordsign">
+                                <input type="password" class="form-control" id="inputpassword" aria-describedby="passwordHelp" placeholder="Enter password" ng-model="passwordsign" ng-keypress="myFunct($event)">
 
                             </div>
                             <br>
@@ -96,9 +96,9 @@
                                 <md-checkbox ng-model="isChecked" aria-label="staysignin">
                                     Stay Signed In
                                 </md-checkbox>
-                                <span class="forgotpassword">
+                                <!-- <span class="forgotpassword">
                                 Forgot your password?
-                                </span>
+                                </span> -->
 
                             </div>
                         </form>
