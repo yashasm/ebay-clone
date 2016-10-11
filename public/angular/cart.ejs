@@ -14,6 +14,8 @@
 				<div class="row">
 					<div class="col-md-1"></div>
 					<div class="col-md-10">
+					<div ng-show="showError" class="alert alert-danger"> Invalid card </div>
+					<div ng-show="!showError && validateClicked" class="alert alert-success"> Card Proceed successfully </div>
 					<md-input-container class="md-block">
 			          <label>Card number</label>
 			          <input ng-model="cardnumber">
@@ -71,7 +73,8 @@
 				<div class="row">
 				<div class=col-md-9></div>
 				<div class=col-md-3>
-				 <md-button class="md-raised md-primary">Done</md-button>
+				
+				 <md-button class="md-raised md-primary" ng-click="validateCard()">Done</md-button>
 				 </div>
 				</div>
 				
@@ -121,7 +124,7 @@
 							{{val.itemname}}					
 						</div>
 						<div class="col-md-4">
-							{{val.itemprice}}				
+							{{val.itemprice}}$				
 						</div>
 						
 					</div>
@@ -129,7 +132,7 @@
 					<br>
 					<div class="row">
 						<div class="col-md-12">
-							{{val.quantity}}			
+							Quantity: {{val.quantity}}			
 						</div>												
 					</div>
 					
@@ -192,7 +195,7 @@
 							Order total
 						</div>
 						<div class="col-md-4 paywith">
-							{{totalprice}}
+							{{totalprice}}$
 						</div>
 					</div>
 					<br>

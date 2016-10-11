@@ -64,6 +64,27 @@ router.get('/confirmcart-details',searchController.confirmCart);
 
 router.post('/deleteitem',searchController.deleteFromCart);
 router.post('/pay',searchController.payConfirm);
+router.post('/cartcardconfirm',function(req, res){
+	
+	if(req.body.cardnumber == "" || req.body.expiration == ""|| req.body.cvv == ""){
+		var data = {"condition":"failed"};
+		res
+		.status(200)
+		.send(data);
+	}
+	
+	if(req.body.cardnumber.length != 16){
+		var data = {"condition":"failed"};
+		res
+		.status(200)
+		.send(data);
+	}
+	
+	var data = {"condition":"success"};
+	res
+	.status(200)
+	.send(data);
+});
 
 
 router.post('/sell', controller.storeItem);

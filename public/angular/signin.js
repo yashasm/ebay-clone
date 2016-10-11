@@ -131,15 +131,71 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 	
 }]);
 
-ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($scope,userservice,$http){
+ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',function($scope,userservice,$http,$mdDialog){
 	
 	//$scope.loop = [1,2];
 	$scope.totalprice = 0;
+	$scope.cardnumber = "";
+	$scope.expiration = "";
+	$scope.cvv = "";
+	$scope.showError = false;
+	$scope.allowPayment = false;
+	$scope.validateClicked = false;
+	
+	
+	$scope.validateCard = function(){
+		console.log("validating card");
+		$scope.validateClicked = true;
+		//alert("test");
+		var cardValidate = {
+				"cardnumber": $scope.cardnumber,
+				"expiration":$scope.expiration,
+				"cvv" : $scope.cvv					
+		}
+		
+		$http({
+			  method: 'POST',
+			  url: '/cartcardconfirm',
+			  data: cardValidate
+			  			  			  
+			}).then(function successCallback(response) {
+					        console.log("successfully removed");
+					        console.log("condition"+response.data.condition);
+					        $scope.showError = false;
+					        if(response.data.condition != "success"){
+					        	$scope.showError = true;
+					        	$scope.allowPayment = false; 
+					        }
+					        else{
+					        	console.log("failure card")
+					        	$scope.allowPayment = true;
+					        }
+					        
+					        //window.location.assign("/#/confirmation");        
+				/*if(response.data.condition == "success"){
+					addToCartSuccess = true;
+				}
+				else{
+					addToCartSuccess = false;
+				}*/
+				//console.log("test"+response.data.length);
+			    
+				
+			  }, function errorCallback(response) {
+				  
+				  
+			  });
+		
+		
+		
+	};
 	
 	
 	$scope.pay = function(req,res){
 		console.log("pay and confirm");
-		
+		console.log($scope.allowPayment);
+		if($scope.allowPayment){
+			console.log("inside iffff");
 		var cartData = {
 				"cardnumber": $scope.cardnumber,
 				"firstname": $scope.firstname,
@@ -147,6 +203,8 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($sc
 				"address":$scope.address,
 				"totalprice":$scope.totalprice
 		};
+		
+	
 		
     	
 		$http({
@@ -173,7 +231,20 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http',function($sc
 
 		
 		
+	}
+	else{
 		
+		$mdDialog.show(
+			      $mdDialog.alert()
+			        .parent(angular.element(document.querySelector('#popupContainer')))
+			        .clickOutsideToClose(true)
+			        .title('Please confirm the card before payment')
+			        .textContent('Invalid Card details.')
+			        .ariaLabel('Alert Dialog Demo')
+			        .ok('Got it!')
+			        );
+		
+	}
 		
 	}
 	
@@ -448,7 +519,7 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	    	$scope.category = $scope.values[0].category;
 	    	
 	    	
-	    	
+	    	$scope.average = ($scope.itemsold / ($scope.itemsold + $scope.itemavailable)) * 100; 
 	    	
 	    	console.log("item---"+$scope.values[0].itemname);
 	    	console.log("item---"+$scope.values[0].category);
