@@ -2,23 +2,31 @@ var express = require('express');
 var router = express.Router();
 var controller = require('../controllers/usercredentials');
 var searchController = require('../controllers/searchvalidations');
+var logFile = require('./log');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	
-	console.log(req.session.username);
+	logFile.logToFile(req,res,'Action: Loaded home page');
+		console.log(req.session.username);
   res.render('index', { title: 'Express' });
 });
 
 router.get('/signin', function(req, res, next) {
 	
+	
+	logFile.logToFile(req,res,'Action: signin');
 	console.log(req.session.username);
 	  res.render('signin', { title: 'Sign In' });
 	});
 
 router.get('/confirm-login', function (req, res) {
 	console.log("session variable!!!");
+	logFile.logToFile(req,res,'Action: Retrieving data from session');
+	
+	
+	
 	var cartCount = 0;
 	if(typeof req.session.cartitems !== "undefined"){
 		cartCount = req.session.cartitems.length; 
@@ -39,14 +47,15 @@ router.get('/confirm-login', function (req, res) {
 );
 
 
-router.get('/search-details/:searchstring', function(req,res){
+/*router.get('/search-details/:searchstring', function(req,res){
+	
 	console.log("Inside new test variable");
 	console.log(req);
 	res
 	.status(200)
 	.send();
 });
-
+*/
 router.get('/account-details', controller.getAccountDetails);
 router.post('/account-details',controller.setAccountDetails);
 
@@ -64,7 +73,11 @@ router.get('/confirmcart-details',searchController.confirmCart);
 
 router.post('/deleteitem',searchController.deleteFromCart);
 router.post('/pay',searchController.payConfirm);
+
+router.post('/bid',searchController.saveBid);
 router.post('/cartcardconfirm',function(req, res){
+	
+	logFile.logToFile(req,res,'Action: Validate credit card before purchase');
 	
 	if(req.body.cardnumber == "" || req.body.expiration == ""|| req.body.cvv == ""){
 		var data = {"condition":"failed"};
@@ -90,6 +103,7 @@ router.post('/cartcardconfirm',function(req, res){
 router.post('/sell', controller.storeItem);
 
 router.get('/logout', function (req, res) {
+	logFile.logToFile(req,res,'Action: Logging out!! Bye');
 	console.log("session variable!!!destroy");
 	var user = {"id":""};
 	req.session.destroy();
@@ -101,6 +115,7 @@ router.get('/logout', function (req, res) {
 router.post('/signin',controller.signinvalidate);
 
 router.get('/register', function(req, res, next) {
+	logFile.logToFile(req,res,'Action: Loading register page');
 	  res.render('register', { title: 'Register' });
 	});
 

@@ -5,7 +5,7 @@
 //var mysqlconnpool = require('../routes/mysqlconn').pool;
 var InsertQuery = require('mysql-insert-multiple');
 var mysqlconn = require('../routes/mysql');//connection pool test
-
+var logFile = require('../routes/log');
 
 /*module.exports.payConfirm = function(req,res){
 	
@@ -119,7 +119,7 @@ console.log("-----------------------------------------");
 
 module.exports.deleteFromCart = function(req,res){
 	console.log("delete cart details");
-	
+	logFile.logToFile(req,res,'Action: Deleting from cart!');
 	
 	
 	for(i=0;i<req.session.cartitems.length;i++){
@@ -226,7 +226,7 @@ module.exports.deleteFromCart = function(req,res){
 module.exports.addToCart = function(req,res){
 	console.log("saving to cart");
 	console.log("req.session.username"+req.session.username);
-	
+	logFile.logToFile(req,res,'Action: Adding this item to cart cart'+req.body.itemname);
 	
 	//console.log("cart id"+req.session,cartitems[0].itemid);	
 	if(typeof req.session.cartitems === "undefined"){
@@ -644,7 +644,7 @@ module.exports.confirmCart = function(req,res){
 module.exports.confirmCart = function(req,res){
 	console.log("get cart details");
 	console.log("req.session.username"+req.session.username);
-		
+	logFile.logToFile(req,res,'Action: Confirm the cart before pay');
 	var sql = "SELECT firstname,lastname,cardnumber,expiry,address,phone FROM userdata where  email = '"+req.session.email+"'";
 	
 	result = {};
@@ -711,7 +711,7 @@ module.exports.confirmCart = function(req,res){
 module.exports.searchData = function(req,res){
 	
 	console.log("Inside new connection pool code");
-	
+	logFile.logToFile(req,res,'Action: Search the itemname :'+req.query.searchstring);
 	var searchvar = "";
 		
 	 if(typeof req.query.searchstring === "undefined"){
@@ -725,10 +725,10 @@ module.exports.searchData = function(req,res){
 	 }
 	 var sql = "";
 	 if(typeof req.session.email === "undefined"){
-		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold FROM itemdata where  onsale = 1 && (itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%' or itemowner like '%"+searchvar+"%')";
+		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && (itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%' or itemowner like '%"+searchvar+"%')";
 	}
 	 else{
-		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold FROM itemdata where  onsale = 1 && itemowner != '"+req.session.email +"' && (itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%')";
+		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && itemowner != '"+req.session.email +"' && (itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%')";
 	 }
 	 
 		
@@ -771,7 +771,7 @@ module.exports.searchData = function(req,res){
 		            for(var item in ans1){
 		            	console.log("found id"+ans1[item].itemid);		            	
 		            	console.log("hiiii"+tempData.itemname);
-		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold  });
+		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemauction":ans1[item].itemauction,"itemstartingbid":ans1[item].itemstartingbid,"numberbids":ans1[item].numberbids});
 		            	
 		            }
 		            console.log("Checking after out"+JSON.stringify(result));		       
@@ -805,7 +805,7 @@ module.exports.searchData = function(req,res){
 module.exports.payConfirm = function(req,res){
 	
 	console.log("inside pay and confirm");
-		
+	logFile.logToFile(req,res,'Action: Pay and purchase the item');	
 	var sql = "INSERT into purchase_history (orderid,itemid,itemname,quantity,itemprice,itemowner,customerid,customerfirstname,customerlastname,purchasedate,cardused,shippingaddress,orderprice) VALUES ?";
 	var today = new Date();
 	var orderid = today.getTime();
@@ -898,7 +898,7 @@ console.log("-----------------------------------------");
 module.exports.getCart = function(req,res){
 	console.log("get cart details");
 	console.log("req.session.username"+req.session.username);
-	
+	logFile.logToFile(req,res,'Action: Get cart details');
 	//cart changes
 	var sql = "SELECT firstname,lastname,cardnumber,expiry,address,phone FROM userdata where  email = '"+req.session.email+"'";
 	
@@ -965,7 +965,7 @@ module.exports.getCart = function(req,res){
 
 module.exports.searchItem = function(req,res){
 	console.log("here to get item details new code");
-	
+	logFile.logToFile(req,res,'Action: Get the item with item id :'+req.query.searchid);
 	var sql = "SELECT * FROM itemdata where  itemid = '"+req.query.searchid+"'";
 	
 	result = {};
@@ -1001,7 +1001,7 @@ module.exports.searchItem = function(req,res){
 		            	tempData.itemavailable = ans1[item].itemavailable;
 		            	tempData.itemsold = ans1[item].itemsold;*/
 		            	//console.log("hiiii"+tempData.itemname);
-		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemdesc":ans1[item].itemdesc,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemowner":ans1[item].itemowner,"itemshippingfrom":ans1[item].itemshippingfrom,"itemcondition":ans1[item].itemcondition,"itemupdated":ans1[item].itemupdated,"itemfeature1":ans1[item].itemfeature1,"itemfeature2":ans1[item].itemfeature2,"itemfeature3":ans1[item].itemfeature3,"itemfeature4":ans1[item].itemfeature4,"itemfeature5":ans1[item].itemfeature5,"itemauction":ans1[item].itemauction,"itemstartingbid":ans1[item].itemstartingbid,"category":ans1[item].category});
+		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemdesc":ans1[item].itemdesc,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemowner":ans1[item].itemowner,"itemshippingfrom":ans1[item].itemshippingfrom,"itemcondition":ans1[item].itemcondition,"itemupdated":ans1[item].itemupdated,"itemfeature1":ans1[item].itemfeature1,"itemfeature2":ans1[item].itemfeature2,"itemfeature3":ans1[item].itemfeature3,"itemfeature4":ans1[item].itemfeature4,"itemfeature5":ans1[item].itemfeature5,"itemauction":ans1[item].itemauction,"itemstartingbid":ans1[item].itemstartingbid,"category":ans1[item].category,"numberbids":ans1[item].numberbids,"currentbid":ans1[item].currentbid});
 		            	
 		            }
 		            console.log("Checking after out"+JSON.stringify(result));
@@ -1026,9 +1026,10 @@ module.exports.searchItem = function(req,res){
 }
 
 
+
 module.exports.getMyCollectionData = function(req,res){
 	console.log("here to get collection details");
-		
+	logFile.logToFile(req,res,'Action: Get my collection data');	
 		var searchvar = "";
 		
 		console.log("testing rest+++++++++++++++++++");
@@ -1050,7 +1051,7 @@ module.exports.getMyCollectionData = function(req,res){
 		 }
 		
 		//var sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold FROM itemdata where  onsale = 1 && (itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%')";
-		var sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold FROM itemdata where  itemowner = '"+req.session.email+"'";
+		var sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,currentbid,numberbids,itemauction FROM itemdata where  itemowner = '"+req.session.email+"'";
 		//params =[req.session.email];
 		//itemowner = ? and
 		
@@ -1086,7 +1087,7 @@ module.exports.getMyCollectionData = function(req,res){
 			            	console.log("found id"+ans1[item].itemid);
 			            	
 			            	console.log("hiiii"+tempData.itemname);
-			            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold  });
+			            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemauction":ans1[item].itemauction,"currentbid":ans1[item].currentbid,"numberbids":ans1[item].numberbids  });
 			            	
 			            }
 			            console.log("Checking after out"+JSON.stringify(result));
@@ -1116,7 +1117,7 @@ module.exports.getMyCollectionData = function(req,res){
 
 module.exports.getMyPurchaseHistory = function(req,res){
 	console.log("here to get collection details");
-		
+	logFile.logToFile(req,res,'Action: Get my purchase history');	
 		var searchvar = "";
 		
 		console.log("testing rest+++++++++++++++++++");
@@ -1184,3 +1185,28 @@ module.exports.getMyPurchaseHistory = function(req,res){
 		        //});
 		    },sql,"");		  	  
 	}
+
+
+module.exports.saveBid = function(req,res){
+	logFile.logToFile(req,res,'Action: Biding for the item');
+	
+	var updateSql = "Update itemdata set numberbids = numberbids + 1, currentbid = "+ req.body.bidamount +" where itemid ="+req.body.itemid+";"
+	var insertSql = updateSql+"INSERT into bid_details (itemid,itemname,itemowner,customerid,bidingamount) values ("+req.body.itemid+",'"+req.body.itemname+"','"+req.body.seller+"','"+req.session.email+"','"+req.body.bidamount+"');"; 
+				
+	console.log("query is:"+insertSql);
+	mysqlconn.fetchData(function(err, results) {
+		if (err) {
+			console.log('MySql connection error: ' + err);
+			console.log('MySql query error---------------: ' + err);
+			result = {"condition":"fail"};
+			return;
+		}
+		console.log("Query is >>>>>"+insertSql);
+		console.log('Got result from DB----------');
+		result = {"condition":"success","bidamount":req.body.bidamount,"numberbids":Number(req.body.numberbids) + 1};
+
+		res
+		.status(200)
+		.json(result);
+	},insertSql,"");
+}

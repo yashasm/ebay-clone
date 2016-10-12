@@ -372,9 +372,11 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	console.log("service id is"+userservice.id);
 	$scope.cartlink = "";
 	$scope.addlink = "";
+	$scope.bidlink  = '';
 	$scope.quantityselected = 1;
 	$scope.addToCartSuccess = false;
 	$scope.showmessage = false;
+	$scope.bidAmountLess = false;
 	//cart changes starts
 	
 	$scope.username = userservice.username;
@@ -387,11 +389,13 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 		
 		$scope.cartlink = 'http://localhost:3000/signin';
 		$scope.addlink  = 'http://localhost:3000/signin';
+		$scope.bidlink  = 'http://localhost:3000/signin';
 	}
 	else{
 		
 		$scope.cartlink = '#/cart';
 		$scope.addlink = '';
+		$scope.bidlink  = '';
 	}
 	
 	$scope.validateQuantity = function(){
@@ -430,6 +434,7 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 					console.log("added successfully");
 					userservice.cartcount = response.data.cartcount; 
 					
+					/*
 					$mdDialog.show(
 						      $mdDialog.alert()
 						        .parent(angular.element(document.querySelector('#popupContainer')))
@@ -438,8 +443,23 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 						        .textContent('Why dont you check other items.')
 						        .ariaLabel('Alert Dialog Demo')
 						        .ok('Got it!')
-						        );
+						        )
+						        */
+					var confirm = $mdDialog.confirm()
+	                  .title('Successfully added to the cart!')
+	                  .textContent("Why don't you check other items.")
+	                  .ariaLabel('Cart!')
+	                  
+	                  .ok('Ok');
+	                  
+	                  $mdDialog.show(confirm).then(function() {
+	                     console.log("Do u think it ll work");
+	     				window.location.assign("/");
+	                     }, function() {
+	                    	 console.log("it worked");
+	                  });        
 						        
+					
 					/*if(response.data.condition == "success"){
 						addToCartSuccess = true;
 					}
@@ -466,17 +486,20 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	    				
 			$scope.cartlink = 'http://localhost:3000/signin';
 			$scope.addlink  = 'http://localhost:3000/signin';
+			$scope.bidlink  = 'http://localhost:3000/signin';
 		}
 	    else if(typeof $scope.username === "undefined"){
 	    	
 			
 			$scope.cartlink = 'http://localhost:3000/signin';
 			$scope.addlink  = 'http://localhost:3000/signin';
+			$scope.bidlink  = 'http://localhost:3000/signin';
 	    }	    
 	    else{
 	    	
 	    	$scope.cartlink = '#/cart';
 	    	$scope.addlink = '';
+	    	$scope.bidlink  = '';
 	    }
 	});
 	
@@ -517,6 +540,12 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	    	$scope.itemauction = $scope.values[0].itemauction;
 	    	$scope.itemstartingbid = $scope.values[0].itemstartingbid;
 	    	$scope.category = $scope.values[0].category;
+	    	$scope.numberbids = $scope.values[0].numberbids;
+	    	$scope.currentbid = $scope.values[0].currentbid;
+	    	$scope.predictedbid = Number($scope.currentbid) + 1;
+	    	
+	    	
+	    	
 	    	
 	    	
 	    	$scope.average = ($scope.itemsold / ($scope.itemsold + $scope.itemavailable)) * 100; 
@@ -531,9 +560,52 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	
 	$scope.shippingClicked = function(){
 		$scope.showshipping = true;
-	}
+	};
 	$scope.detailClicked = function(){
 		$scope.showshipping = false;
+	};
+	
+	$scope.bidItem = function(){
+		if($scope.username != "" && typeof $scope.username !== "undefined"){
+		if($scope.bidplaced < $scope.predictedbid){
+			$scope.bidAmountLess = true;
+		}
+		else{
+			$scope.bidAmountLess = false;
+		var bidData = {"itemid":$scope.id,
+				"numberbids":$scope.numberbids,
+				"itemname":$scope.itemname,
+				"bidamount":$scope.bidplaced,
+				"seller":$scope.itemowner				
+		}
+		
+		$http({
+			  method: 'POST',
+			  url: '/bid',
+			  data : bidData			  			  
+			}).then(function successCallback(response) {
+				//addToCartSuccess = true;
+				console.log("added successfully");
+				$scope.currentbid = response.data.bidamount;
+				$scope.numberbids = response.data.numberbids;
+				$scope.predictedbid = Number($scope.currentbid) + 1; 
+				$mdDialog.show(
+					      $mdDialog.alert()
+					        .parent(angular.element(document.querySelector('#popupContainer')))
+					        .clickOutsideToClose(true)
+					        .title('Successfully placed the bid!')
+					        .textContent('Why dont you check other items.')
+					        .ariaLabel('Alert Dialog Demo')
+					        .ok('Cool!')
+					        );
+				
+			}, function errorCallback(response) {
+				  addToCartSuccess = false;
+				  
+			  });
+		
+	}
+	}
 	}
 	
 }]);
@@ -1011,10 +1083,10 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 	
 			$scope.error = true;		
 		}
-		else if($scope.auction &&  $scope.startingbid== ""){
+		/*else if($scope.auction &&  $scope.startingbid== ""){
 		
 			$scope.error = true;		
-		}
+		}*/
 		else if($scope.status == ""){
 	
 			$scope.error = true;		
@@ -1034,7 +1106,7 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 				"feature4":$scope.feature4,
 				"feature5":$scope.feature5,
 				"auction":$scope.auction,
-				"startingbid":$scope.startingbid,
+				"startingbid":$scope.price,
 				"status":$scope.status
 		}
 		

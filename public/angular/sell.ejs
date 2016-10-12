@@ -59,6 +59,13 @@
   </div>
 <p ng-show='category ==""' style="color:red"> Please select a category for your item</p>	
 	
+	
+   <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="auction"> Auction
+    </label>
+  </div>
+	
   <div class="form-group " >
     <label for="itemname">Item name</label>
     <input type="text" class="form-control" id="itemname" placeholder="Item name" ng-model="itemname">
@@ -141,7 +148,7 @@
   </div>
   
   
-   <div class="checkbox">
+<!--    <div class="checkbox">
     <label>
       <input type="checkbox" ng-model="auction"> Auction
     </label>
@@ -155,7 +162,7 @@
   </div>
   
   <p ng-show='auction == true && startingbid ==""' style="color:red"> Please provide the starting bid for the auction</p>
-  
+ -->  
 <br>
 <br>
 <br>

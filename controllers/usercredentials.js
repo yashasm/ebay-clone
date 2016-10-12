@@ -6,6 +6,7 @@
 //var mysqlconnpool = require('../routes/mysqlconn').pool;
 var bcrypt = require('bcryptjs');
 var mysqlconn = require('../routes/mysql');//connection pool test
+var logFile = require('../routes/log');
 /*
 module.exports.storeItem = function(req,res){
 	console.log("I am gonna store the item");
@@ -292,10 +293,10 @@ module.exports.registerUser = function(req,res){
 module.exports.storeItem = function(req,res){
 	console.log("I am gonna store the item");
 	console.log(req.body);
-	
+	logFile.logToFile(req,res,'Action: Store the item to sell!'+req.body.itemname);
 	var sql = "INSERT into itemdata SET ?";
 	var today = new Date();
-	params = [{"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1}];
+	params = [{"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid}];
 	
 	//mysqlconnpool.getConnection(function (err, connection) {
 	mysqlconn.fetchData(function(err, results) {
@@ -326,6 +327,7 @@ module.exports.storeItem = function(req,res){
 
 module.exports.registerUser = function(req,res){
 	console.log("I am gonna register user");
+	logFile.logToFile(req,res,'Action: Register new user'+req.body.firstname);
 	console.log(req.body);
 		
 	var salt = bcrypt.genSaltSync(10);
@@ -367,7 +369,7 @@ module.exports.registerUser = function(req,res){
 
 module.exports.getAccountDetails = function(req,res){
 	console.log("here to get details");
-	
+	logFile.logToFile(req,res,'Action: Get account details of user :'+req.session.email);
 	var sql = "SELECT firstname,lastname,phone,handle,birthday,address,cardnumber,expiry,cvv FROM userdata where email = ?";	
 	params =[req.session.email];
 	//var json_responses = {"firstname":"yashas"}; 
@@ -422,7 +424,7 @@ module.exports.getAccountDetails = function(req,res){
 
 module.exports.signinvalidate = function(req,res){
 	console.log("i am gonna validate signin");
-	
+	logFile.logToFile(req,res,'Action: Validate signin for user :'+req.body.email);
 	var test ="";
 	 //req.body.password
 	 var sql = "SELECT firstname,lastloggedin,password FROM userdata where email =?";
@@ -508,7 +510,7 @@ module.exports.signinvalidate = function(req,res){
 
 module.exports.setAccountDetails = function(req,res){
 	console.log("I am going to edit account details");
-	
+	logFile.logToFile(req,res,'Action: update account details for user :'+req.body.firstname);
 	console.log(req.body.birthday);
 	console.log(req.body.birthday.length);
 	console.log(req.body.expiry);

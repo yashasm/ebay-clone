@@ -27,13 +27,15 @@
 							<div class="col-md-5">
 								<div class="itemtitle">{{item.itemname}}</div>
 								<br>
-								<div class="itemprice">${{item.itemprice}}</div>
+								<div class="itemprice" ng-show="item.itemauction == 0">${{item.itemprice}}</div>
+								<div class="itemprice" ng-show="item.itemauction == 1">${{item.currentbid}}</div>
 								<br>
 								<div class="shipping">Free shipping</div>
 								<br>
-								<div class="available">{{item.itemavailable}} Available</div>
+								<div class="available" ng-show="item.itemauction == 0">{{item.itemavailable}} Available</div>
+								<div class="available" ng-show="item.itemauction == 1">{{item.numberbids}} Bids</div>
 								<br>
-								<div class="sold">{{item.itemsold}} Sold</div>
+								<div class="sold" ng-show="item.itemauction == 0">{{item.itemsold}} Sold</div>
 							</div>
 							
 							</div>

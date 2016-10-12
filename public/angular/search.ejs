@@ -59,9 +59,11 @@
 <br>
 <div class="shipping">Free shipping</div>
 <br>
-<div class="available">{{item.itemavailable}} Available</div>
+<div class="" ng-show="item.itemauction == 1">{{item.numberbids}} bids </div>
 <br>
-<div class="sold">{{item.itemsold}} Sold</div>
+<div class="available" ng-show="item.itemauction == 0">{{item.itemavailable}} Available</div>
+<br>
+<div class="sold" ng-show="item.itemauction == 0">{{item.itemsold}} Sold</div>
 </div>
 
 </div>

@@ -22,7 +22,7 @@
 				
 				<br>
 				
-				<form class="form-inline">
+				<form class="form-inline" ng-show="itemauction == 0">
 				  <div class="form-group" >
 				    <label class="quantitydesc" for="text">Quantity:</label>
 				    <input type="text" class="form-control" style="width:45px" id="text" ng-model="quantityselected" ng-blur="validateQuantity()">
@@ -42,7 +42,7 @@
 				  <!--grey card details starts -->
 				  <div class="itemdescriptioncard">
 				  
-				  	<div class="row">
+				  	<div class="row" ng-show="itemauction == 0">
 				  		<div class="col-md-6">
 							<p>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Price: <span class="bolddescription">US ${{itemprice}}</span></p>
 						</div>
@@ -54,6 +54,34 @@
 							<br>
 							
 							<a ng-href="{{addlink}}"><button type="button" class="btn btn-primary btn-cart" style="font-weight:900" ng-click="addToCart(id)">Add to cart</button></a>
+						</div>  		
+				  	</div>
+				  
+				  <div class="row" ng-show="itemauction == 1">
+				  		<div class="row">
+					  		<div class="col-md-6">
+								<p>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Current bid: <span class="bolddescription">US ${{currentbid}}</span></p>
+							</div>
+							<div class="col-md-6">
+								<p>[ {{numberbids}} bids  ]</p>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+						<div class='col-md-1'></div>
+						<div class="col-md-5">		
+							<input type="number" class="form-control" placeholder="Place your bid" ng-model="bidplaced">
+							<br>
+							<p> Enter US $ {{predictedbid}} or more</p>
+							<p ng-show="bidAmountLess" style="color:red">Entered amount is too less!</p>
+						</div>
+						<div class="col-md-6">
+						 <a ng-href="{{bidlink}}">
+						 		
+							<button type="button" class="btn btn-primary" style="font-weight:900" ng-click="bidItem(id)">Place bid</button>
+							 </a>
+							
+						</div>
 						</div>  		
 				  	</div>
 				  
