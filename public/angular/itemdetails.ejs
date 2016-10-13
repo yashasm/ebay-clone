@@ -49,11 +49,11 @@
 						
 						<div class="col-md-6">
 			
-							<a ng-href="{{cartlink}}"><button type="button" class="btn btn-primary" style="font-weight:900" ng-click="addToCart(id)">Buy it now</button></a>
+							<a ng-href="{{cartlink}}"><button type="button" class="btn btn-primary" style="font-weight:900" ng-click="addToCart(id,'buy')">Buy it now</button></a>
 							<br>
 							<br>
 							
-							<a ng-href="{{addlink}}"><button type="button" class="btn btn-primary btn-cart" style="font-weight:900" ng-click="addToCart(id)">Add to cart</button></a>
+							<a ng-href="{{addlink}}"><button type="button" class="btn btn-primary btn-cart" style="font-weight:900" ng-click="addToCart(id,'cart')">Add to cart</button></a>
 						</div>  		
 				  	</div>
 				  
@@ -65,6 +65,13 @@
 							<div class="col-md-6">
 								<p>[ {{numberbids}} bids  ]</p>
 							</div>
+						</div>
+						<br>
+						<div class="row">
+						<div class='col-md-1'></div>
+						<div class="col-md-11" style="color:green">
+							Bidding ends on : {{bidenddate}}
+						</div>
 						</div>
 						<br>
 						<div class="row">

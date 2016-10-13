@@ -87,19 +87,41 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 		    	$scope.history = details.condition;
 			});
 			
+			$scope.bids = [];
+			$http({
+				method : "GET",
+				url : '/search-bidinghistory'
+				
+			}).success(function(details) {
+				//console.log("account---"+details.condition[0].itemid);
+		    	$scope.bids = details.condition;
+			});
 		});
 	
 
 
 	
-	$scope.showshipping = false;
+	$scope.showshipping = true;
 	
-	$scope.shippingClicked = function(){
+	$scope.collectionClicked = function(){
+		//alert('collection');
+		$scope.showhist = false;
 		$scope.showshipping = true;
-	}
-	$scope.detailClicked = function(){
+		$scope.showbid = false;
+	};
+	$scope.historyClicked = function(){
+		//alert('hist');
+		$scope.showhist = true;
 		$scope.showshipping = false;
-	}
+		$scope.showbid = false;
+	};
+	
+	$scope.bidsClicked = function(){
+		//alert('bids');
+		$scope.showhist = false;
+		$scope.showshipping = false;
+		$scope.showbid = true;
+	};
 	
 	
 	/*$scope.itemClicked = function(val){
@@ -113,11 +135,19 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 		console.log("testing colelction"+ newValue);
 		if(newValue == "collection"){
 			console.log("inside if");
+			$scope.showhist = false;
+			$scope.showshipping = true;
+			$scope.showbid = false;
+		}
+		else if(newValue == "bid"){
+			$scope.showhist = false;
 			$scope.showshipping = false;
+			$scope.showbid = true;
 		}
 		else{
-			console.log("inside else");
-			$scope.showshipping = true;
+			$scope.showhist = true;
+			$scope.showshipping = false;
+			$scope.showbid = false;
 		}
 		
 	});
@@ -414,7 +444,7 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 		
 	};
 	
-	$scope.addToCart = function(id){
+	$scope.addToCart = function(id,action){
 		if($scope.username != "" && typeof $scope.username !== "undefined"){
 			console.log("gonna add to cart"+id);
 			var cartData = {"itemid":$scope.id,
@@ -445,6 +475,7 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 						        .ok('Got it!')
 						        )
 						        */
+					if(action == 'cart'){
 					var confirm = $mdDialog.confirm()
 	                  .title('Successfully added to the cart!')
 	                  .textContent("Why don't you check other items.")
@@ -459,7 +490,7 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	                    	 console.log("it worked");
 	                  });        
 						        
-					
+					}
 					/*if(response.data.condition == "success"){
 						addToCartSuccess = true;
 					}
@@ -543,7 +574,7 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	    	$scope.numberbids = $scope.values[0].numberbids;
 	    	$scope.currentbid = $scope.values[0].currentbid;
 	    	$scope.predictedbid = Number($scope.currentbid) + 1;
-	    	
+	    	$scope.bidenddate = $scope.values[0].bidenddate;
 	    	
 	    	
 	    	
@@ -761,7 +792,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	}
 	else{
 		$scope.historylink = '#/myCollection';
-		$scope.bidslink = '';
+		$scope.bidslink = '#/myCollection';
 		$scope.selllink = '#/sell';
 		$scope.cartlink = '#/cart';
 	}
@@ -789,6 +820,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	
 	    if($scope.username == "" ){
 	    	$scope.historylink = 'http://localhost:3000/signin';
+	    	$scope.bidslink = 'http://localhost:3000/signin';
 			$scope.showHeader = true;
 			$scope.selllink = 'http://localhost:3000/signin';
 			$scope.cartlink = 'http://localhost:3000/signin';
@@ -797,6 +829,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    	
 			$scope.showHeader = true;
 			$scope.historylink = 'http://localhost:3000/signin';
+			$scope.bidslink = 'http://localhost:3000/signin';
 			$scope.selllink = 'http://localhost:3000/signin';
 			$scope.cartlink = 'http://localhost:3000/signin';
 	    }	    
@@ -805,6 +838,7 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 	    	$scope.showHeader = false;
 	    	$scope.cartlink = '#/cart';
 	    	$scope.historylink = '#/myCollection';
+	    	$scope.bidslink = '#/myCollection';
 	    }
 	});
 	
@@ -828,6 +862,9 @@ ebayApp.controller('headercontroller',['$scope','userservice','$http',function($
 		userservice.collection = "purchase";
 	};
 	
+	$scope.bidsClicked = function(req,res){
+		userservice.collection = "bid";
+	};
 }]);
 
 

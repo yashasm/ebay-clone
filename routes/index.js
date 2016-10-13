@@ -62,6 +62,8 @@ router.post('/account-details',controller.setAccountDetails);
 
 router.get('/search-mycollection', searchController.getMyCollectionData);
 router.get('/search-getmypurchasehistory', searchController.getMyPurchaseHistory);
+router.get('/search-bidinghistory', searchController.getMyBidingHistory);
+
 
 
 router.get('/search-details', searchController.searchData);

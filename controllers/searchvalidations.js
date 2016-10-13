@@ -1001,7 +1001,7 @@ module.exports.searchItem = function(req,res){
 		            	tempData.itemavailable = ans1[item].itemavailable;
 		            	tempData.itemsold = ans1[item].itemsold;*/
 		            	//console.log("hiiii"+tempData.itemname);
-		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemdesc":ans1[item].itemdesc,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemowner":ans1[item].itemowner,"itemshippingfrom":ans1[item].itemshippingfrom,"itemcondition":ans1[item].itemcondition,"itemupdated":ans1[item].itemupdated,"itemfeature1":ans1[item].itemfeature1,"itemfeature2":ans1[item].itemfeature2,"itemfeature3":ans1[item].itemfeature3,"itemfeature4":ans1[item].itemfeature4,"itemfeature5":ans1[item].itemfeature5,"itemauction":ans1[item].itemauction,"itemstartingbid":ans1[item].itemstartingbid,"category":ans1[item].category,"numberbids":ans1[item].numberbids,"currentbid":ans1[item].currentbid});
+		            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemdesc":ans1[item].itemdesc,"itemprice":ans1[item].itemprice,"itemavailable":ans1[item].itemavailable,"itemsold":ans1[item].itemsold,"itemowner":ans1[item].itemowner,"itemshippingfrom":ans1[item].itemshippingfrom,"itemcondition":ans1[item].itemcondition,"itemupdated":ans1[item].itemupdated,"itemfeature1":ans1[item].itemfeature1,"itemfeature2":ans1[item].itemfeature2,"itemfeature3":ans1[item].itemfeature3,"itemfeature4":ans1[item].itemfeature4,"itemfeature5":ans1[item].itemfeature5,"itemauction":ans1[item].itemauction,"itemstartingbid":ans1[item].itemstartingbid,"category":ans1[item].category,"numberbids":ans1[item].numberbids,"currentbid":ans1[item].currentbid,"bidenddate":ans1[item].bidenddate});
 		            	
 		            }
 		            console.log("Checking after out"+JSON.stringify(result));
@@ -1114,6 +1114,68 @@ module.exports.getMyCollectionData = function(req,res){
 	}
 
 
+module.exports.getMyBidingHistory = function(req,res){
+	
+	console.log("here to get collection details");
+	logFile.logToFile(req,res,'Action: Get my Bidding history');	
+		//var searchvar = "";
+		
+	
+		var sql = "SELECT * FROM bid_details where customerid = '"+req.session.email+"'";
+		//params =[req.session.email];
+		//itemowner = ? and
+		
+		console.log(sql);
+		
+		result = {};
+		   //mysqlconnpool.getConnection(function(err, connection) {
+		mysqlconn.fetchData(function(err, results) {
+		        if(err) {
+		        	console.log(err);
+		        	//callback(true);
+		        	return;
+		        	}
+		        // make the query
+		        //connection.query(sql, params, function(err, results) {
+		        //connection.query(sql, function(err, results) {
+		            //connection.release();
+		            
+		            
+		            console.log(typeof(results.length));
+		            if(results.length !== 0){
+			            var ans = JSON.stringify(results);
+			            var ans1 = JSON.parse(ans);			            
+			            result = {"condition":[]}
+			            var tempData = {};
+			            for(var item in ans1){
+			            				            	
+			            	
+			            	result.condition.push({"itemid":ans1[item].itemid, "itemname":ans1[item].itemname,"itemowner":ans1[item].itemowner,
+			            		"customerid":ans1[item].customerid,"bidingamount":ans1[item].bidingamount });
+			            	
+			            }
+			            console.log("Checking after out"+JSON.stringify(result));
+			            //result = {"condition":"success"};
+			            
+		            }
+		            //console.log(ans1[0].firstname);
+		            else{
+		            	console.log("Failed");
+		            	//json_responses = {"statusCode" : 401,"id":""};
+		            	result = {"condition":[]}
+		            }
+		    		
+		    		//console.log(req.body);
+		    		
+		    		 res
+		    		.status(200)
+		    		.send(result);
+		            
+		        //});
+		    },sql,"");
+	
+};
+
 
 module.exports.getMyPurchaseHistory = function(req,res){
 	console.log("here to get collection details");
@@ -1186,6 +1248,9 @@ module.exports.getMyPurchaseHistory = function(req,res){
 		    },sql,"");		  	  
 	}
 
+/*function settleBid(op){
+	console.log("Lets settle this :"+op);
+}*/
 
 module.exports.saveBid = function(req,res){
 	logFile.logToFile(req,res,'Action: Biding for the item');
@@ -1204,9 +1269,15 @@ module.exports.saveBid = function(req,res){
 		console.log("Query is >>>>>"+insertSql);
 		console.log('Got result from DB----------');
 		result = {"condition":"success","bidamount":req.body.bidamount,"numberbids":Number(req.body.numberbids) + 1};
+		
+/*		setTimeout(function() {
+		    settleBid(req.body.itemid);
+		}, 4000);
+*/
 
 		res
 		.status(200)
 		.json(result);
 	},insertSql,"");
 }
+

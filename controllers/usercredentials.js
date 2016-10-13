@@ -296,7 +296,17 @@ module.exports.storeItem = function(req,res){
 	logFile.logToFile(req,res,'Action: Store the item to sell!'+req.body.itemname);
 	var sql = "INSERT into itemdata SET ?";
 	var today = new Date();
-	params = [{"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid}];
+	try{
+	var bidend = new Date(today);
+	bidend.setDate(bidend.getDate() + 4);
+	}
+	catch(err){
+		console.log(err);
+	}
+	console.log("Before insertin the item");
+	
+	
+	params = [{"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid,"bidenddate":bidend}];
 	
 	//mysqlconnpool.getConnection(function (err, connection) {
 	mysqlconn.fetchData(function(err, results) {
@@ -320,10 +330,78 @@ module.exports.storeItem = function(req,res){
 		
 	},sql,params);
 
+	var createTimer = 'select max(itemid) numb from itemdata';
+	mysqlconn.fetchData(function(err, results) {
+		if (err) {
+			console.log('MySql connection error: ' + err);
+			//callback(err, true);
+			//result = {"condition":"fail"};
+			return;
+		}
+		
+		 var ans = JSON.stringify(results);
+         var ans1 = JSON.parse(ans);
+         //console.log(ans1);
+         
+         
+		
+     	setTimeout(function() {
+		    settleBid(ans1[0].numb);
+		}, 600000);
+		
+		
+		console.log('Got result from DB');
+		
+		
+		console.log('Going to release DB connection to the Pool');
+	},createTimer,"");
 	
 }
 
 
+function settleBid(itemid){
+	console.log("Settling the bid for"+itemid);
+	
+	var getSql = "select * from bid_details where itemid = '"+itemid+"' and bidingamount = (select max(bidingamount) from bid_details where itemid ='"+ itemid+ "' )";
+	
+	mysqlconn.fetchData(function(err, results) {
+		if (err) {
+			console.log('MySql connection error: ' + err);					
+			return;
+		}
+		//console.log("Query is >>>>>"+sql);
+		
+		//if(results.length !== 0){
+            var ans = JSON.stringify(results);
+            var ans1 = JSON.parse(ans);                      
+             //= ans1[0].itemid;
+             //= ans1[0].lastname;
+            
+            
+		var today = new Date();
+		var orderid = today.getTime();
+		
+		
+		var sqlbid = "INSERT into purchase_history (orderid,itemid,itemname,quantity,itemprice,itemowner,customerid," +
+		"customerfirstname,customerlastname,purchasedate,orderprice)" +
+		" VALUES ('"+orderid+"','"+ ans1[0].itemid+"','"+ ans1[0].itemname +"','"+1+"','"+ans1[0].bidingamount+"','"+ans1[0].itemowner+"','"+ans1[0].customerid+"','"+ans1[0].customerfirstname+"','"+ans1[0].customerlastname+"','"+today+"','"+ans1[0].bidingamount+"');";
+		sqlbid += "Update itemdata set onsale = 0 where itemid ="+ ans1[0].itemid+";";
+
+		
+		console.log("bid sql is:"+sqlbid);
+		
+		mysqlconn.fetchData(function(err, results) {
+			if (err) {
+				console.log('MySql connection error: ' + err);					
+				return;
+			}
+		},sqlbid,"");
+			
+	},getSql,"");
+	
+	
+	
+}
 
 module.exports.registerUser = function(req,res){
 	console.log("I am gonna register user");
