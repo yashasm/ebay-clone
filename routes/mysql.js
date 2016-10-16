@@ -7,7 +7,7 @@ var connectionList = [];
 var requestList = [];
 
 function getConnection(callback, sqlQuery, callCallback) {
-	console.log("inside get connection");
+	console.log("Getting the connection from pool");
 	if (counter > 0) {
 		var connection = connectionList.pop();
 		counter--;
@@ -29,16 +29,8 @@ function getConnection(callback, sqlQuery, callCallback) {
 	}
 };
 
-exports.getDetails = function() {
-	/*setInterval(function(){
-		console.log("requestList"+requestList.length);
-		console.log("counter"+counter);
-		console.log("connectionList"+connectionList.length);
-	},3000);*/
-};
-
 exports.createPool = function() {
-	console.log("creating pool");
+	console.log("Create a connection pool");
 	for (i = 0; i < 100; i++) {
 		connectionList.push(mysql.createConnection({
 			host : 'localhost',
@@ -50,12 +42,12 @@ exports.createPool = function() {
 		}));
 	}
 	counter = 100;
-	console.log("pool created");
+	console.log("Connection pool is ready");
 };
 
 function fetchData(callback, sqlQuery,params) {
 
-	console.log("\nSQL Query::" + sqlQuery);
+	console.log("\n SQL --> " + sqlQuery);
 
 	var connection = getConnection(callback, sqlQuery, function(callback,
 			sqlQuery, connection) {
@@ -85,10 +77,7 @@ function fetchData(callback, sqlQuery,params) {
 		}
 		
 		console.log("\nConnection released..");
-		connectionList.push(connection);
-		console.log("requestList"+requestList.length);
-		console.log("counter"+counter);
-		console.log("connectionList"+connectionList.length);
+		connectionList.push(connection);		
 		counter++;
 	});
 

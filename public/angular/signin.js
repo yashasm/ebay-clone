@@ -34,7 +34,6 @@ ebayApp.controller('confirmationcontroller',['$scope','userservice','$http',func
 				method : "GET",
 				url : '/confirmcart-details',		
 			}).success(function(details) {
-				//console.log("account---"+details.condition[0].itemid);
 				console.log("cart get success");
 		    	$scope.loop = details.cartdetails;
 		    	
@@ -71,11 +70,10 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 				method : "GET",
 				url : '/search-mycollection'
 				
-			}).success(function(details) {
-				//console.log("account---"+details.condition[0].itemid);
+			}).success(function(details) {		
 		    	$scope.values = details.condition;
 			});
-			/////search-getmypurchasehistory
+			
 			
 			$scope.history = [];
 			$http({
@@ -83,7 +81,7 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 				url : '/search-getmypurchasehistory'
 				
 			}).success(function(details) {
-				//console.log("account---"+details.condition[0].itemid);
+				
 		    	$scope.history = details.condition;
 			});
 			
@@ -93,48 +91,34 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 				url : '/search-bidinghistory'
 				
 			}).success(function(details) {
-				//console.log("account---"+details.condition[0].itemid);
+				
 		    	$scope.bids = details.condition;
 			});
 		});
+		$scope.showshipping = true;
 	
-
-
-	
-	$scope.showshipping = true;
-	
-	$scope.collectionClicked = function(){
-		//alert('collection');
+	$scope.collectionClicked = function(){		
 		$scope.showhist = false;
 		$scope.showshipping = true;
 		$scope.showbid = false;
 	};
-	$scope.historyClicked = function(){
-		//alert('hist');
+	$scope.historyClicked = function(){		
 		$scope.showhist = true;
 		$scope.showshipping = false;
 		$scope.showbid = false;
 	};
 	
-	$scope.bidsClicked = function(){
-		//alert('bids');
+	$scope.bidsClicked = function(){		
 		$scope.showhist = false;
 		$scope.showshipping = false;
 		$scope.showbid = true;
 	};
 	
 	
-	/*$scope.itemClicked = function(val){
-		console.log("clicked"+val);
-		userservice.id = val;
-	}*/
-	
 	$scope.$watch(function(){
 	    return userservice.collection;
-	}, function (newValue) {
-		console.log("testing colelction"+ newValue);
-		if(newValue == "collection"){
-			console.log("inside if");
+	}, function (newValue) {	
+		if(newValue == "collection"){			
 			$scope.showhist = false;
 			$scope.showshipping = true;
 			$scope.showbid = false;
@@ -151,7 +135,7 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 		}
 		
 	});
-		console.log("testing collection on load "+userservice.collection);
+	
 	if(userservice.collection == "collection"){
 		$scope.showshipping = false;
 	}
@@ -163,7 +147,6 @@ ebayApp.controller('mycollection',['$scope','userservice','$http',function($scop
 
 ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',function($scope,userservice,$http,$mdDialog){
 	
-	//$scope.loop = [1,2];
 	$scope.totalprice = 0;
 	$scope.cardnumber = "";
 	$scope.expiration = "";
@@ -176,7 +159,6 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 	$scope.validateCard = function(){
 		console.log("validating card");
 		$scope.validateClicked = true;
-		//alert("test");
 		var cardValidate = {
 				"cardnumber": $scope.cardnumber,
 				"expiration":$scope.expiration,
@@ -189,8 +171,7 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 			  data: cardValidate
 			  			  			  
 			}).then(function successCallback(response) {
-					        console.log("successfully removed");
-					        console.log("condition"+response.data.condition);
+					        
 					        $scope.showError = false;
 					        if(response.data.condition != "success"){
 					        	$scope.showError = true;
@@ -200,32 +181,18 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 					        	console.log("failure card")
 					        	$scope.allowPayment = true;
 					        }
-					        
-					        //window.location.assign("/#/confirmation");        
-				/*if(response.data.condition == "success"){
-					addToCartSuccess = true;
-				}
-				else{
-					addToCartSuccess = false;
-				}*/
-				//console.log("test"+response.data.length);
-			    
-				
+					        				
 			  }, function errorCallback(response) {
 				  
-				  
 			  });
-		
-		
 		
 	};
 	
 	
 	$scope.pay = function(req,res){
-		console.log("pay and confirm");
-		console.log($scope.allowPayment);
+		
 		if($scope.allowPayment){
-			console.log("inside iffff");
+		
 		var cartData = {
 				"cardnumber": $scope.cardnumber,
 				"firstname": $scope.firstname,
@@ -233,10 +200,7 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 				"address":$scope.address,
 				"totalprice":$scope.totalprice
 		};
-		
 	
-		
-    	
 		$http({
 			  method: 'POST',
 			  url: '/pay',
@@ -245,22 +209,12 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 			}).then(function successCallback(response) {
 					        console.log("successfully removed");
 					        window.location.assign("/#/confirmation");        
-				/*if(response.data.condition == "success"){
-					addToCartSuccess = true;
-				}
-				else{
-					addToCartSuccess = false;
-				}*/
-				//console.log("test"+response.data.length);
-			    
 				
 			  }, function errorCallback(response) {
 				  
 				  
 			  });
-
-		
-		
+	
 	}
 	else{
 		
@@ -279,7 +233,6 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 	}
 	
 	$scope.deleteItem = function(val){
-		console.log("delete with itemid"+val);
 		
 		var cartData = {"itemid":val};
 		$http({
@@ -289,25 +242,19 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 			}).then(function successCallback(response) {
 					        console.log("successfully removed");
 					        
-				/*if(response.data.condition == "success"){
-					addToCartSuccess = true;
-				}
-				else{
-					addToCartSuccess = false;
-				}*/
-				//console.log("test"+response.data.length);
+				
 			    $scope.loop= [];	        
 				$scope.loop = response.data;
 				userservice.cartcount = response.data.length;
 		    	$scope.itemcount = userservice.cartcount;
 				var numb = 0;
 				for(val in $scope.loop){
-		    		console.log("inside loop"+$scope.loop[val].itemprice);
+		    	
 		    		numb = numb + Number($scope.loop[val].itemprice) * $scope.loop[val].quantity;    		    		
 		    	}
 				
 				$scope.totalprice = numb.toFixed(2);
-		        console.log("successfully removed2");
+		        
 				
 			  }, function errorCallback(response) {
 				  
@@ -321,8 +268,8 @@ ebayApp.controller('cartcontroller',['$scope','userservice','$http','$mdDialog',
 		method : "GET",
 		url : '/getcart-details',		
 	}).success(function(details) {
-		//console.log("account---"+details.condition[0].itemid);
-		console.log("cart get success");
+		
+		
     	$scope.loop = details.cartdetails;
     	
     	for(val in $scope.loop){
@@ -379,19 +326,7 @@ ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,
 		}).success(function(details) {
 			console.log("account---"+details.condition[0].itemid);
 	    	$scope.values = details.condition;
-		});
-		/*
-		$scope.values = [];
-		$http({
-			method : "GET",
-			url : 'http://localhost:3000/#/basicsearch?searchstring=samsung'
-			
-		}).success(function(details) {
-			//console.log("account---"+details.condition[0].itemid);
-	    	$scope.values = details.condition;
-		});*/			
-
-		
+		});		
 		
 	});		
 }]);
@@ -464,17 +399,6 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 					console.log("added successfully");
 					userservice.cartcount = response.data.cartcount; 
 					
-					/*
-					$mdDialog.show(
-						      $mdDialog.alert()
-						        .parent(angular.element(document.querySelector('#popupContainer')))
-						        .clickOutsideToClose(true)
-						        .title('Successfully added to the cart')
-						        .textContent('Why dont you check other items.')
-						        .ariaLabel('Alert Dialog Demo')
-						        .ok('Got it!')
-						        )
-						        */
 					if(action == 'cart'){
 					var confirm = $mdDialog.confirm()
 	                  .title('Successfully added to the cart!')
@@ -491,14 +415,6 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	                  });        
 						        
 					}
-					/*if(response.data.condition == "success"){
-						addToCartSuccess = true;
-					}
-					else{
-						addToCartSuccess = false;
-					}*/
-					
-					
 					
 				  }, function errorCallback(response) {
 					  addToCartSuccess = false;
@@ -576,13 +492,8 @@ ebayApp.controller('itemdetailscontroller',['$scope','userservice','$http','$mdD
 	    	$scope.predictedbid = Number($scope.currentbid) + 1;
 	    	$scope.bidenddate = $scope.values[0].bidenddate;
 	    	
-	    	
-	    	
-	    	
 	    	$scope.average = ($scope.itemsold / ($scope.itemsold + $scope.itemavailable)) * 100; 
 	    	
-	    	console.log("item---"+$scope.values[0].itemname);
-	    	console.log("item---"+$scope.values[0].category);
 		});
 		
 		
@@ -753,12 +664,6 @@ ebayApp.controller('accountcontroller',['$scope','userservice','$http',function(
 			    // this callback will be called asynchronously
 			    // when the response is available
 				
-				/*if(response.data.condition == "success"){
-					$scope.registeredsuccess = true;
-				}
-				else{
-					$scope.registeredsuccess = false;
-				}*/
 				console.log("inside success");
 				$scope.successreg = true;
 				
@@ -1124,10 +1029,7 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 	
 			$scope.error = true;		
 		}
-		/*else if($scope.auction &&  $scope.startingbid== ""){
 		
-			$scope.error = true;		
-		}*/
 		else if($scope.status == ""){
 	
 			$scope.error = true;		
