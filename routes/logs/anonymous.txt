@@ -1,0 +1,42 @@
+Sat Oct 15 2016 18:28:20 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Loaded home page
+Sat Oct 15 2016 18:28:21 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:28:24 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 18:28:25 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:28:34 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :naruto@gmail.com
+Sat Oct 15 2016 18:42:21 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Loaded home page
+Sat Oct 15 2016 18:42:22 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:42:23 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 18:42:24 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:42:32 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :undefined
+Sat Oct 15 2016 18:42:37 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :undefined
+Sat Oct 15 2016 18:44:31 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 18:44:33 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:44:37 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :undefined
+Sat Oct 15 2016 18:44:47 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :undefined
+Sat Oct 15 2016 18:45:19 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 18:45:20 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:45:30 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :naruto@gmail.com
+Sat Oct 15 2016 18:45:33 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Loaded home page
+Sat Oct 15 2016 18:45:33 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:45:35 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 18:45:36 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 18:45:45 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :naruto@gmail.com
+Sat Oct 15 2016 18:46:27 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Loading register page
+Sat Oct 15 2016 20:13:43 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 20:13:44 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 20:13:54 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :naruto@gmail.com
+Sat Oct 15 2016 20:14:09 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Loaded home page
+Sat Oct 15 2016 20:14:10 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 20:14:13 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Loaded home page
+Sat Oct 15 2016 20:14:13 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 20:14:22 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:14:23 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Get the item with item id :1
+Sat Oct 15 2016 20:15:59 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:16:12 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 20:16:13 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 20:16:22 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :naruto@gmail.com
+Sat Oct 15 2016 20:58:24 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Loaded home page
+Sat Oct 15 2016 20:58:25 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 20:58:27 GMT-0700 (Pacific Daylight Time) || anonymous || Action: signin
+Sat Oct 15 2016 20:58:27 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Retrieving data from session
+Sat Oct 15 2016 20:58:37 GMT-0700 (Pacific Daylight Time) || anonymous || Action: Validate signin for user :emma@gmail.com

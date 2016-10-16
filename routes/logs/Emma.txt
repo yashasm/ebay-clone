@@ -1,0 +1,8 @@
+Sat Oct 15 2016 20:58:37 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sat Oct 15 2016 20:58:37 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sat Oct 15 2016 20:58:43 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:58:45 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :list-bid
+Sat Oct 15 2016 20:58:46 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get the item with item id :5
+Sat Oct 15 2016 20:58:51 GMT-0700 (Pacific Daylight Time) || Emma || Action: Biding for the item
+Sat Oct 15 2016 20:58:55 GMT-0700 (Pacific Daylight Time) || Emma || Action: Biding for the item
+Sat Oct 15 2016 20:58:58 GMT-0700 (Pacific Daylight Time) || Emma || Action: Biding for the item

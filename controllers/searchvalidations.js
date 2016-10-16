@@ -731,6 +731,16 @@ module.exports.searchData = function(req,res){
 		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && itemowner != '"+req.session.email +"' && (itemname like '%"+searchvar+"%' or category like '%"+searchvar+"%')";
 	 }
 	 
+	 if(req.query.searchstring === "list-all"){
+		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && itemowner != '"+req.session.email +"';";
+	}
+	 else if(req.query.searchstring === "list-bid"){
+		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && itemauction = '1' && itemowner != '"+req.session.email +"';";
+	 }
+	 else if(req.query.searchstring === "list-nobid"){
+		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && itemauction = '0' && itemowner != '"+req.session.email +"';";
+	 }
+	 
 		
 	//params =[req.session.email];
 	//itemowner = ? and
@@ -1254,7 +1264,14 @@ module.exports.getMyPurchaseHistory = function(req,res){
 
 module.exports.saveBid = function(req,res){
 	logFile.logToFile(req,res,'Action: Biding for the item');
-	
+	console.log('+++++++++++++++++++++++++++++');
+	try{
+	logFile.bidLogToFile(req,res,req.body.itemid,req.body.bidamount,'Placing a new bid for item:');
+	}
+	catch(err){
+		console.log(err)
+	}
+	console.log('+++++++++++++++++++++++++++++');
 	var updateSql = "Update itemdata set numberbids = numberbids + 1, currentbid = "+ req.body.bidamount +" where itemid ="+req.body.itemid+";"
 	var insertSql = updateSql+"INSERT into bid_details (itemid,itemname,itemowner,customerid,bidingamount) values ("+req.body.itemid+",'"+req.body.itemname+"','"+req.body.seller+"','"+req.session.email+"','"+req.body.bidamount+"');"; 
 				

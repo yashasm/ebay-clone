@@ -389,7 +389,7 @@ function settleBid(itemid){
 
 		
 		console.log("bid sql is:"+sqlbid);
-		
+		logFile.bidLogToFile(req,res,ans1[0].itemid,ans1[0].bidingamount,'Settling the bid after the time');	
 		mysqlconn.fetchData(function(err, results) {
 			if (err) {
 				console.log('MySql connection error: ' + err);					
@@ -505,15 +505,21 @@ module.exports.signinvalidate = function(req,res){
 	logFile.logToFile(req,res,'Action: Validate signin for user :'+req.body.email);
 	var test ="";
 	 //req.body.password
-	 var sql = "SELECT firstname,lastloggedin,password FROM userdata where email =?";
+	 var sql = "SELECT firstname,lastloggedin,password FROM userdata where email = ?";
 	    // get a connection from the pool
 	    var arr =[req.body.email];
 	    //mysqlconnpool.getConnection(function(err, connection) {
 	    mysqlconn.fetchData(function(err, results) {
+	    	
 	        if(err) {
 	        	console.log(err);
 	        	//callback(true);
-	        	return;
+	        	console.log("Failed");
+            	json_responses = {"statusCode" : 401,"id":"","time":""};
+
+        		res
+        		.status(200)
+        		.json(result);
 	        	}
 	        // make the query
 	        //connection.query(sql, arr, function(err, results) {

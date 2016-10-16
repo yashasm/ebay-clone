@@ -39,9 +39,9 @@
 </div>
 <div class="col-md-9 formdata">
 <div class="btn-group btn-group-sm" role="group" aria-label="...">
-  <button type="button" class="btn btn-default">All listing</button>
-  <button type="button" class="btn btn-default">Auction</button>
-  <button type="button" class="btn btn-default">But it now</button>
+  <a ng-click="searchClicked('list-all')"><button type="button" class="btn btn-default">All listing</button></a>
+  <a ng-click="searchClicked('list-bid')"><button type="button" class="btn btn-default">Auction</button></a>
+  <a ng-click="searchClicked('list-nobid')"><button type="button" class="btn btn-default">Buy it now</button></a>
 </div>
 <br>
 <br>

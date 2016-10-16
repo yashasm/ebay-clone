@@ -1083,6 +1083,10 @@ ebayApp.controller('sellcontroller',['$scope','userservice','$http',function($sc
 		userservice.collection = "purchase";
 	}
 	
+	$scope.callBid = function(){
+		userservice.collection = "bid";
+	}
+	
 	$scope.storeItem = function(){
 		if($scope.category == ""){
 		

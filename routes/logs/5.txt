@@ -1,0 +1,7 @@
+Sat Oct 15 2016 18:28:46 GMT-0700 (Pacific Daylight Time) || Naruto || Placing a new bid for item:5|| and amount is ||41
+Sat Oct 15 2016 18:28:50 GMT-0700 (Pacific Daylight Time) || Naruto || Placing a new bid for item:5|| and amount is ||42
+Sat Oct 15 2016 20:57:59 GMT-0700 (Pacific Daylight Time) || Naruto || Placing a new bid for item:5|| and amount is ||43
+Sat Oct 15 2016 20:58:07 GMT-0700 (Pacific Daylight Time) || Naruto || Placing a new bid for item:5|| and amount is ||50
+Sat Oct 15 2016 20:58:51 GMT-0700 (Pacific Daylight Time) || Emma || Placing a new bid for item:5|| and amount is ||52
+Sat Oct 15 2016 20:58:55 GMT-0700 (Pacific Daylight Time) || Emma || Placing a new bid for item:5|| and amount is ||53
+Sat Oct 15 2016 20:58:58 GMT-0700 (Pacific Daylight Time) || Emma || Placing a new bid for item:5|| and amount is ||55

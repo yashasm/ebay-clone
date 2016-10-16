@@ -1,0 +1,70 @@
+Sat Oct 15 2016 18:28:34 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 18:28:34 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 18:28:36 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 18:28:39 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :1
+Sat Oct 15 2016 18:28:40 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 18:28:41 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :list-bid
+Sat Oct 15 2016 18:28:42 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :5
+Sat Oct 15 2016 18:28:46 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Biding for the item
+Sat Oct 15 2016 18:28:50 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Biding for the item
+Sat Oct 15 2016 18:42:21 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Logging out!! Bye
+Sat Oct 15 2016 18:45:30 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 18:45:31 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 18:45:33 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Logging out!! Bye
+Sat Oct 15 2016 20:13:55 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 20:13:55 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 20:14:09 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Logging out!! Bye
+Sat Oct 15 2016 20:16:22 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 20:16:23 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 20:16:30 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:16:33 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :1
+Sat Oct 15 2016 20:25:30 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :keerthi@gmail.com
+Sat Oct 15 2016 20:27:08 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :fashion
+Sat Oct 15 2016 20:27:18 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :5
+Sat Oct 15 2016 20:29:46 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:29:48 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :list-bid
+Sat Oct 15 2016 20:29:51 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :24
+Sat Oct 15 2016 20:31:01 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:31:03 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :1
+Sat Oct 15 2016 20:31:04 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Adding this item to cart cartMoto g4
+Sat Oct 15 2016 20:31:04 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get cart details
+Sat Oct 15 2016 20:39:03 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Validate credit card before purchase
+Sat Oct 15 2016 20:39:58 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Validate credit card before purchase
+Sat Oct 15 2016 20:42:21 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:43:35 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :music and Media
+Sat Oct 15 2016 20:43:37 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :12
+Sat Oct 15 2016 20:43:50 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :music and Media
+Sat Oct 15 2016 20:43:52 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :list-bid
+Sat Oct 15 2016 20:43:57 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 20:43:58 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 20:43:58 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :12
+Sat Oct 15 2016 20:44:03 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 20:44:04 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 20:44:04 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :12
+Sat Oct 15 2016 20:44:11 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 20:44:12 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 20:44:12 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :12
+Sat Oct 15 2016 20:44:21 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Loaded home page
+Sat Oct 15 2016 20:44:22 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Retrieving data from session
+Sat Oct 15 2016 20:44:22 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :12
+Sat Oct 15 2016 20:44:25 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :6
+Sat Oct 15 2016 20:44:27 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :list-bid
+Sat Oct 15 2016 20:44:30 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :24
+Sat Oct 15 2016 20:50:14 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:52:41 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get my collection data
+Sat Oct 15 2016 20:52:42 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get my purchase history
+Sat Oct 15 2016 20:52:42 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get my Bidding history
+Sat Oct 15 2016 20:52:49 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:52:50 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :1
+Sat Oct 15 2016 20:56:43 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Adding this item to cart cartMoto g4
+Sat Oct 15 2016 20:56:43 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get cart details
+Sat Oct 15 2016 20:57:13 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :1
+Sat Oct 15 2016 20:57:32 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:57:33 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :list-bid
+Sat Oct 15 2016 20:57:54 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :5
+Sat Oct 15 2016 20:57:59 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Biding for the item
+Sat Oct 15 2016 20:58:01 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :undefined
+Sat Oct 15 2016 20:58:02 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Search the itemname :list-bid
+Sat Oct 15 2016 20:58:04 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Get the item with item id :5
+Sat Oct 15 2016 20:58:07 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Biding for the item
+Sat Oct 15 2016 20:58:24 GMT-0700 (Pacific Daylight Time) || Naruto || Action: Logging out!! Bye
