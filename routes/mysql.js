@@ -72,8 +72,7 @@ function fetchData(callback, sqlQuery,params) {
 					console.log("DB Results:" + rows);
 					callback(err, rows);
 				}
-			});
-			
+			});			
 		}
 		
 		console.log("\nConnection released..");

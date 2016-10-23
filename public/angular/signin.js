@@ -324,7 +324,7 @@ ebayApp.controller('searchpage',['$scope','userservice','$http',function($scope,
 			url : '/search-details',
 			params : formDetails
 		}).success(function(details) {
-			console.log("account---"+details.condition[0].itemid);
+			//console.log("account---"+details.condition[0].itemid);
 	    	$scope.values = details.condition;
 		});		
 		
@@ -950,6 +950,8 @@ ebayApp.controller('registercontroller',['$scope','$http',function($scope,$http)
 						$scope.errorfound = false;
 					}
 					else{
+						//alert('fail');
+						$scope.errorfound = true;
 						$scope.registeredsuccess = false;
 					}
 					

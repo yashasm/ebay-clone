@@ -8,6 +8,8 @@ var bcrypt = require('bcryptjs');
 var mysqlconn = require('../routes/mysql');//connection pool test
 var logFile = require('../routes/log');
 
+var mongoconn = require('../routes/mongodb');//mongo
+
 module.exports.storeItem = function(req,res){
 	console.log("I am gonna store the item");
 	console.log(req.body);
@@ -27,6 +29,7 @@ module.exports.storeItem = function(req,res){
 	params = [{"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid,"bidenddate":bidend}];
 	
 	//mysqlconnpool.getConnection(function (err, connection) {
+	/*
 	mysqlconn.fetchData(function(err, results) {
 		if (err) {
 			console.log('MySql connection error: ' + err);
@@ -46,7 +49,39 @@ module.exports.storeItem = function(req,res){
 		
 		
 	},sql,params);
+	*/
+	console.log("auction :",req.body.auction);
+	mongoconn.connect(function(_connection){
+		
+		var itemdata = _connection.collection('itemdata');
+		itemdata.insert({"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid,"bidenddate":bidend},function(err,docsInserted){
+			console.log(docsInserted);
 
+	     	setTimeout(function() {
+			    settleBid(docsInserted[0]._id);
+			}, 600000);
+	     	
+			if(err){
+
+				result = {"condition":"fail"};
+				res
+				.status(200)
+				.json(result);
+			}
+			
+
+			result = {"condition":"success"};
+			res
+			.status(200)
+			.json(result);
+			
+		});
+		
+
+		
+	});
+	
+/*
 	var createTimer = 'select max(itemid) numb from itemdata';
 	mysqlconn.fetchData(function(err, results) {
 		if (err) {
@@ -72,6 +107,8 @@ module.exports.storeItem = function(req,res){
 		
 		console.log('Going to release DB connection to the Pool');
 	},createTimer,"");
+	*/
+	
 	
 }
 
@@ -124,8 +161,52 @@ module.exports.registerUser = function(req,res){
 	console.log("I am gonna register user");
 	logFile.logToFile(req,res,'Action: Register new user'+req.body.firstname);
 	console.log(req.body);
+	
+	//testing mongo
+	
+	mongoconn.connect(function(_connection){
 		
-	var salt = bcrypt.genSaltSync(10);
+		//console.log("OHhhhhhhhhhhhhhhhh",_connection);
+		var userdata = _connection.collection('userdata');
+		
+		userdata
+		.find({"email":req.body.email})
+		.toArray(function(err,docs){
+			console.log("same record++++",docs);
+			
+			if(docs.length == 0){
+				
+				console.log("doc is empty!!!!!!",docs.length);
+				userdata.insert({"email":req.body.email,"password":req.body.password,"firstname":req.body.firstname,"lastname":req.body.lastname,"phone":req.body.phone});
+				
+				console.log('Got result from DB');
+				result = {"condition":"success"};
+				
+				
+				console.log('Going to release DB connection to the Pool');
+				
+				res
+				.status(200)
+				.json(result);
+				return;
+			}
+			else{
+				console.log("Doc is not empty",docs.length);
+				result = {"condition":"fail"};	
+				res
+				.status(200)
+				.json(result);
+				return;
+			}
+			
+			
+		});
+				
+	});
+
+	//testing mongo
+		
+	/*var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync(req.body.password, salt);
 	
 	console.log("encrypted pass"+hash);
@@ -157,7 +238,7 @@ module.exports.registerUser = function(req,res){
 		.json(result);
 		
 	},sql,params);
-	//testing
+*/	//testing
 	
 };
 
@@ -170,6 +251,45 @@ module.exports.getAccountDetails = function(req,res){
 	//var json_responses = {"firstname":"yashas"}; 
 
 	result = {};
+	
+	
+	//mongo changes starts
+	mongoconn.connect(function(_connection){
+		var userdata = _connection.collection('userdata');
+		console.log("Gonna fetch records",req.session.email);
+		userdata
+		.find({'email':req.session.email},{'firstname':1,'lastname':1,'phone':1,'handle':1,'birthday':1,'address':1,'cardnumber':1,'expiry':1,'cvv':1})
+		.toArray(function(err,docs){
+			console.log("what did i get",docs);
+			if(err){
+				console.log("Failed");            	
+            	result = {"condition":"fail"};
+			}
+			else{
+				
+				console.log("Got records",docs);
+				
+				result.firstname = docs[0].firstname;
+	            result.lastname = docs[0].lastname;
+	            result.ebayhandle = docs[0].handle;
+	            result.birthday = docs[0].birthday;
+	            result.address = docs[0].address;
+	            result.phone = docs[0].phone;
+	            result.cardnumber = docs[0].cardnumber;
+	            result.expiry = docs[0].expiry;
+	            result.cvv = docs[0].cvv;
+			}
+
+   		 res
+   		.status(200)
+   		.send(result);
+		});
+		
+	});
+	
+	//mongo changes ends
+	
+	/*
 	   //mysqlconnpool.getConnection(function(err, connection) {
 	mysqlconn.fetchData(function(err, results) {
 	        if(err) {
@@ -213,6 +333,8 @@ module.exports.getAccountDetails = function(req,res){
 	            
 	        //});
 	    },sql, params);
+	
+	*/
 		
 };
 
@@ -225,7 +347,57 @@ module.exports.signinvalidate = function(req,res){
 	 var sql = "SELECT firstname,lastloggedin,password FROM userdata where email = ?";
 	    // get a connection from the pool
 	    var arr =[req.body.email];
+	    
+	    mongoconn.connect(function(_connection){
+	    	//req.body.password
+	    	//req.body.email
+
+			var userdata = _connection.collection('userdata');
+			
+			userdata
+			.find({"email":req.body.email,"password":req.body.password})
+			.toArray(function(err,docs){
+				if(docs.length == 0){
+					json_responses = {"statusCode" : 401,"id":"","time":""};
+
+	        		res
+	        		.status(200)
+	        		.json(json_responses);
+				}
+				else{
+					console.log(docs);
+					console.log('------------');
+					console.log(docs[0].email);
+					
+					
+					req.session.username = docs[0].firstname;
+		            
+		            req.session.email = req.body.email;
+		            req.session.lastloggedin =docs[0].lastloggedin;
+		            json_responses = {"statusCode" : 200,"id":req.session.username,"time":req.session.lastloggedin};
+		            
+		           
+			            var date = new Date(Date.now()).toLocaleString();
+			            
+			            console.log("date is:"+date);
+			            
+			            //var updateLoginTime = "update userdata set lastloggedin = '"+date+"' where email = '"+req.body.email+"'";
+			            userdata.update({"email":req.body.email},{$set:{"lastloggedin":date}});
+
+		        		res
+		        		.status(200)
+		        		.json(json_responses);
+			            
+		         
+				}
+			});
+
+	    	
+	    	
+	    });
+	    
 	    //mysqlconnpool.getConnection(function(err, connection) {
+	    /*
 	    mysqlconn.fetchData(function(err, results) {
 	    	
 	        if(err) {
@@ -305,6 +477,7 @@ module.exports.signinvalidate = function(req,res){
 	            
 	        //});
 	    },sql, arr);
+	    */
 
 };
 
@@ -328,6 +501,7 @@ module.exports.setAccountDetails = function(req,res){
 	var result;
 	//testing 
 	//mysqlconnpool.getConnection(function (err, connection) {
+	/*
     mysqlconn.fetchData(function(err, results) {
 		if (err) {
 			console.log('MySql connection error: ' + err);
@@ -345,6 +519,29 @@ module.exports.setAccountDetails = function(req,res){
 		.json(result);
 		
 	},sql,params);
-
-	
+*/
+    
+    mongoconn.connect(function(_connection){
+    	var userdata = _connection.collection('userdata');
+    	userdata
+    	.update({"email":req.session.email},
+    			{$set:{"firstname":req.body.firstname,"lastname":req.body.lastname,"phone":req.body.phone,"handle":req.body.ebayhandle,"birthday":req.body.birthday,"address":req.body.address,"cardnumber":req.body.cardnumber,"expiry":req.body.expiry,"cvv":req.body.cvv}}
+    	,function(err,docs){
+    		if (err) {
+    			console.log('MySql connection error: ' + err);
+    			//callback(err, true);
+    			result = {"condition":"fail"};
+    			return;
+    		}
+    		console.log('Got result from DB');
+    		result = {"condition":"success"};
+    	
+    		console.log('Going to release DB connection to the Pool');
+    		
+    		res
+    		.status(200)
+    		.json(result);
+    	})
+    });
+    
 };

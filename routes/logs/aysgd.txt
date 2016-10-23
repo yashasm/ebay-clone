@@ -1,0 +1,9 @@
+Sat Oct 22 2016 23:02:25 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Loaded home page
+Sat Oct 22 2016 23:02:26 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Retrieving data from session
+Sat Oct 22 2016 23:02:26 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Get account details of user :yash@gmail.com
+Sat Oct 22 2016 23:03:51 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Store the item to sell!Samsung S7
+Sat Oct 22 2016 23:03:52 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Get my collection data
+Sat Oct 22 2016 23:03:52 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Get my purchase history
+Sat Oct 22 2016 23:03:52 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Get my Bidding history
+Sat Oct 22 2016 23:18:36 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Loaded home page
+Sat Oct 22 2016 23:18:38 GMT-0700 (Pacific Daylight Time) || aysgd || Action: Retrieving data from session

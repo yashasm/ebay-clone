@@ -111,3 +111,65 @@ Sun Oct 16 2016 03:17:41 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get
 Sun Oct 16 2016 03:17:44 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
 Sun Oct 16 2016 03:17:45 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
 Sun Oct 16 2016 03:17:45 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get cart details
+Sun Oct 23 2016 01:51:41 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 01:51:41 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 01:51:41 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 01:52:02 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 01:52:02 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 01:52:02 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 01:53:10 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 01:53:10 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 01:53:10 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 01:54:51 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 01:54:52 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 01:54:57 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 01:55:54 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 01:55:55 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 01:56:28 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 01:57:32 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 01:57:33 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 01:57:38 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 01:58:29 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 01:58:30 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 01:58:36 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 01:59:25 GMT-0700 (Pacific Daylight Time) || Emma || Action: update account details for user :Emma
+Sun Oct 23 2016 02:02:03 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 02:02:04 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 02:02:05 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 02:02:43 GMT-0700 (Pacific Daylight Time) || Emma || Action: update account details for user :Emma
+Sun Oct 23 2016 02:02:58 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 02:03:43 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :undefined
+Sun Oct 23 2016 02:03:59 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 02:03:59 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 02:03:59 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :default
+Sun Oct 23 2016 02:05:59 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :default
+Sun Oct 23 2016 02:10:06 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 02:10:07 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 02:10:09 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get account details of user :emma@gmail.com
+Sun Oct 23 2016 02:10:13 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :undefined
+Sun Oct 23 2016 02:10:19 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 02:10:19 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 02:10:19 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :default
+Sun Oct 23 2016 02:44:08 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 02:44:08 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 02:44:43 GMT-0700 (Pacific Daylight Time) || Emma || Action: Store the item to sell!shoes
+Sun Oct 23 2016 02:44:43 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get my collection data
+Sun Oct 23 2016 02:44:43 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get my purchase history
+Sun Oct 23 2016 02:44:43 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get my Bidding history
+Sun Oct 23 2016 02:45:03 GMT-0700 (Pacific Daylight Time) || Emma || Action: Logging out!! Bye
+Sun Oct 23 2016 03:11:07 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 03:11:07 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 03:11:11 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :undefined
+Sun Oct 23 2016 03:11:12 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get the item with item id :580c52c76a24f11aa8ff3636
+Sun Oct 23 2016 03:11:14 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :undefined
+Sun Oct 23 2016 03:11:15 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get the item with item id :580c868ba7bba11784211d6c
+Sun Oct 23 2016 03:13:48 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 03:13:48 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 03:13:51 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :undefined
+Sun Oct 23 2016 03:13:55 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get the item with item id :580c52c76a24f11aa8ff3636
+Sun Oct 23 2016 03:14:16 GMT-0700 (Pacific Daylight Time) || Emma || Action: Search the itemname :undefined
+Sun Oct 23 2016 03:14:19 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get the item with item id :580c52c76a24f11aa8ff3636
+Sun Oct 23 2016 03:14:35 GMT-0700 (Pacific Daylight Time) || Emma || Action: Adding this item to cart cartSamsung S7
+Sun Oct 23 2016 03:14:38 GMT-0700 (Pacific Daylight Time) || Emma || Action: Loaded home page
+Sun Oct 23 2016 03:14:38 GMT-0700 (Pacific Daylight Time) || Emma || Action: Retrieving data from session
+Sun Oct 23 2016 03:14:44 GMT-0700 (Pacific Daylight Time) || Emma || Action: Get cart details

@@ -10,7 +10,9 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var mysqlconn = require('./routes/mysql');//connection pool test
-mysqlconn.createPool();
+//require('./routes/mongodb.js').open();//connection pool test
+require('./routes/mongodb.js').createrconnectionpool();
+//mysqlconn.createPool();
 
 var app = express();
 
