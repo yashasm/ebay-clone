@@ -1,0 +1,6 @@
+Wed Nov 02 2016 03:10:32 GMT-0700 (Pacific Daylight Time) || test || Action: Loaded home page
+Wed Nov 02 2016 03:10:32 GMT-0700 (Pacific Daylight Time) || test || Action: Retrieving data from session
+Wed Nov 02 2016 03:10:32 GMT-0700 (Pacific Daylight Time) || test || Action: Get account details of user :new3@gmail.com
+Wed Nov 02 2016 16:34:44 GMT-0700 (Pacific Daylight Time) || test || Action: Loaded home page
+Wed Nov 02 2016 16:34:45 GMT-0700 (Pacific Daylight Time) || test || Action: Retrieving data from session
+Wed Nov 02 2016 16:34:48 GMT-0700 (Pacific Daylight Time) || test || Action: Logging out!! Bye

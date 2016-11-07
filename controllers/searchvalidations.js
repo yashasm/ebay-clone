@@ -75,6 +75,7 @@ module.exports.confirmCart = function(req,res){
 	
 	result = {};
 	   //mysqlconnpool.getConnection(function(err, connection) {
+	/*
 	mysqlconn.fetchData(function(err, results) {
 	        if(err) {
 	        	console.log(err);
@@ -123,13 +124,13 @@ module.exports.confirmCart = function(req,res){
 	        //});
 	    },sql,"");
 	
-	
+	*/
 	mongoconn.connect(function(_connection){
 		
 		var userdata = _connection.collection('userdata');
 		var sql = "SELECT firstname,lastname,cardnumber,expiry,address,phone FROM userdata where  email = '"+req.session.email+"'";	
 		userdata
-		.findOne({'email':req.session.email},{'firstname':1,'lastname':1,'cardnumber':1,'expiry':1,'address':1,'phone':1})
+		.find({'email':req.session.email},{'firstname':1,'lastname':1,'cardnumber':1,'expiry':1,'address':1,'phone':1})
 		.toArray(function(err,ans1){
 			
 			if(err) {
@@ -227,11 +228,11 @@ module.exports.searchData = function(req,res){
 	}
 	 else if(req.query.searchstring === "list-bid"){
 		 sql = "SELECT itemid,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && itemauction = '1' && itemowner != '"+req.session.email +"';";
-		 queryObject = {'onsale':1,'itemowner':{$ne:req.session.email},"itemauction":'1'};
+		 queryObject = {'onsale':1,'itemowner':{$ne:req.session.email},"itemauction":1};
 	 }
 	 else if(req.query.searchstring === "list-nobid"){
 		 sql = "SELECT _id,itemname,itemprice,itemavailable,itemsold,itemauction,itemstartingbid,numberbids FROM itemdata where  onsale = 1 && itemauction = '0' && itemowner != '"+req.session.email +"';";
-		 queryObject = {'onsale':1,'itemowner':{$ne:req.session.email},"itemauction":'0'};
+		 queryObject = {'onsale':1,'itemowner':{$ne:req.session.email},"itemauction":0};
 	 }
 	 
 			
@@ -395,18 +396,44 @@ module.exports.payConfirm = function(req,res){
 		console.log("update query so far"+updatequery);
 		//updateParams.push({itemavailable:100,itemid:req.session.cartitems[i].itemid});
 		
+		var o_id = new mongo.ObjectID(req.session.cartitems[i].itemid);
+		console.log("hey obj id is:",o_id);
+		
 		
 		itemdata
-		.update({"itemid":req.session.cartitems[i].itemid},{$set : {"itemavailable":itemspending,"itemsold":itemssoldupdate,"onsale":onsaleval}});
+		.update({"_id":o_id},{$set : {"itemavailable":itemspending,"itemsold":itemssoldupdate,"onsale":onsaleval}},function(err,doc){
+			console.log("updated the item!!");
+			console.log(err);
+			console.log(doc);
+			if(err){
+				console.log("May be it didnt work");
+			}
+		});
 		
 	}
 	
 	purchase_history
-	.insertMany(dataInsertMongo);
+	.insertMany(dataInsertMongo,function(err,docs){
+		console.log("I do remember!!!!");
+		if(err){
+			console.log("failed during insert");
+			result = {"condition":"fail"};
+		}
+		else{		
+		result = {"condition":"success"};
+		}
+		res
+		.status(200)
+		.json(result);
+	});
 	
 	});
+	
+	
 	//multiple update test
-	console.log("update params");	
+	console.log("update params");
+	
+	
 
 	/*
 	console.log("testinggggg"+JSON.stringify(updatequery));
@@ -471,7 +498,7 @@ module.exports.getCart = function(req,res){
 		var userdata = _connection.collection('userdata');
 		
 		userdata
-		.findOne({"email":req.session.email},{"firstname":1,"lastname":1,"cardnumber":1,"expiry":1,"address":1,"address":1,"phone":1})
+		.find({"email":req.session.email},{"firstname":1,"lastname":1,"cardnumber":1,"expiry":1,"address":1,"address":1,"phone":1})
 		.toArray(function(err,ans1){
 			
 			if(err) {

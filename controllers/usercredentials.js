@@ -24,9 +24,12 @@ module.exports.storeItem = function(req,res){
 		console.log(err);
 	}
 	console.log("Before insertin the item");
+	var itemAuction = 0;
+	if(req.body.auction){
+		itemAuction = 1;
+	}
 	
-	
-	params = [{"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid,"bidenddate":bidend}];
+	params = [{"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":itemAuction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid,"bidenddate":bidend}];
 	
 	//mysqlconnpool.getConnection(function (err, connection) {
 	/*
@@ -54,7 +57,7 @@ module.exports.storeItem = function(req,res){
 	mongoconn.connect(function(_connection){
 		
 		var itemdata = _connection.collection('itemdata');
-		itemdata.insert({"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":req.body.auction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid,"bidenddate":bidend},function(err,docsInserted){
+		itemdata.insert({"itemname":req.body.itemname,"itemdesc":req.body.description,"itemprice":req.body.price,"itemavailable":req.body.quantity,"itemsold":0,"itemowner":req.session.email,"itemshippingfrom":req.body.shipping,"itemcondition":req.body.status,"itemupdated":today,"itemfeature1":req.body.feature1,"itemfeature2":req.body.feature2,"itemfeature3":req.body.feature3,"itemfeature4":req.body.feature4,"itemfeature5":req.body.feature5,"itemauction":itemAuction,"itemstartingbid":req.body.startingbid,"category":req.body.category,"onsale":1,"currentbid":req.body.startingbid,"bidenddate":bidend,"numberbids":0},function(err,docsInserted){
 			console.log(docsInserted);
 
 	     	setTimeout(function() {

@@ -665,8 +665,12 @@ ebayApp.controller('accountcontroller',['$scope','userservice','$http',function(
 			    // when the response is available
 				
 				console.log("inside success");
+				if(response.condition == "fail"){
+					$scope.successreg = false;
+				}
+				else{
 				$scope.successreg = true;
-				
+				}
 				
 			  }, function errorCallback(response) {
 			    // called asynchronously if an error occurs
